@@ -45,6 +45,13 @@ function initializePublicMapDisplay(hunts){
 	google.maps.event.addListener(mapInstance, 'bounds_changed', function(){displayVisibleHunts(mapInstance, hunts, table, rectangles);});
 	// Give the search button the proper parameters when clicked.
 	document.getElementById("searchButton").onclick=function(){searchHunts(document.getElementById("searchArea"), hunts, mapInstance, rectangles);};
+	// All this statement does is say that if the user presses the enter key in the searchArea, we want to search for the hunt.
+	document.getElementById("searchArea").onkeypress=function(){if(window.event.keyCode==13){
+		var searchArea=document.getElementById("searchArea");
+		searchHunts(document.getElementById("searchArea"), hunts, mapInstance, rectangles); 
+		return false;
+		}
+	};
 	
 }
 
@@ -81,8 +88,7 @@ function addHuntToViewTable(map, hunt, table, rectangles, huntValue){
 				// For some reason, -1 is the parameter you pass to indicate you want the row inserted at the end.
 				var row=table.insertRow(-1);
 				row.insertCell(-1).innerHTML=hunt.title;
-				// Currently, we have no way of accessing the teachers name via the hunt.  It's starting to seem like we may want to change some structuring in the database, so I'm going to wait to add this.
-				row.insertCell(-1).innerHTML="TODO: Add teacher name"
+				row.insertCell(-1).innerHTML=hunt.firstname + " " + hunt.lastname;
 				// This is the rectangle the user currently has selected.
 				if(rectangles[huntValue].fillColor=="#FFFF00") row.className="highlight";
 				// Each row needs it's own rectNumber stored in itself, so that way each onclick function can have it's own rectNumber.
@@ -126,6 +132,21 @@ function addHuntToViewTable(map, hunt, table, rectangles, huntValue){
 // Fills in the login Area with both the labels and the inputs for the username/password.
 // Is passed whether the user is a student or a teacher.
 function createLoginDisplay(isTeacher){
+	var who=(isTeacher)? "teacher":"students";
+	// Find out who the parent hunt is if a hunt is selected.
+	table=document.getElementById("huntTable")
+	var parent=0;
+	for(var i=0; i<table.rows.length; i++){
+		if(table.rows[i].className=="highlight"){
+			parent=table.rows[i].hunt.id;
+			break;
+		}
+	}
+	window.location="login.php?who="+who +"&parentHunt=" + parent;
+/*
+	This is the old method of creating a login for students/teachers.
+	When the button is pushed, it creates a username/password display area, and a submit button.
+	Possibly we can delete this now?
 	// Create the 4 HTML elements.
 	document.getElementById("loginArea").innerHTML="";
 	var usernameLabel=document.createElement("label");
@@ -165,6 +186,7 @@ function createLoginDisplay(isTeacher){
 	document.getElementById("loginArea").appendChild(passwordLabel);
 	document.getElementById("loginArea").appendChild(passwordText);
 	document.getElementById("loginArea").appendChild(button);
+	*/
 }
 
 
