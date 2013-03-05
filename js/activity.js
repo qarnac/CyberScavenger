@@ -153,6 +153,7 @@ function fillActivityTable(activity, isStudent, tableNumber){
 	fillAnswerDiv(document.getElementsByName("howhelpfull")[tableNumber], activity.howhelpfull);
 	fillAnswerDiv(document.getElementsByName("yourdoubt")[tableNumber], activity.yourdoubt);
 	fillAnswerDiv(document.getElementsByName("mquestion")[tableNumber], activity.mquestion);
+	fillAnswerDiv(document.getElementsByName("interesting_url")[tableNumber], activity.interesting_url);
 	document.getElementsByName("activityImage")[tableNumber].src= GLOBALS.PHP_FOLDER_LOCATION + "image.php?id=" + activity.media_id;
 	if(isStudent==2){
 		document.getElementsByName("optionalQuestion1")[tableNumber].style.display="none";

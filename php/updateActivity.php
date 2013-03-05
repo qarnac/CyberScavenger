@@ -12,6 +12,7 @@
 				" , mquestion=" . '"'.mysql_escape_string($content->mquestion) .'"' .
 				" , choices=" . '"' . mysql_escape_string(choic($content)) .'"' .
 				" , status=" . '"' . mysql_escape_string($content->status) . '"' .
+				", interesting_url=" . '"' . mysql_escape_string($content->interesting_url) . '"' .
 				" WHERE  `id` = " . mysql_escape_string($content->id) . ";") or die(mysql_error());
 				
 	echo "true";

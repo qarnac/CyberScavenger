@@ -11,6 +11,7 @@ if(isset($_POST['content'])&&isset($_SESSION['login'])==true)
 	$studentid=$_SESSION['id'];
 	$content=$_POST['content'];
 	$content=json_decode($content);
+	if(!isset($content->interesting_url)) $content->interesting_url="";
 	//decides media id
 	query("INSERT INTO image (images) VALUES ('temp')");
 	$m= mysql_insert_id();
@@ -34,6 +35,7 @@ if(isset($_POST['content'])&&isset($_SESSION['login'])==true)
 		"',yourdoubt='" . esc($content->yourdoubt) .
 		"',mquestion='" . esc($content->mquestion) . 
 		"',choices='" . choic($content) .
+		"', interesting_url='" . esc($content->interesting_url) .
 		"';") or die(mysql_error());
 	echo "true";
 }
