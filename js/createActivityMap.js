@@ -49,10 +49,9 @@ function createPlacemark(activity, map, isStudent){
 	marker.setMap(map);
 	// By storing the infoWindows on the map itself, there can only be one active infoWindow at a time.
 	if(map.info==undefined) map.info=new google.maps.InfoWindow();
-	map.info.open(map);
 	// This sets it up so that way an infowindow pops up and shows the text that we just created in the text variable above.
 	google.maps.event.addListener(marker, "click", function(){
-		map.info.close();
+	if(map.info.getMap==map) map.info.close();
 		map.info.setContent(generateActivityView(activity, isStudent, document.getElementsByName("partner_names").length));
 		map.info.open(map);
 		map.info.setPosition(new google.maps.LatLng(activity.lat, activity.lng));

@@ -114,6 +114,7 @@ function addHuntToViewTable(map, hunt, table, rectangles, huntValue){
 						// Get all of the activities that correspond that hunt.
 						ajax("huntid="+this.hunt.id, GLOBALS.PHP_FOLDER_LOCATION + "getAllActivitiesFromHunt.php", function(serverResponse){
 							// Loop through all of the hunts and plot only the hunts with a status of completed.
+							if(map.info!=undefined && map.info.getMap()==map) map.info.close();
 							activities=JSON.parse(serverResponse);
 							rectangles.placemarks=new Array();
 							for(var i=0; i<activities.length; i++){
