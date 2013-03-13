@@ -46,11 +46,13 @@ function initializePublicMapDisplay(hunts){
 	// Give the search button the proper parameters when clicked.
 	document.getElementById("searchButton").onclick=function(){searchHunts(document.getElementById("searchArea"), hunts, mapInstance, rectangles);};
 	// All this statement does is say that if the user presses the enter key in the searchArea, we want to search for the hunt.
-	document.getElementById("searchArea").onkeypress=function(){if(window.event.keyCode==13){
-		var searchArea=document.getElementById("searchArea");
-		searchHunts(document.getElementById("searchArea"), hunts, mapInstance, rectangles); 
-		return false;
-		}
+	document.getElementById("searchArea").onkeypress=function(event){
+		event= event || window.event;
+		if(event.keyCode==13){
+			var searchArea=document.getElementById("searchArea");
+			searchHunts(document.getElementById("searchArea"), hunts, mapInstance, rectangles); 
+			return false;
+			}
 	};
 	
 }

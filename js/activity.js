@@ -157,7 +157,15 @@ function fillActivityTable(activity, isStudent, tableNumber){
 	document.getElementsByName("interesting_url")[tableNumber].innerHTML="";
 	document.getElementsByName("interesting_url")[tableNumber].appendChild(link);
 	fillAnswerDiv(link, activity.interesting_url);
-	if(activity.interesting_url!="") link.setAttribute("href",activity.interesting_url);
+;
+	if(activity.interesting_url!=""){
+		link.setAttribute("href", activity.interesting_url)
+		link.onclick=function(){
+			var win=window.open(activity.interesting_url, "_blank");
+			win.focus();
+			return false;
+		}
+	}
 	document.getElementsByName("activityImage")[tableNumber].src= GLOBALS.PHP_FOLDER_LOCATION + "image.php?id=" + activity.media_id;
 	if(isStudent==2){
 		document.getElementsByName("optionalQuestion1")[tableNumber].style.display="none";
