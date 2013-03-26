@@ -8,7 +8,7 @@
 // Simply calls the getAllActivitiesFromHunt.php, and sets jsonToMap as the callback function.
 function createTeacherMap(){
 	ajax("huntid=" + document.getElementById("selecthunt").value,
-		PHP_FOLDER_LOCATION + "getAllActivitiesFromHunt.php",
+		GLOBALS.PHP_FOLDER_LOCATION + "getAllActivitiesFromHunt.php",
 		jsonToMap);
 }
 

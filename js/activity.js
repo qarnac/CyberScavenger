@@ -358,7 +358,7 @@ function editActivityAsStudent(activity) {
 		submitEdit(activity['id']); return false;
 	};
 	// Adds the image that was already uploaded to the edit page.
-	document.getElementById("activityImage").src = PHP_FOLDER_LOCATION + "image.php?id=" + activity.media_id;
+	document.getElementById("activityImage").src = GLOBALS.PHP_FOLDER_LOCATION + "image.php?id=" + activity.media_id;
 	
 	// At some point in time, we need to redo the way choices is encoded.  There is no reason the following line should be needed.
 	choices=choices.choices;
@@ -370,6 +370,7 @@ function editActivityAsStudent(activity) {
 	document.getElementsByName("howhelpful")[0].innerHTML = activity.howhelpfull;
 	document.getElementsByName("yourdoubt")[0].innerHTML = activity.yourdoubt;
 	document.getElementsByName("mquestion")[0].innerHTML = activity.mquestion;
+	document.getElementsByName("interesting_url")[0].innerHTML= activity.interesting_url;
 	
 	for(var i=0; i<document.getElementById("selecthunt").options.length; i++){
 		if(document.getElementById("selecthunt").options[i].value==activity.hunt_id){
@@ -430,14 +431,14 @@ function submitEdit(id) {
 			mediaContents.lng=morc.loc.lng();
 			mediaContents.id=id;
 			mediaContents=JSON.stringify(mediaContents);
-			ajax("content="+mediaContents, PHP_FOLDER_LOCATION + "updateImage.php", function(serverResponse){ console.log(serverResponse);});
+			ajax("content="+mediaContents, GLOBALS.PHP_FOLDER_LOCATION + "updateImage.php", function(serverResponse){ console.log(serverResponse);});
 		} else if(sessionStorage.lat && sessionStorage.lng){
 			var mediaContents={};
 			mediaContents.lat=sessionStorage.lat;
 			mediaContents.lng=sessionStorage.lng;
 			mediaContents.id=id;
 			mediaContents=JSON.stringify(mediaContents);
-			ajax("content=" + mediaContents, PHP_FOLDER_LOCATION + "updateImage.php", function(serverResponse){console.log(serverResponse);});
+			ajax("content=" + mediaContents, GLOBALS.PHP_FOLDER_LOCATION + "updateImage.php", function(serverResponse){console.log(serverResponse);});
 		}
 		// Checks to make sure that all of the required attribute are filled in.
 		if(contents.aboutmedia && contents.a && contents.b && contents.howhelpful && contents.mquestion && contents.yourdoubt){
@@ -445,8 +446,11 @@ function submitEdit(id) {
 		} else{
 			contents.status="Incomplete";
 		}
+		// If the url does not start with http:// add http:// to the start.  This makes it so that when the page is linked to, it doesn't look for the page
+		// on the ouyangdev server.
+		if(contents.interesting_url.indexOf("http://")==-1) contents.interesting_url= "http://" + contents.interesting_url;
 		contents=JSON.stringify(contents);
-	ajax("contents="+contents, PHP_FOLDER_LOCATION + "updateActivity.php", successfulUpload);
+	ajax("contents="+contents, GLOBALS.PHP_FOLDER_LOCATION + "updateActivity.php", successfulUpload);
 }
 
 function successfulUpload(serverResponse){

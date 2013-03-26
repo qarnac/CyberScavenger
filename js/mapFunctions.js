@@ -82,7 +82,7 @@ function submitNewHunt(toPlot){
 		"&minLng=" + toPlot.getBounds().getSouthWest().lng() +
 		"&maxLng=" + toPlot.getBounds().getNorthEast().lng() +
 		"&dateOfTrip=" + date
-		, PHP_FOLDER_LOCATION + "createHunt.php", function(serverResponse){
+		, GLOBALS.PHP_FOLDER_LOCATION + "createHunt.php", function(serverResponse){
 			if(serverResponse=="success") window.location.reload();
 			else console.log(serverResponse);
 		});
