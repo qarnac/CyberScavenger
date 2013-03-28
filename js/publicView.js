@@ -29,6 +29,8 @@ function initializePublicMapDisplay(hunts){
 	div.style.position = 'fixed';
 	div.style.top = "0px";
 	div.style.left = "0px";
+	
+	sessionStorage.hunts=ajax("GET", GLOBALS.PHP_FOLDER_LOCATION + "getAllHunts.php", function(serverResponse){sessionStorage.hunts=serverResponse;});
 	// odd name because I'm pretty sure at some point there is a global variable named map.
 	var mapInstance = new google.maps.Map(div, myOptions);
 	

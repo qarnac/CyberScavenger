@@ -147,16 +147,12 @@ function fillActivityTable(activity, isStudent, tableNumber){
 		} else{ document.getElementById("q3").style.display="none"; }
 	}
 	// Everything else is the same for both views.
-	fillAnswerDiv(document.getElementsByName("aboutmedia")[tableNumber],activity.aboutmedia);
-	// Question removed on 2/21/2013.
-	//fillAnswerDiv(document.getElementsByName("whythis")[tableNumber], activity.whythis);
-	fillAnswerDiv(document.getElementsByName("howhelpfull")[tableNumber], activity.howhelpfull);
-	fillAnswerDiv(document.getElementsByName("yourdoubt")[tableNumber], activity.yourdoubt);
 	fillAnswerDiv(document.getElementsByName("mquestion")[tableNumber], activity.mquestion);
 	var link=document.createElement("a");
 	document.getElementsByName("interesting_url")[tableNumber].innerHTML="";
 	document.getElementsByName("interesting_url")[tableNumber].appendChild(link);
 	fillAnswerDiv(link, activity.interesting_url);
+	fillAnswerDiv(document.getElementsByName("partner_names")[tableNumber], activity.partner_names);
 ;
 	if(activity.interesting_url!=""){
 		link.setAttribute("href", activity.interesting_url)
@@ -167,6 +163,7 @@ function fillActivityTable(activity, isStudent, tableNumber){
 		}
 	}
 	document.getElementsByName("activityImage")[tableNumber].src= GLOBALS.PHP_FOLDER_LOCATION + "image.php?id=" + activity.media_id;
+	/*
 	if(isStudent==2){
 		document.getElementsByName("optionalQuestion1")[tableNumber].style.display="none";
 		document.getElementsByName("optionalAnswer1")[tableNumber].style.display="none";
@@ -174,7 +171,7 @@ function fillActivityTable(activity, isStudent, tableNumber){
 		document.getElementsByName("optionalAnswer2")[tableNumber].style.display="none";
 		document.getElementsByName("optionalQuestion3")[tableNumber].style.display="none";
 		document.getElementsByName("optionalAnswer3")[tableNumber].style.display="none";
-	}else {
+	} */
 		var hunt=JSON.parse(sessionStorage.hunts)[getHuntSelectNumber(activity.hunt_id)];
 		if(hunt.additionalQuestions==undefined || hunt.additionalQuestions==""){
 			document.getElementsByName("optionalQuestion1")[tableNumber].style.display="none";
@@ -186,7 +183,7 @@ function fillActivityTable(activity, isStudent, tableNumber){
 		} else{
 			// If the student answered answered the additional questions, parse the answers.
 			// Otherwise just leave the variable blank (but still initialize)
-			if(activity.additionalQuestions) var additionalAnswers=JSON.parse(activity.additionalQuestions);
+			if(activity.additionalAnswers) var additionalAnswers=JSON.parse(activity.additionalAnswers);
 			else var additionalAnswers={a:"",b:"",c:""};
 			// Parse the questions from the hunt.
 			var additionalQuestions=JSON.parse(hunt.additionalQuestions);
@@ -194,18 +191,18 @@ function fillActivityTable(activity, isStudent, tableNumber){
 			// Fill in the Divs with the questions and answers (only if they exist).
 			if(additionalQuestions.questiona){
 				document.getElementsByName("optionalQuestion1")[tableNumber].innerHTML=additionalQuestions.questiona;
-				fillAnswerDiv(document.getElementsByName("optionalAnswer1")[tableNumber], additionalAnswers.a);
+				fillAnswerDiv(document.getElementsByName("optionalAnswer1")[tableNumber], additionalAnswers.answera);
 			}
 			if(additionalQuestions.questionb){
 				document.getElementsByName("optionalQuestion2")[tableNumber].innerHTML=additionalQuestions.questionb;
-				fillAnswerDiv(document.getElementsByName("optionalAnswer2")[tableNumber], additionalAnswers.b);
+				fillAnswerDiv(document.getElementsByName("optionalAnswer2")[tableNumber], additionalAnswers.answerb);
 			}
 			if(additionalQuestions.questionc){
 				document.getElementsByName("optionalQuestion3")[tableNumber].innerHTML=additionalQuestions.questionc;
-				fillAnswerDiv(document.getElementsByName("optionalAnswer3")[tableNumber], additionalAnswers.c);
+				fillAnswerDiv(document.getElementsByName("optionalAnswer3")[tableNumber], additionalAnswers.answerc);
 			}
 		} // end of dealing with additional questions.
-	}
+	
 
 	if(isStudent==1){
 		document.getElementsByName("editButton")[tableNumber].onclick=function(){editActivityAsStudent(activity);};
@@ -364,11 +361,8 @@ function editActivityAsStudent(activity) {
 	choices=choices.choices;
 	// Sets up the non-multiple choice questions.
 	document.getElementsByName("partner_names")[0].innerHTML = activity.partner_names;
-	document.getElementsByName("aboutmedia")[0].innerHTML = activity.aboutmedia;
 	// Question removed on 2/21/2013
 //	document.getElementsByName("whythis")[0].innerHTML = activity.whythis;
-	document.getElementsByName("howhelpful")[0].innerHTML = activity.howhelpfull;
-	document.getElementsByName("yourdoubt")[0].innerHTML = activity.yourdoubt;
 	document.getElementsByName("mquestion")[0].innerHTML = activity.mquestion;
 	document.getElementsByName("interesting_url")[0].innerHTML= activity.interesting_url;
 	

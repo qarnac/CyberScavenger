@@ -65,7 +65,14 @@ function viewHuntInformation(){
 
 // Returns which option from the select is the selected hunt.
 function getHuntSelectNumber(id){
-	for(var i=0; i<document.getElementById("selecthunt").options.length; i++){
-		if(document.getElementById("selecthunt").options[i].value==id) return i-1;
+	// If the selecthunt option exists, then the only hunts in sessionStorage.hunts are the one that the student or teacher is a part of.
+	if(document.getElementById("selecthunt"))
+		for(var i=0; i<document.getElementById("selecthunt").options.length; i++){
+			if(document.getElementById("selecthunt").options[i].value==id) return i-1;
+		}
+	// Otherwise, the selecthunt doesn't exist (using publicView) and we must loop through all of the hunts in sessionStorage.
+	var hunts=JSON.parse(sessionStorage.hunts);
+	for(var i=0; i<hunts.length; i++){
+		if(hunts[i].id==id) return i;
 	}
 }
