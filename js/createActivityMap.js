@@ -52,7 +52,10 @@ function createPlacemark(activity, map, isStudent){
 	// This sets it up so that way an infowindow pops up and shows the text that we just created in the text variable above.
 	google.maps.event.addListener(marker, "click", function(){
 	if(map.info.getMap==map) map.info.close();
-		map.info.setContent(generateActivityView(activity, isStudent, document.getElementsByName("partner_names").length));
+		var div=createElement("div", "");
+		div.className="infoWindow";
+		div.appendChild(generateActivityView(activity, isStudent, document.getElementsByName("partner_names").length));
+		map.info.setContent(div);
 		map.info.open(map);
 		map.info.setPosition(new google.maps.LatLng(activity.lat, activity.lng));
 	});
