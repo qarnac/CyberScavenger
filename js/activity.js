@@ -341,7 +341,7 @@ function editActivityAsStudent(activity) {
 
 	// Before storing into the session storage, make sure that it exists.
 	if(typeof(Storage)!=="undefined"){
-		sessionStorage.activity=JSON.stringify(activity);
+		sessionStorage.activity=JSON.parse(activity);
 		sessionStorage.isEdit=true;
 	} else{
 		// TODO:  What do we want to do if they can't store into local storage?
@@ -373,7 +373,7 @@ function editActivityAsStudent(activity) {
 		}
 	}
 	// Sets up whether or not to display additional questions.
-	displayAdditionalQuestions(activity.additionalQuestions);
+	displayAdditionalQuestions(activity.additionalAnswers);
 	
 	// Selects the correct Radio Button for the multiple choice questions.
 	for(var i=0; i<choices.length; i++) {

@@ -165,12 +165,31 @@ function submitLatLng(location) {
 		} else{
 			// TODO: Find a way to check if additional questions exist.
 			document.getElementById("activity").innerHTML=multiple;
+			var hunt=JSON.parse(sessionStorage.hunts)[0];
+			if(hunt.additionalQuestions) var additionalQuestions=JSON.parse(hunt.additionalQuestions);
+			else var additionalQuestions="";
+			var activity=JSON.parse(sessionStorage.activity);
+			var additionalAnswers={answera:activity.optionalAnswer1, answerb:activity.optionalAnswer2, answerc:activity.optionalAnswer3};
+			// Deal with the first additional questions.
+			if(!additionalQuestions.questiona){
 				document.getElementsByName("optionalQuestion1")[0].style.display="none";
 				document.getElementsByName("optionalAnswer1")[0].style.display="none";
+			} else if(additionalAnswers.answera)
+				document.getElementsByName("optionalAnswer1")[0].innerHTML=additionalAnswers.answera;
+			
+			// Deal with the second additional question.
+			if(!additionalQuestions.questionb){
 				document.getElementsByName("optionalQuestion2")[0].style.display="none";
 				document.getElementsByName("optionalAnswer2")[0].style.display="none";
+			} else if(additionalAnswers.answerb)
+				document.getElementsByName("optionalAnswer2")[0].innerHTML=additionalAnswers.answerb;
+			
+			// Deal with the third question.
+			if(!additionalQuestions.questionc){
 				document.getElementsByName("optionalQuestion3")[0].style.display="none";
 				document.getElementsByName("optionalAnswer3")[0].style.display="none";
+			} else if(additionalAnswers.answerc)
+				document.getElementsByName("optionalAnswer3")[0].innerHTML=additionalAnswers.answerc;
 		}
 	} else{
 		// TODO: How to handle the user not submitting local storage?
@@ -191,7 +210,6 @@ function submitLatLng(location) {
 function GoToControlOnSubmit() {
 		// BUG: If you move the marker out of bounds and click submit, this function still submits
 		// TODO: bounds checking?
-
 		var latitude;
 		var longitude;
 		
