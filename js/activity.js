@@ -341,7 +341,7 @@ function editActivityAsStudent(activity) {
 
 	// Before storing into the session storage, make sure that it exists.
 	if(typeof(Storage)!=="undefined"){
-		sessionStorage.activity=JSON.parse(activity);
+		sessionStorage.activity=JSON.stringify(activity);
 		sessionStorage.isEdit=true;
 	} else{
 		// TODO:  What do we want to do if they can't store into local storage?
