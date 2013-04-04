@@ -8,9 +8,16 @@ session_start();
 //scripts starts its execution from here by verifying the post request it received and also the session of the user
 if(isset($_POST['content'])&&isset($_SESSION['login'])==true)
 {
+	$content=json_decode($_POST['content']);
+	// If the optional questions are answered, store the answers into an array and JSON encode the array to store into the database.
+	$answera=(isset($content->optionalAnswer1))? $content->optionalAnswer1:"";
+	$answerb=(isset($content->optionalAnswer2))? $content->optionalAnswer2:"";
+	$answerc=(isset($content->optionalAnswer3))? $content->optionalAnswer3:"";
+	$additionalAnswers=array("answera"=>$answera, "answerb"=>$answerb, "answerc"=>$answerc);
+	$additionalAnswers=json_encode($additionalAnswers);
+	
 	$studentid=$_SESSION['id'];
-	$content=$_POST['content'];
-	$content=json_decode($content);
+	
 	if(!isset($content->interesting_url)) $content->interesting_url="";
 	//decides media id
 	query("INSERT INTO image (images) VALUES ('temp')");
@@ -29,15 +36,13 @@ if(isset($_POST['content'])&&isset($_SESSION['login'])==true)
 		"', status='" . esc($content->status) .
 		"', lat='" . esc($content->lat) .
 		"', lng='" . esc($content->lng) . 
-		"', aboutmedia='" . esc($content->aboutmedia) .
 		"',  partner_names='" . esc($content->partner_names) .
-		"',howhelpfull='" . esc($content->howhelpful) .
-		"',yourdoubt='" . esc($content->yourdoubt) .
-		"',mquestion='" . esc($content->mquestion) . 
 		"',choices='" . choic($content) .
 		"', interesting_url='" . esc($content->interesting_url) .
+		"', additionalAnswers='" . esc($additionalAnswers) .
 		"';") or die(mysql_error());
 	echo "true";
+
 }
 //converts the choices into json format
 function choic($data)
