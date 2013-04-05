@@ -73,6 +73,10 @@ function searchAddress(){
 
 // Is called by the submit button in the gotoControlBox submit for a new hunt.
 function submitNewHunt(toPlot){
+	var additionalQuestions=new Object();
+	additionalQuestions["questiona"]=document.getElementById("additionalQuestion1").value;
+	additionalQuestions["questionb"]=document.getElementById("additionalQuestion2").value;
+	additionalQuestions["questionc"]=document.getElementById("additionalQuestion3").value;
 	var date=(Date.parse(document.getElementById("dateOfTrip").value)/1000)+86400
 	ajax("title=" + document.getElementById("title").value +
 		"&username=" + document.getElementById("huntUsername").value +
@@ -81,6 +85,7 @@ function submitNewHunt(toPlot){
 		"&minLat=" + toPlot.getBounds().getSouthWest().lat() +
 		"&minLng=" + toPlot.getBounds().getSouthWest().lng() +
 		"&maxLng=" + toPlot.getBounds().getNorthEast().lng() +
+		"&additionalQuestions=" + JSON.stringify(additionalQuestions) +
 		"&dateOfTrip=" + date
 		, GLOBALS.PHP_FOLDER_LOCATION + "createHunt.php", function(serverResponse){
 			if(serverResponse=="success") window.location.reload();
