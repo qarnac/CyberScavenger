@@ -309,7 +309,7 @@ function addTeacherComments(activityTable, editButton, activity_id){
 function submitTeacherComments(activityTable, activity_id){
 	var comment=activityTable.childNodes[2].childNodes[1].childNodes[0].value;
 	var status=activityTable.childNodes[2].childNodes[3].childNodes[0].value;
-	var content="comments=" + comment;
+	var content="comments=" + encodeURIComponent(comment);
 	content+="&status=" + status;
 	content+="&id=" + activity_id;
 	ajax(content, PHP_FOLDER_LOCATION + "teacher_upload.php", function(){successfulCommentUpdate(activity_id, comment, status)});
@@ -444,7 +444,9 @@ function submitEdit(id) {
 		// on the ouyangdev server.
 		if(contents.interesting_url.indexOf("http://")==-1) contents.interesting_url= "http://" + contents.interesting_url;
 		contents=JSON.stringify(contents);
-	ajax("contents="+contents, GLOBALS.PHP_FOLDER_LOCATION + "updateActivity.php", successfulUpload);
+		// The encodeURIComponent enables the use of special characters such as & to be sent in the string contents.
+		// PHP automatically decodes the post data, so no changes need to be made in php code.
+	ajax("contents="+ encodeURIComponent(contents), GLOBALS.PHP_FOLDER_LOCATION + "updateActivity.php", successfulUpload);
 }
 
 function successfulUpload(serverResponse){

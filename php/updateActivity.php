@@ -9,7 +9,7 @@
 	$answerc=(isset($content->optionalAnswer3))? $content->optionalAnswer3:"";
 	$additionalAnswers=array("answera"=>$answera, "answerb"=>$answerb, "answerc"=>$answerc);
 	$additionalAnswers=json_encode($additionalAnswers);
-	
+
 	mysql_query("UPDATE stud_activity" .
 				" SET partner_names=" .'"'. mysql_escape_string($content->partner_names) .'"' .
 				", additionalAnswers=" .'"' . mysql_escape_string($additionalAnswers) .'"' .

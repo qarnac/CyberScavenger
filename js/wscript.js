@@ -94,7 +94,9 @@ function check(form)
 		if(contents.interesting_url.indexOf("http://")==-1) contents.interesting_url= "http://" + contents.interesting_url;
 		
 		contents = JSON.stringify(contents);
-		contents = "content="+contents;
+		// The encodeURIComponent enables the use of special characters such as & to be sent in the string contents.
+		// PHP automatically decodes the post data, so no changes need to be made in php code.
+		contents = "content="+ encodeURIComponent(contents);
 		ajax(contents, GLOBALS.PHP_FOLDER_LOCATION + "user_upload.php", function(x) {
 			if (x == "true")
 				window.location.reload();
