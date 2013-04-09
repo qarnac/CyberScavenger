@@ -145,6 +145,10 @@ function fillActivityTable(activity, isStudent, tableNumber){
 			document.getElementById("answer4").innerHTML=choices[3].content;
 			document.getElementsByName("mchoice")[tableNumber*4+3].onclick=function(){radioSelect(document.getElementById("q3"), document.getElementById("answer4"), choices[3].ans!="false");};
 		} else{ document.getElementById("q3").style.display="none"; }
+		if(choices[4]!=undefined){
+			document.getElementById("answer5").innerHTML=choices[4].content;
+			document.getElementsByName("mchoice")[tableNumber*4+4].onclick=function(){radioSelect(document.getElementById("q4"), document.getElementById("answer5"), choices[4].ans!="false");};
+		} else{ document.getElementById("q4").style.display="none"; }
 	}
 	// Everything else is the same for both views.
 	fillAnswerDiv(document.getElementsByName("mquestion")[tableNumber], activity.mquestion);
@@ -447,7 +451,7 @@ function submitEdit(id) {
 		}
 		// If the url does not start with http:// add http:// to the start.  This makes it so that when the page is linked to, it doesn't look for the page
 		// on the ouyangdev server.
-		if(contents.interesting_url.indexOf("http://")==-1) contents.interesting_url= "http://" + contents.interesting_url;
+		if(contents.interesting_url.indexOf("http://")==-1 && contents.interesting_url!=undefined) contents.interesting_url= "http://" + contents.interesting_url;
 		contents=JSON.stringify(contents);
 		// The encodeURIComponent enables the use of special characters such as & to be sent in the string contents.
 		// PHP automatically decodes the post data, so no changes need to be made in php code.

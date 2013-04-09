@@ -91,7 +91,7 @@ function check(form)
 		}
 		// If the url does not start with http:// add http:// to the start.  This makes it so that when the page is linked to, it doesn't look for the page
 		// on the ouyangdev server.
-		if(contents.interesting_url.indexOf("http://")==-1) contents.interesting_url= "http://" + contents.interesting_url;
+		if(contents.interesting_url.indexOf("http://")==-1 && content.interesting_url!=undefined) contents.interesting_url= "http://" + contents.interesting_url;
 		
 		contents = JSON.stringify(contents);
 		// The encodeURIComponent enables the use of special characters such as & to be sent in the string contents.

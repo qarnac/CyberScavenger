@@ -54,6 +54,10 @@ function createPlacemark(activity, map, isStudent){
 	if(map.info.getMap==map) map.info.close();
 		var div=createElement("div", "");
 		div.className="infoWindow";
+		// If there is already an existing infoWindow, this if will go ahead and clear out it's content.
+		// This prevents issues when using document.getElementsByName() to edit contents within an infoWindow.
+		if(document.getElementsByClassName("infoWindow").length)
+			document.getElementsByClassName("infoWindow")[0].parentNode.removeChild(document.getElementsByClassName("infoWindow")[0])
 		div.appendChild(generateActivityView(activity, isStudent, document.getElementsByName("partner_names").length));
 		map.info.setContent(div);
 		map.info.open(map);
