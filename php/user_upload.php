@@ -30,6 +30,7 @@ if(isset($_POST['content'])&&isset($_SESSION['login'])==true)
 	query("INSERT INTO stud_activity SET ".
 		"student_id='" . $studentid . 
 		"', hunt_id='" . esc($content->huntid) .
+		"', mquestion='" . esc($content->mquestion) .
 		"', media='image.php" .
 		"', media_id='" . $m .
 		"', created='" . date('Y-m-d H:i:s') .

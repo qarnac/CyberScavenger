@@ -234,11 +234,16 @@ function radioSelect(button, label, isCorrect){
 
 // Is now also called from studentActivityList to create the list.
 // Added isStudent parameter so that way the specifications that only need to be shown to teachers aren't shown to students.
+// Is also called from createPlacemark for the activity map.
 function generateActivityView(activity, isStudent, tableNumber) {
 	var activityTable = document.createElement('table');
-	if(isStudent==2) activityTable.innerHTML=GLOBALS.publicActivityView;
-	else activityTable.innerHTML=GLOBALS.activityView;
-	setTimeout(function(){fillActivityTable(activity, isStudent, tableNumber);}, 500);
+	// activityTable is appended to the body so that way it's elements will be returned during a document.getElementsByName() request.
+	document.body.appendChild(activityTable);
+	if(isStudent==2) activityTable.insertAdjacentHTML("afterbegin",GLOBALS.publicActivityView);
+	else activityTable.insertAdjacentHTML("afterbegin",GLOBALS.activityView);
+	fillActivityTable(activity, isStudent, tableNumber);
+	// Remove the table from the body so that way the other functions can place the table wherever they would like.
+	document.body.removeChild(activityTable);
 	return activityTable;
 }
 
