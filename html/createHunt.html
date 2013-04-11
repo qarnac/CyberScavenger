@@ -1,9 +1,12 @@
-<form class="activ" name="multiple" onsubmit="return submitNewHunt()">
-	<div  class="split"><label>What would you like the title of the hunt to be?<textarea id="huntTitle" maxlength="100"></textarea></label></div> 
-	<div  class="split"><label>What would you like the end date of the hunt to be?<textarea id="endDate" maxlength="100"></textarea></label></div> 
-	<div  class="split"><label>What would you like the westmost latitude to be?<textarea id="minLat" maxlength="100"></textarea></label></div>
-	<div  class="split"><label>What would you like the southmost longitude to be?<textarea id="minLng" maxlength="100"></textarea></label></div>
-	<div  class="split"><label>What would you like the northmost latitude to be?<textarea id="maxLat" maxlength="100"></textarea></label></div>
-	<div  class="split"><label>What would you like the eastmost longitude to be?<textarea id="maxLng" maxlength="100"></textarea></label></div>
+<form class="activ" name="multiple" onsubmit="return submitNewHunt();" id="createHuntForm">
+	<div  class="split"><label>What would you like the title of the hunt to be?<textarea id="title" maxlength="100"></textarea></label></div> 
+	<div  class="split"><label>What would you like the students username to be?<textarea id="huntUsername" maxlength="100"></textarea></label></div> 
+	<div  class="split"><label>What would you like the students password to be?<textarea id="password" maxlength="100"></textarea></label></div>
+	<div  class="split"><label>What would you like the first additional question to be?<textarea id="additionalQuestion1" maxlength="100"></textarea></label></div>
+	<div  class="split"><label>What would you like the second additional question to be?<textarea id="additionalQuestion2" maxlength="100"></textarea></label></div>
+	<div  class="split"><label>What would you like the third additional question to be?<textarea id="additionalQuestion3" maxlength="100"></textarea></label></div>
+	<div  class="split"><label>What would you like the third additional question to be?<input type="date" id="dateOfTrip" maxlength="100"></textarea></label></div>
+	<!-- Change default type of first button to button so it doesn't submit the form (defaults to type="submit") -->
+	<button id="editLatLngButton" onclick="editHuntLatLng()" type="button" value="Edit lat/lng">Edit lat/lng</button>
 	<div class="split"><input type="submit" value="Submit"/> </div> <div class="clear"></div>
 </form>

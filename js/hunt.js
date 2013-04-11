@@ -6,7 +6,7 @@
 // Is called when the New Hunt button is clicked.
 // Checks if the browser can find out users location, if so, use that for the coords to load the google map.
 // Otherwise, we center it at the default coords.
-function createhunt () {
+function createhunt() {
 	document.getElementById("selecthunt").value=0;
 	if(document.getElementById("slist")) document.getElementById("slist").style.display="none";
   if (navigator.geolocation){
