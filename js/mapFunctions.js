@@ -218,11 +218,14 @@ function createGotoControl(map, center, onSubmit, toPlot, isRectangle)
 	// file and then plug in the values where needed.
 	if(isRectangle){
 		ajax("GET", GLOBALS.HTML_FOLDER_LOCATION + "newHuntControl.html", function(serverResponse){
+			document.body.appendChild(ctrlDiv);
 			ctrlDiv.innerHTML=serverResponse;
 			map.controls[google.maps.ControlPosition.BOTTOM_LEFT].push(ctrlDiv);
-			// Using setTimeout enables the browser to reset the DOM before executing the code to fill it in.
-			// TODO:  Find a reliable way to handle this.
-			setTimeout(function(){initializeLatLng(toPlot, isRectangle);}, 750);
+			// Changing the display to none/block is a reliable way to refresh the DOM.
+			ctrlDiv.style.display="none";
+			ctrlDiv.style.display="block";
+			initializeLatLng(toPlot, isRectangle);
+			document.body.removeChild(ctrlDiv);
 			});
 		sessionStorage.lat=center.lat();
 		sessionStorage.lng=center.lng();

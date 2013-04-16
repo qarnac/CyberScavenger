@@ -1,12 +1,18 @@
 <form class="activ" name="multiple" onsubmit="return submitNewHunt();" id="createHuntForm">
-	<div  class="split"><label>What would you like the title of the hunt to be?<textarea id="title" maxlength="100" required></textarea></label></div> 
-	<div  class="split"><label>What would you like the students username to be?<textarea id="huntUsername" maxlength="100" required></textarea></label></div> 
-	<div  class="split"><label>What would you like the students password to be?<textarea id="password" maxlength="100" required></textarea></label></div>
-	<div  class="split"><label>What would you like the first additional question to be?<textarea id="additionalQuestion1" maxlength="100"></textarea></label></div>
-	<div  class="split"><label>What would you like the second additional question to be?<textarea id="additionalQuestion2" maxlength="100"></textarea></label></div>
-	<div  class="split"><label>What would you like the third additional question to be?<textarea id="additionalQuestion3" maxlength="100"></textarea></label></div>
-	<div  class="split"><label>What would you like the third additional question to be?<input type="date" id="dateOfTrip" maxlength="100"></textarea></label></div>
+	<fieldset>
+		<div  class=""><label>What would you like the title of the hunt to be?<textarea id="title" maxlength="100" required placeholder="Hunt Title"></textarea></label></div> 
+		<div  class=""><label>What would you like the date of the field trip to be? <br /><input type="date" id="dateOfTrip" maxlength="100" placeholder="MM/DD/YYYY"></textarea></label></div>
+		</fieldset>
+	<fieldset>
+		<div  class=""><label>What would you like the students username to be?<textarea id="huntUsername" maxlength="100" required placeholder="username"></textarea></label></div> 
+		<div  class=""><label>What would you like the students password to be?<textarea id="password" maxlength="100" required placeholder="password"></textarea></label></div>
+	</fieldset>
+	<fieldset>
+	<div  class=""><label>What would you like the first additional question to be?<textarea id="additionalQuestion1" maxlength="100" placeholder="optional"></textarea></label></div>
+	<div  class=""><label>What would you like the second additional question to be?<textarea id="additionalQuestion2" maxlength="100" placeholder="optional"></textarea></label></div>
+	<div  class=""><label>What would you like the third additional question to be?<textarea id="additionalQuestion3" maxlength="100" placeholder="optional"></textarea></label></div>
+	</fieldset>
 	<!-- Change default type of first button to button so it doesn't submit the form (defaults to type="submit") -->
 	<button id="editLatLngButton" onclick="editHuntLatLng()" type="button" value="Edit lat/lng">Edit lat/lng</button>
-	<div class="split"><input type="submit" value="Submit"/> </div> <div class="clear"></div>
+	<div class=""><button type="submit" value="Submit"/> Submit!</div> <div class="clear"></div>
 </form>
