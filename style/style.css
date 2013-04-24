@@ -528,20 +528,20 @@ form#createHuntForm input{
 }
 form#createHuntForm{
 	background:#d2fff2;
+	height:100%;
+	width:100%
 }
 form#createHuntForm fieldset{
 	width:100%;
 }
 
 form#createHuntForm button{
-	background:#010a66;
+	background:#17d0db;
 	border:none;
 	-moz-border-radius:10px;
 	-webkit-border-radius:10px;
 	-khtml-border-radius:10px;
 	border-radius:10px;
-	display:block;
-	float:center;
 	font-size:18px;
 	font-weight:bold;
 	padding: 5px 10px;
@@ -550,5 +550,10 @@ form#createHuntForm button{
 }
 form#createHuntForm button:hover{
 	cursor:pointer;
-	background:#000642;
+	background:#0d7c83;
+}
+form#createHuntForm legend {
+	color: #0d7c83;
+	font-size: 16px;
+	font-weight: bold;
 }

@@ -58,9 +58,25 @@ function fillHuntInformation(){
 
 // Is called by the Hunt Info button from the teacher view.
 function viewHuntInformation(){
-	document.getElementById("activity").innerHTML=GLOBALS.huntInformation;
-	setTimeout(fillHuntInformation, 75);
-	
+	document.getElementById("students").style.display="none";
+	document.getElementById("activity").innerHTML=GLOBALS.createHunt;
+	document.getElementById("activity").style.display="none";
+	document.getElementById("activity").style.display="block";
+	var hunt=JSON.parse(sessionStorage.hunts)[getHuntSelectNumber(document.getElementById("selecthunt").value)];
+	document.getElementById("title").value=hunt.title;
+	document.getElementById("dateOfTrip").value=hunt.dateofTrip;
+	var additionalQuestions=JSON.parse(hunt.additionalQuestions);
+	if(additionalQuestions.questiona) document.getElementById("additionalQuestion1").value=additionalQuestions.questiona;
+	if(additionalQuestions.questionb) document.getElementById("additionalQuestion2").value=additionalQuestions.questionb;
+	if(additionalQuestions.questionc) document.getElementById("additionalQuestion3").value=additionalQuestions.questionc;
+	document.getElementById("editLatLngButton").style.display="none";
+	document.getElementById("submit").style.display="none";
+	document.getElementById("editHunt").value="Map View";
+	document.getElementById("editHunt").onclick=function(){
+		huntsel(document.getElementById("selecthunt").value);
+		document.getElementById("editHunt").onclick=viewHuntInformation;
+		document.getElementById("editHunt").value="View Hunt Info";
+	}
 }
 
 // Returns which option from the select is the selected hunt.

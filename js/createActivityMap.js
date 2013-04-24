@@ -72,7 +72,11 @@ function mapListButton(){
 	if(document.getElementById("map_canvas")==null) createTeacherMap();
 	else {
 	// Currently, not a lot is done to show the list again, so it doesn't need to be wrapped into a function.
-		document.getElementById("activity").removeChild(document.getElementById("map_canvas"))
+		// If the map_canvas exists, remove it.
+		if(document.getElementById("map_canvas")!=null) document.getElementById("map_canvas").style.display="none";
+		else{
+			
+		}
 		var slist=document.getElementById("slist");
 		// If there is more than one student, then we want to display the list of students.
 		if(slist!=undefined && slist.options.length>1) slist.style.display="block";

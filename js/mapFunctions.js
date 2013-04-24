@@ -26,6 +26,23 @@ function initializeMap(lat, lng){
 	return mapInstance;
 }
 
+// This function is called from createHunt.html
+// The purpose of this function is to display the hunt bounds on the right side of the form.
+function displayHuntBounds(){
+	var bounds=JSON.parse(sessionStorage.toPlot);
+	// Convert the bounds to a google maps LatLngBounds object.
+	bounds=new google.maps.LatLngBounds(new google.maps.LatLng(bounds.minLat, bounds.minLng), new google.maps.LatLng(bounds.maxLat, bounds.maxLng));
+	// Initialize the options for the google maps.
+	var myOptions = {
+		center :new google.maps.LatLng(bounds.getCenter().lat(),bounds.getCenter().lng()),
+		zoom : 14,
+		mapTypeId : google.maps.MapTypeId.SATELLITE
+	};
+	var map=new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+	var rectangle=createRectangleOverlay(map, bounds);
+	rectangle.setDraggable(false);
+}
+
 function removeMap(){
 	$('map_canvas').style.display = 'none';
 	$('contents').style.display = 'block';
