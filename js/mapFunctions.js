@@ -38,7 +38,7 @@ function displayHuntBounds(){
 		zoom : 14,
 		mapTypeId : google.maps.MapTypeId.SATELLITE
 	};
-	var map=new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+	var map=new google.maps.Map(document.getElementById("map"), myOptions);
 	var rectangle=createRectangleOverlay(map, bounds);
 	rectangle.setDraggable(false);
 }
@@ -169,6 +169,7 @@ function displayNewHuntForm(toPlot){
 			document.getElementById(element).value=hunt[element];
 		}
 	}
+	displayHuntBounds();
 }	
 
 // Is called by createGotoControl in order to fill in the goToControlbox and set up events.

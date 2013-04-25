@@ -17,12 +17,14 @@
 					<div  class=""><label>What would you like the second additional question to be?<textarea id="additionalQuestion2" maxlength="100" placeholder="optional"></textarea></label></div>
 					<div  class=""><label>What would you like the third additional question to be?<textarea id="additionalQuestion3" maxlength="100" placeholder="optional"></textarea></label></div>
 				</fieldset>
-				<!-- Change default type of first button to button so it doesn't submit the form (defaults to type="submit") -->
-				<div><button id="editLatLngButton" onclick="editHuntLatLng()" type="button" value="Edit lat/lng">Edit lat/lng</button> </div>
+
 				<br style="line-height:5px;" />
 				<div><button type="submit" value="Submit" id="submit"/> Submit!</div> <div class="clear"></div>
 		</div>
-		<div style="width:50%; overflow:hidden; float:right; height:100%;" id="map_canvas"> Text goes here! </div>
-		<script type="text/javascript"> displayHuntBounds();</script>
+		<div>
+			<div id="map" style="height:750px;"></div>
+			<!-- Change default type of first button to button so it doesn't submit the form (defaults to type="submit")  -->
+			<div><button id="editLatLngButton" onclick="editHuntLatLng()" type="button" value="Edit lat/lng">Edit lat/lng</button> </div>
+		</div>
 	</div>
 </form>
