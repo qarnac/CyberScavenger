@@ -25,11 +25,12 @@ function studentActivityList(serverResponse){
 	activitiesDiv.innerHTML = "";
 	var activities=JSON.parse(serverResponse);
 	if(document.getElementById("newActivity")==null){
-		var button=document.createElement("input");
-		button.setAttribute("type", "button");
+		var button=document.createElement("button");
+		button.setAttribute("class", "cyberButton");
 		button.setAttribute("value", "New Activity");
 		button.setAttribute("id", "newActivity");
 		button.onclick=huntselection;
+		button.innerHTML="New Activity";
 		document.getElementById("main").insertBefore(button, document.getElementById("contents"));
 	}
 	for(var i = 0; i < activities.length; i++){

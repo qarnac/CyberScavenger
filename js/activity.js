@@ -54,7 +54,7 @@ function feedactivity(x, list_box) {
 }
 
 // This is the listbox which houses each teacher's students.
-function listbox(activityList) {
+function listbox(activityList){
 	var temp = document.createElement('select');
 	temp.id = 'slist';
 	temp.size = 20;

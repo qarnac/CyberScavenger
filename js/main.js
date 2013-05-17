@@ -32,20 +32,22 @@ function huntsel() {
 	createTeacherMap();
 	
 	if(document.getElementById("mapButton")==null){
-		var button=document.createElement("input");
-		button.setAttribute("type", "button");
+		var button=document.createElement("button");
 		button.setAttribute("value", "List View");
 		button.setAttribute("id", "mapButton");
+		button.setAttribute("class", "cyberButton");
+		button.innerHTML="List View";
 		button.onclick=mapListButton;
 		document.getElementById("contentSection").insertBefore(button, document.getElementById("newhunt"));
 	}
 	
 	if(document.getElementById("editHunt")==null){
-		var button=document.createElement("input");
-		button.setAttribute("type", "button");
+		var button=document.createElement("button");
 		button.setAttribute("value", "View Hunt Info");
 		button.setAttribute("id", "editHunt");
+		button.setAttribute("class", "cyberButton");
 		button.onclick=viewHuntInformation;
+		button.innerHTML="View Hunt Info";
 		document.getElementById("contentSection").insertBefore(button, document.getElementById("newhunt"));
 	}
 	

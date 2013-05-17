@@ -77,6 +77,7 @@ function viewHuntInformation(){
 		document.getElementById("editHunt").onclick=viewHuntInformation;
 		document.getElementById("editHunt").value="View Hunt Info";
 	}
+	displayHuntBounds();
 }
 
 // Returns which option from the select is the selected hunt.

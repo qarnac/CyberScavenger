@@ -65,6 +65,7 @@ var huntboundary;
 //invoked when student submits the form .checks for validity of data and submits the information through ajax
 function check(form)
 {
+	console.log(morc);
 	var contents={};
 	var x = document.getElementsByName('answer');
 	for (var i = 0; i < x.length; i++) {

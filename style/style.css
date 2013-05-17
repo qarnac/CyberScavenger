@@ -376,7 +376,7 @@ input[type="submitButton"] {
 	font-size: 11px;
 	font-weight: bold;
 }
-input[type="button"] {
+.cyberButton{
 
 	float: right;
 	margin: 2px 0 5px 5px;
