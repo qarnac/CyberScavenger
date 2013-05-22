@@ -1,5 +1,5 @@
 <?php
-	include '../php/credentials.php';
+	include 'credentials.php';
 	$availableHunts = array();
 	$result = mysql_query("
 		SELECT hunt.*, teacher.firstname, teacher.lastname 

@@ -267,16 +267,16 @@ Task.prototype.parse = function()
 		this.heading = 270;
 		
 		//Ouyang: not sure if the following four lines are still useful since the min/max lat/lng are now used to detect boundary
-		this.zonetopleftlat = parseFloat(GetNodeValue(items[0].selectSingleNode("zone/topleft/lat")));
-		this.zonetopleftlng = parseFloat(GetNodeValue(items[0].selectSingleNode("zone/topleft/lng")));
+		this.zonetopleftlat = parseFloat(GetNodeValue(items[0].selectSingleNode("minlat")));
+		this.zonetopleftlng = parseFloat(GetNodeValue(items[0].selectSingleNode("minlng")));
 		this.zoneheight = parseFloat(GetNodeValue(items[0].selectSingleNode("zone/height")));
 		this.zonewidth = parseFloat(GetNodeValue(items[0].selectSingleNode("zone/width")));
 
 		//Ouyang: Use min/max lat/lng to detect boundary
-		this.zoneMinLAT = parseFloat(GetNodeValue(items[0].selectSingleNode("zone/minlat")));
-		this.zoneMinLNG = parseFloat(GetNodeValue(items[0].selectSingleNode("zone/minlng")));
-		this.zoneMaxLAT = parseFloat(GetNodeValue(items[0].selectSingleNode("zone/maxlat")));
-		this.zoneMaxLNG = parseFloat(GetNodeValue(items[0].selectSingleNode("zone/maxlng")));
+		this.zoneMinLAT = parseFloat(GetNodeValue(items[0].selectSingleNode("minlat")));
+		this.zoneMinLNG = parseFloat(GetNodeValue(items[0].selectSingleNode("minlng")));
+		this.zoneMaxLAT = parseFloat(GetNodeValue(items[0].selectSingleNode("maxlat")));
+		this.zoneMaxLNG = parseFloat(GetNodeValue(items[0].selectSingleNode("maxlng")));
 		
 		//alert("TASK:"+this.title+","+this.synopsis+","+this.level+","+this.lat+","+this.lng);
 		items = root.selectNodes("//task/markers/marker");
