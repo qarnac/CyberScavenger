@@ -53,7 +53,10 @@ while ($result=mysql_fetch_array($location)) {
 	$marker=$doc->createElement("marker");
 	$marker->setAttribute('type',"question");
 	
-	$element=$doc->createElement("title","title");
+	if($result['partner_names']!=""){
+		$title=$result['partner_names'];
+	} else $title="anonymous";
+	$element=$doc->createElement("title", $title);
 	$element=$marker->appendChild($element);
 	
 	$element=$doc->createElement("synopsis","");
@@ -78,7 +81,7 @@ while ($result=mysql_fetch_array($location)) {
 	$element=$doc->createElement("path","multiple_choice.php?qid=$id");
 	$element=$page->appendChild($element);
 		
-	$element=$doc->createElement("name","name");
+	$element=$doc->createElement("name",$title);
 	$element=$page->appendChild($element);
 		
 	$element=$doc->createElement("status","");

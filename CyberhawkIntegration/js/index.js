@@ -120,7 +120,7 @@ function updateInfoBox(id) {
 			info = "Nothing Around. Use the Large Scale option to see what's nearby!" +
 				"When you get closer, don't forget to switch to the Small Scale to be more accurate."; 
 		} else {
-			info += "You have arrived at " + task.closestMarker.title;
+			info += "You have arrived at " + task.closestMarker.title + "'s activity";
 			info += ". Use the space bar to pause the flight. Click on the tabs to find more activities related to ";
 			info += task.closestMarker.synopsis;
 		}

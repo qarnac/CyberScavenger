@@ -310,7 +310,7 @@ Task.prototype.parse = function()
 				//alert(getText(subitems[j]));
 				// only postfix 'htm' works 
 
-				var strName = "name";
+				var strName = GetNodeValue(items[0].selectSingleNode("title"));
 				var strFilename = GetNodeValue(subitems[j].selectSingleNode("path"));
 				var strStatus = 1;
 				var strPath = strPageDir + "/" + strFilename;
