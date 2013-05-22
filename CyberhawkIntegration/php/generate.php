@@ -75,7 +75,7 @@ while ($result=mysql_fetch_array($location)) {
 	$id=$result['id'];
 	$page=$doc->createElement("page");
 		
-	$element=$doc->createElement("path","/multiple_choice.php?qid=$id");
+	$element=$doc->createElement("path","multiple_choice.php?qid=$id");
 	$element=$page->appendChild($element);
 		
 	$element=$doc->createElement("name","name");

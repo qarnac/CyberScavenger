@@ -225,7 +225,11 @@ Task.prototype.refresh = function(centLat, centerLong)
 				if(latDistance < 0) latDistance = latDistance * -1;
 				if(longDistance < 0) longDistance = longDistance * -1;
 					
-				var requiredDistanceToActivate = .0019; //default value by paul is 0.0019
+					// Rackauckas:
+					// Apparently this distance was why I wasn't able to activate any questions.
+					// At the old constant, I was never appearing as close enough to activate.
+					// With the new constant, I now seem to be able to load them.
+				var requiredDistanceToActivate = .05; //default value by paul is 0.0019
 				if(latDistance <  requiredDistanceToActivate && longDistance < requiredDistanceToActivate)
 				{
 					me.closestMarker = me.markers[i];
@@ -306,10 +310,10 @@ Task.prototype.parse = function()
 				//alert(getText(subitems[j]));
 				// only postfix 'htm' works 
 
-				var strName = GetNodeValue(subitems[j].selectSingleNode("name"));
+				var strName = "name";
 				var strFilename = GetNodeValue(subitems[j].selectSingleNode("path"));
-				var strStatus = parseInt(GetNodeValue(subitems[j].selectSingleNode("status")));
-				var strPath = strPageDir + strFilename;
+				var strStatus = 1;
+				var strPath = strPageDir + "/" + strFilename;
 				//alert(strFilename + ", " + strName);
 				this.markers[i].addPage(strPath, strName, strStatus);
 			}

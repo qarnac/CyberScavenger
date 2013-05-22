@@ -256,7 +256,13 @@ More information about CyberTEAM can be found at http://www.csusm.edu/cyberteam/
 						</div>
 					</td>
 				</tr>
-				
+				<td>
+						<div id="info_box">
+							<div id="info_content">
+							</div>
+							<br/>
+						</div>
+					</td>
 			</table>
 			<!-- End of the table in the second column of the second row. -->
 		</td>

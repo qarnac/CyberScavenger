@@ -77,6 +77,7 @@ function updatePageBar(id) {
 		var status = task.closestMarker.getPageStatus(k);
 
 		// set tag icons
+
 		if ( status == 0 ) continue; // hide some pages
 		else if ( status == 2 ) {
 			tagname = tagname + " <img src='images/icon/apply.png' />";

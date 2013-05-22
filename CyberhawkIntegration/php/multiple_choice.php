@@ -13,7 +13,7 @@ $result=mysql_fetch_array($ques);
 ?>
 <head>
 	<link rel=stylesheet href="../style/main.css" type="text/css" />
-	  <script type="text/javascript" src="json2.js"></script>
+	  <script type="text/javascript" src="../js/json2.js"></script>
 	<script type="text/javascript">
 	function video()
 	{
@@ -83,7 +83,7 @@ $result=mysql_fetch_array($ques);
 <body>
 <table border="0">
 <tr height="20px" valign="middle">
-	<th colspan="2"><?php echo $result['title'];?></th>
+	<th colspan="2">Title</th>
     
 </tr>
 <tr>
@@ -91,7 +91,8 @@ $result=mysql_fetch_array($ques);
     <div id ="content">	
     <? if($result['media']=="image.php")
 	{ ?>
-   <div id="img"><img src="<?php echo $result['media']."?id=". $result['mid'];?>" class="medium" align="center"/> </div>
+	<!-- The ../.. is ugly, but it's to get the equivalent of .../ (html seems to think three dots is a part of the url?) -->
+   <div id="img"><img src="<?php echo "../../uploads/" . $result['media_id'] . ".jpeg"; ?>" class="medium" align="center"/> </div>
     <? }else if($result['media']=="slideshow.php") { ?> <iframe src="<?php echo $result['media']."?id=". $result['mid'];?>" height="350" width="450" seamless></iframe>
 		 <? }else{ ?>
          <iframe src="<?php echo $result['media']."?id=". $result['mid'];?>" height="280" width="450" seamless></iframe>
