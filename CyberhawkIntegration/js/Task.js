@@ -209,7 +209,7 @@ Task.prototype.refresh = function(centLat, centerLong)
     if(ge && me.isStart)
     {
 		me.closestMarker = null;
-
+		me.overflow=new Array();
 		// Check if the car is around any of the markers
 		for(var i = 0; i < me.markers.length; i++)
 		{
@@ -229,12 +229,13 @@ Task.prototype.refresh = function(centLat, centerLong)
 					// Apparently this distance was why I wasn't able to activate any questions.
 					// At the old constant, I was never appearing as close enough to activate.
 					// With the new constant, I now seem to be able to load them.
-				var requiredDistanceToActivate = .05; //default value by paul is 0.0019
+				var requiredDistanceToActivate = .03; //default value by paul is 0.0019
 				if(latDistance <  requiredDistanceToActivate && longDistance < requiredDistanceToActivate)
 				{
-					me.closestMarker = me.markers[i];
-					// Ouyang: can we guide the eagle to land on the marker?
-					break;
+					if(me.closestMarker==null) me.closestMarker = me.markers[i];
+					else{
+						me.overflow.push(me.markers[i]);
+					}
 				} 
 			} 
 		}

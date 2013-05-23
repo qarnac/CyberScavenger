@@ -55,7 +55,11 @@ while ($result=mysql_fetch_array($location)) {
 	
 	if($result['partner_names']!=""){
 		$title=$result['partner_names'];
-	} else $title="anonymous";
+
+	} else{
+		$title=mysql_fetch_row(mysql_query("SELECT firstname FROM students WHERE id=$result[student_id]"));
+		$title=$title[0];
+	}
 	$element=$doc->createElement("title", $title);
 	$element=$marker->appendChild($element);
 	

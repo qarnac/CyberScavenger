@@ -50,7 +50,8 @@ function openPage(id) {
 		if ( id == 99) {
 			pagePath = "./php/bag.htm";
 		} else {
-			pagePath = task.closestMarker.getPagePath(id);
+			if(id==1) pagePath = task.closestMarker.getPagePath(id);
+			else pagePath=task.overflow.getPagePath(id-2);
 		}		
 		// load external question page
 		var defaultIframe='<iframe id="myframe" src="' + pagePath + '" marginwidth="0" marginheight="0" frameborder="0" vspace="0" hspace="0" class="tabcontentiframe" style="width:100%; height:100%; min-height: 100px"></iframe>'
@@ -75,6 +76,35 @@ function updatePageBar(id) {
 	for (var k = 1; k <= pageNum; k++) {
 		var tagname = task.closestMarker.getPageName(k);
 		var status = task.closestMarker.getPageStatus(k);
+
+		// set tag icons
+
+		if ( status == 0 ) continue; // hide some pages
+		else if ( status == 2 ) {
+			tagname = tagname + " <img src='images/icon/apply.png' />";
+		} else if ( status == 3) {
+			tagname = tagname + " <img src='images/icon/question.png' />";			
+		} else {
+			if ( tagname == "Notes" )  
+				tagname = tagname + " <img src='images/icon/notepad.png' />";
+			else if ( tagname == "Intro" || tagname == "Slides" || tagname == "Clue" )
+				tagname = tagname + " <img src='images/icon/info2.png' />";
+			else {
+				tagname = tagname + " <img src='images/icon/question.png' />";
+			}
+		}
+
+		if ( id == k ) {
+			html += '<span class="page_now">' + tagname + '</span>';
+		} else {
+			html += '<a href="javascript:openTabPage(' + k + ')">' + tagname + '</a>';
+		}
+	}
+	
+		// This for function should handle the overflow area.
+		for (var k = 0; k < task.overflow.length; k++) {
+		var tagname = task.overflow[k].getPageName(1);
+		var status = task.overflow[k].getPageStatus(1);
 
 		// set tag icons
 
