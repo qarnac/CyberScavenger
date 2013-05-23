@@ -296,6 +296,7 @@ Task.prototype.parse = function()
 			
 			//AnzaMarker(_type, _title, _synopsis, _lat, _lng, _icon)
 			this.markers[i] = new AnzaMarker(strType,strTitle,strSynopsis,strLat,strLng,strIco);
+			this.markers[i].id=parseFloat(GetNodeValue(items[i].selectSingleNode("id")));
 
 			var pageContent = items[i].selectSingleNode("content");
 

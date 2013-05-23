@@ -51,7 +51,7 @@ function openPage(id) {
 			pagePath = "./php/bag.htm";
 		} else {
 			if(id==1) pagePath = task.closestMarker.getPagePath(id);
-			else pagePath=task.overflow.getPagePath(id-2);
+			else pagePath=task.overflow[id-2].getPagePath(1);
 		}		
 		// load external question page
 		var defaultIframe='<iframe id="myframe" src="' + pagePath + '" marginwidth="0" marginheight="0" frameborder="0" vspace="0" hspace="0" class="tabcontentiframe" style="width:100%; height:100%; min-height: 100px"></iframe>'
@@ -123,10 +123,10 @@ function updatePageBar(id) {
 			}
 		}
 
-		if ( id == k ) {
+		if ( id == k+2 ) {
 			html += '<span class="page_now">' + tagname + '</span>';
 		} else {
-			html += '<a href="javascript:openTabPage(' + k + ')">' + tagname + '</a>';
+			html += '<a href="javascript:openTabPage(' + (k+2) + ')">' + tagname + '</a>';
 		}
 	}
 

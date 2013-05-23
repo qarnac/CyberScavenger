@@ -20,7 +20,7 @@ $result=mysql_fetch_array($ques);
 					document.getElementById("content").innerHTML="<iframe src='"+alt+"' height='230' width='450'></iframe>" ;	
 
 	}
-	var rewardScore = 100;		//assigns value to reward score from database
+	var rewardScore = 5;		//assigns value to reward score from database
 	
 	var ans=JSON.parse('<?php echo $result['choices']?>');
 	answer=ans.choices;
@@ -29,8 +29,22 @@ $result=mysql_fetch_array($ques);
 		if(this.choices[x].ans=="true")
 		return this.choices[x];
 	};
-	var correctAnswer = ans.correct();	//assigns the correct answer 
-	var marker = window.parent.task.closestMarker;
+	var correctAnswer = ans.correct();	//assigns the correct answer
+	var task=window.parent.task;
+	var marker;
+	if(window.parent.task.closestMarker.id==<?php echo $qid ?>){
+		marker = task.closestMarker;
+		marker.num=1;
+	}else{
+		for(var i=0; i<task.overflow.length; i++){
+			if(task.overflow[i].id==<?php echo $qid ?>){
+				marker=task.overflow[i];
+				marker.num=2+i;
+				break;
+			}
+		}
+	}
+	
 /* currentPage is used to set and verify the status of the current page.
 	 if the value of currrent page = 1 means user havent succedded the activity and its havent been invoked yet,where 2 means activity is already beeen completed 
 	*/
@@ -51,16 +65,16 @@ $result=mysql_fetch_array($ques);
 						window.parent.task.reward(rewardScore);
 						marker.addScore(rewardScore);
 						marker.setPageStatus(currentPage, 2);
-						window.parent.updatePageBar(currentPage);
+						window.parent.updatePageBar(marker.num);
 						window.location.reload();
 					} else {
 						window.parent.appendMessageToInfoBox("You are getting closer. Try again! ", "hint");
 						radioButtons[i].parentNode.innerHTML = "";
-						rewardScore -=100/radioButtons.length ;		//displays answer after minimum trys
+						rewardScore -=5/radioButtons.length ;		//displays answer after minimum trys
 						if(radioButtons.length<2)
 						{
 						marker.setPageStatus(currentPage, 2);
-						window.parent.updatePageBar(currentPage);
+						window.parent.updatePageBar(marker.num);
 						// RACKAUCKAS: Unfortunately, none of the questions will have a hint.
 						window.parent.appendMessageToInfoBox("", "hint");
 						window.location.reload();
