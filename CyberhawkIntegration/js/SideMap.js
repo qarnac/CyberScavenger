@@ -21,15 +21,21 @@ function SideMap(topMap) {
 
 	var carIcon;
 	var markerOptions;
-	var widthOfCar = .000020;
-	var heightOfCar = .000030;
-
+	var iconWidth=20;
+	var iconHeight=20;
 	topMap.setCenter(new google.maps.LatLng(me.centLat, me.centerLong));
 	topMap.setZoom(10);
+	var Icon = new google.maps.MarkerImage(
+		me.imagepath + "0.png",
+		null, /* size is determined at runtime */
+		null, /* origin is 0,0 */
+		new google.maps.Point(10,10), /* anchor is bottom center of the scaled image */
+		new google.maps.Size(20, 20)
+	);  
 	me.carMarker=new google.maps.Marker({
       position: new google.maps.LatLng(me.centLat, me.centerLong),
       map: me.topMap,
-      icon: me.imagepath + "0.png"
+      icon: Icon
 	});
 }
 
@@ -67,7 +73,14 @@ SideMap.prototype.refresh = function(centLat, centerLong, centerAlt, heading )
             var closestHeadingDirection = Math.round(me.heading / 10)*10;
             var locationOfFile = me.imagepath + closestHeadingDirection + ".png";
             //if(!reachedPlace) { alert("Reached line" + locationOfFile); reachedPlace = true; }
-            me.carMarker.setIcon(locationOfFile);
+				var Icon = new google.maps.MarkerImage(
+					locationOfFile,
+					null, /* size is determined at runtime */
+					null, /* origin is 0,0 */
+					new google.maps.Point(10,10), /* anchor it on the center */
+					new google.maps.Size(20, 20)
+				);  
+            me.carMarker.setIcon(Icon);
             
             // We subtract .001 from the location for the top view car marker because the Longitude on the top view isn't exactly lined
             // up with the marker locations on the 3D view. The .001 accounts for that discrepecny. -- Added by Paul

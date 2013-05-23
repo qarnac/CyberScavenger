@@ -52,7 +52,6 @@ Task.prototype.addMarkersTo = function(ge, gm) {
 	for(var i = 0; i < task.markers.length; i++)
 	{
 		me.markers[i].initGEMarker(ge);
-		me.markers[i].addGEMarker(ge);
 
 		me.markers[i].initGMMarker(gm);
 		me.markers[i].addGMMarker(gm);
@@ -229,7 +228,7 @@ Task.prototype.refresh = function(centLat, centerLong)
 					// Apparently this distance was why I wasn't able to activate any questions.
 					// At the old constant, I was never appearing as close enough to activate.
 					// With the new constant, I now seem to be able to load them.
-				var requiredDistanceToActivate = .03; //default value by paul is 0.0019
+				var requiredDistanceToActivate = .01; //default value by paul is 0.0019
 				if(latDistance <  requiredDistanceToActivate && longDistance < requiredDistanceToActivate)
 				{
 					if(me.closestMarker==null) me.closestMarker = me.markers[i];

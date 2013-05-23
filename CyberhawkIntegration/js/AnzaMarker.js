@@ -95,11 +95,6 @@ AnzaMarker.prototype.getNode = function()
 	return me.note;
 }
 
-AnzaMarker.prototype.addGEMarker = function(ge)
-{
-	var me = this;
-	ge.getFeatures().appendChild(me.marker);
-}
 
 // The function to add a google map marker object to a google map.
 // Parameter gm is the google map object.
@@ -130,6 +125,18 @@ AnzaMarker.prototype.closeBalloon = function(ge)
 
 AnzaMarker.prototype.initGEMarker = function(ge)
 {
+	// Create the placemark.
+	var placemark = ge.createPlacemark('');
+
+	// Set the placemark's location.  
+	var point = ge.createPoint('');
+	point.setLatitude(parseFloat(this.lat));
+	point.setLongitude(parseFloat(this.lng));
+	placemark.setGeometry(point);
+
+	// Add the placemark to Earth.
+	ge.getFeatures().appendChild(placemark);
+/*
 	var me = this;
 	//if ( me.marker ) return this.marker;
 	
@@ -163,6 +170,7 @@ AnzaMarker.prototype.initGEMarker = function(ge)
 	me.marker.setGeometry(point);
 	
 	return me.marker;
+	*/
 }
 
 //For google map
