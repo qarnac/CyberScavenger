@@ -10,11 +10,18 @@ $qid=$_REQUEST['qid'];//pulls question id from the url
 $query = "SELECT * FROM stud_activity where id=$qid";
 $ques = mysql_query($query, $dbconnect);
 $result=mysql_fetch_array($ques);
+$huntId=$result['hunt_id'];
+$hunt=mysql_query("SELECT * FROM hunt WHERE id=$huntId");
+$hunt=mysql_fetch_array($hunt);
+$additionalAnswers=json_decode($result['additionalAnswers']);
+$additionalQuestions=json_decode($hunt['additionalQuestions']);
+	
 ?>
 <head>
 	<link rel=stylesheet href="../style/main.css" type="text/css" />
 	  <script type="text/javascript" src="../js/json2.js"></script>
 	<script type="text/javascript">
+	
 	function video()
 	{
 					document.getElementById("content").innerHTML="<iframe src='"+alt+"' height='230' width='450'></iframe>" ;	
@@ -98,7 +105,25 @@ $result=mysql_fetch_array($ques);
 <table border="0">
 <tr height="20px" valign="middle">
 	<th colspan="2">Title</th>
-    
+</tr>
+
+<tr>
+<!-- Start activityView.html -->
+<!-- <table class="activityTable" cellpadding="5px"> -->
+	<tr>
+	<td class="aboutPhotoCell" style="width:100%;">
+
+		<div class="questionLabel" name="optionalQuestion1"><b> <?php echo $additionalQuestions->questiona; ?> </b><br /> </div>
+		<div name="optionalAnswer1"> <?php echo $additionalAnswers->answera; ?> <br /> </div>
+		<div class="questionLabel" name="optionalQuestion2"><b> <?php echo $additionalQuestions->questionb; ?> </b><br /> </div>
+		<div name="optionalAnswer2"> <?php echo $additionalAnswers->answerb; ?> <br /> </div>
+		<div class="questionLabel" name="optionalQuestion3"> <b><?php echo $additionalQuestions->questionc;?></b> <br /> </div>
+		<div name="optionalAnswer3">  <?php echo $additionalAnswers->answerc; ?> <br /> </div>
+	</td>
+	</tr>
+<!-- </table> -->
+<!-- End activityView.html -->
+
 </tr>
 <tr>
 	<td colspan="2" align="center">	
@@ -115,7 +140,6 @@ $result=mysql_fetch_array($ques);
 	</td>
 </tr>
 <tr>
-	<td width="2%"/>
 	 
 	<td>
 		

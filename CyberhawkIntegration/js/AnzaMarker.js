@@ -125,9 +125,7 @@ AnzaMarker.prototype.closeBalloon = function(ge)
 
 AnzaMarker.prototype.initGEMarker = function(ge)
 {
-	// Create the placemark.
 	var placemark = ge.createPlacemark('');
-
 	// Set the placemark's location.  
 	var point = ge.createPoint('');
 	point.setLatitude(parseFloat(this.lat));
@@ -136,41 +134,6 @@ AnzaMarker.prototype.initGEMarker = function(ge)
 
 	// Add the placemark to Earth.
 	ge.getFeatures().appendChild(placemark);
-/*
-	var me = this;
-	//if ( me.marker ) return this.marker;
-	
-	me.marker = ge.createPlacemark('');
-	me.marker.setName(me.title);
-	
-	// Create style map for placemark
-	var normal = ge.createIcon('');
-	if (me.icon == null)
-		normal.setHref('http://maps.google.com/mapfiles/kml/paddle/red-circle.png');
-	else
-		normal.setHref(me.icon);
-	var iconNormal = ge.createStyle('');
-	iconNormal.getIconStyle().setIcon(normal);
-	
-	var styleMap = ge.createStyleMap('');
-	styleMap.setNormalStyle(iconNormal);
-	//styleMap.setHighlightStyle(iconHighlight);
-	me.marker.setStyleSelector(styleMap);
-	  
-	// Create point
-	var point = ge.createPoint('');	
-	if (me.lat==null || me.lng==null) {
-		var la = ge.getView().copyAsLookAt(ge.ALTITUDE_RELATIVE_TO_GROUND);
-		point.setLatitude(la.getLatitude());
-		point.setLongitude(la.getLongitude());	
-	} else {
-		point.setLatitude(parseFloat(me.lat));
-		point.setLongitude(parseFloat(me.lng));	
-	}
-	me.marker.setGeometry(point);
-	
-	return me.marker;
-	*/
 }
 
 //For google map

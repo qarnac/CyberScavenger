@@ -112,7 +112,7 @@ More information about CyberTEAM can be found at http://www.csusm.edu/cyberteam/
 			
 				task = new Task('/cyberhawk/quest/CyberhawkIntegration/php/generate.php?q='+id);
 				task.parse();  
-
+				document.getElementById("totalScore").innerHTML=task.markers.length*5;
 				task.addMarkersTo(ge, gm);
 				task.start();	
 				
@@ -206,7 +206,7 @@ More information about CyberTEAM can be found at http://www.csusm.edu/cyberteam/
 				<caption>Player Status</caption>
 				<tr>
 					<th width="50%" align="right" font-size="10">Total Score:</th>
-					<td width="50%" align="left"><span id="playerscore">0</span> out of 700</td>
+					<td width="50%" align="left"><span id="playerscore">0</span> out of <span id="totalScore"> </span></td>
 				</tr>
 				<tr>
 					<th align="right">Time Used:</th>
