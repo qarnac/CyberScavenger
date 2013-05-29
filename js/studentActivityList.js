@@ -33,6 +33,19 @@ function studentActivityList(serverResponse){
 		button.innerHTML="New Activity";
 		document.getElementById("main").insertBefore(button, document.getElementById("contents"));
 	}
+	if(document.getElementById("Cyberhawk")==null){
+		var button=document.createElement("button");
+		button.setAttribute("class", "cyberButton");
+		button.setAttribute("value", "Cyberhawk View");
+		button.setAttribute("id", "Cyberhawk");
+		button.onclick=function(){
+			var win=window.open("/cyberhawk/quest/CyberhawkIntegration/main.php?q="+document.getElementById("selecthunt").value, "_blank");
+			win.focus();
+			return false;
+		}
+		button.innerHTML="Cyberhawk View";
+		document.getElementById("main").insertBefore(button, document.getElementById("contents"));
+	}
 	for(var i = 0; i < activities.length; i++){
 		activitiesDiv.appendChild(generateActivityView(activities[i], true, i));
 	}
