@@ -129,12 +129,7 @@ function updatePageBar(id) {
 			html += '<a href="javascript:openTabPage(' + (k+2) + ')">' + tagname + '</a>';
 		}
 	}
-
-	if ( id == 99 ) {
-		html += '<span class="page_now">Bag <img src="images/icon/tools.png"/></span>';
-	} else {
-		html += '<a href="javascript:openTabPage(99)">Bag <img src="images/icon/tools.png"/></a>';
-	}	
+	
 	
 	pagebar.innerHTML = html;
 }
