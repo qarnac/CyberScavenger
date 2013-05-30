@@ -103,6 +103,8 @@ function submitNewHunt(){
 		"&minLat=" + toPlot.minLat +
 		"&minLng=" + toPlot.minLng +
 		"&maxLng=" + toPlot.maxLng +
+		"&start_lat=" + toPlot.startLat +
+		"&start_lng=" + toPlot.startLng +
 		"&additionalQuestions=" + JSON.stringify(additionalQuestions) +
 		"&dateOfTrip=" + date
 		, GLOBALS.PHP_FOLDER_LOCATION + "createHunt.php", function(serverResponse){
@@ -155,6 +157,8 @@ function displayNewHuntForm(toPlot){
 	bounds.minLat=toPlot.getBounds().getSouthWest().lat();
 	bounds.minLng=toPlot.getBounds().getSouthWest().lng();
 	bounds.maxLng=toPlot.getBounds().getNorthEast().lng();
+	bounds.startLat=toPlot.getBounds().getCenter().lat();
+	bounds.startLng=toPlot.getBounds().getCenter().lng();
 	sessionStorage.toPlot=JSON.stringify(bounds);
 	// The display is going to be needed a lot, so store it in a variable for faster runtime.
 	var display=document.getElementById("activity");

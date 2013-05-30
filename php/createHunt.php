@@ -8,7 +8,9 @@ if($_SESSION['who']=="teacher"){
 	"', minlat='" . mysql_escape_string($_POST["minLat"]) . 
 	"', minlng='" . mysql_escape_string($_POST["minLng"]) . 
 	"', maxlat='" . mysql_escape_string($_POST["maxLat"]) . 
-	"', maxlng='" . mysql_escape_string($_POST["maxLng"]) . 
+	"', maxlng='" . mysql_escape_string($_POST["maxLng"]) .
+	"', start_lat='" . mysql_escape_string($_POST["start_lat"]) .
+	"', start_lng='" . mysql_escape_string($_POST["start_lng"]) .
 	"', additionalQuestions='" . mysql_escape_string($_POST["additionalQuestions"]) .
 	"', eventdate=FROM_UNIXTIME(" . $_POST["dateOfTrip"] .
 	"), id='" . $hunt_id .
