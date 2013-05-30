@@ -244,8 +244,6 @@ function searchHunts(searchArea, hunts, map, rectangles){
 	var table=document.getElementById("huntTable");
 	// Deletes all rows except the header row from the table.
 	while(table.rows.length>1) table.deleteRow(1);
-	// Pass deselectAllHunts -1 as the selectedHunt because there can be no hunt in the -1 index, therefore no hunt is selected.
-	deselectAllHunts(rectangles, -1);
 	var searchPhrase=searchArea.value;
 	var containedHunts=new Array();
 	// Loop through all of the hunts and check if any of them contain the phrase in their title.
