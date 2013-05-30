@@ -559,7 +559,12 @@ function displayAdditionalQuestions(additionalAnswers){
 	
 }
 
+// This function is used in createActivity.html to remove special characters.
+// Is used to prevent an error caused in php by having an & in the partner_names category.
+function removeSpecialChar(char){
+	char.value = char.value.replace(/[^a-z,10-9\s]*/ig,'');
 
+}
 // don't really need this as a separate function....
 function clear()
 {
