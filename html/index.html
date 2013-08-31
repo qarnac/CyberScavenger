@@ -1,19 +1,21 @@
+<!-- KN: The main page used. Allows a user to sign in as either a student or teacher, or just browse the map and look at the scavenger hunts created by teachers, and activities filled out by students, either by using the search feature or just scrolling around the map.-->
+
 <!-- Begin index.html -->
 	 <style type="text/css">
-      #map_canvas { height: 100%; width: 75% }
-	  #list{height: 100%; width: 25%}
-	  #activity{height: 100%; width: 100%}
-	  .highlight{ background-color:#FFFF00; }
+      #map_canvas { height: 100%; width: 75% } <!-- KN: The canvas will take up 75% of the div it is in (white section)-->
+	  #list{height: 100%; width: 25%}			<!-- KN: The table takes up the other 25%-->
+	  #activity{height: 100%; width: 100%}		<!-- KN: Activity is the whole white area (all of the used space) -->
+	  .highlight{ background-color:#FFFF00; }   <!-- KN: Class added to elements in the table, for whichever one is currently selected-->
 	  .hide{background-color:#FF0000;}
 	</style>
-	<script type="text/javascript" src="./js/publicView.js"> </script>
-		<script type="text/javascript" src="./js/mapFunctions.js"> </script>
-		<script type="text/javascript" src="./js/createActivityMap.js"> </script>
-		<script type="text/javascript" src="./js/activity.js"> </script>
-		<script type="text/javascript" src="./js/hunt.js"> </script>
-		<script type="text/javascript" src="./js/main.js"> </script>
+	<script type="text/javascript" src="./js/publicView.js"> </script>		<!-- KN: Called on page load. Initializes map and table areas, has the login, search, and updates the table content -->
+		<script type="text/javascript" src="./js/mapFunctions.js"> </script>	<!-- KN: Initializes map, shows hunt boundaries, moves map, accepts new hunts, edit entries, converts coordinates-->
+		<script type="text/javascript" src="./js/createActivityMap.js"> </script> <!-- KN: Finds and sets all of the placemarks (and info) for a selected hunt. -->
+		<script type="text/javascript" src="./js/activity.js"> </script> <!-- KN: ?Used for students adding things to their hunts, teachers adding feedback, editing the students' hunts, and uploading?-->
+		<script type="text/javascript" src="./js/hunt.js"> </script> <!-- KN: Used for making new hunts-->
+		<script type="text/javascript" src="./js/main.js"> </script> <!-- KN: Common scripts. Gets a list of hunts, allows choosing a hunt, creates dom elements, searches arrays for specific elements, or for an element's sid. -->
 	<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyB9JU8fk8vwDcneDmPhbnMtp-hcUL0E_tA&sensor=false"></script>
-  <body onload="ajax('GET', 'php/getAllHunts.php', initializePublicMapDisplay)">
+  <body onload="ajax('GET', 'php/getAllHunts.php', initializePublicMapDisplay)"> <!-- KN: Called after page loads. Function is in js/publicView.js. Initializes the map and table areas-->
 	<div id="activity"> 
 		<div id="list" style="float:left">
 		  <textarea style="height:9px; width:45%" id="searchArea"></textarea>
@@ -25,7 +27,8 @@
 				<th> Teacher Name </th>
 			</tr>
 		  </table>
-		  <button id="teacherLogin" onclick="createLoginDisplay(true)"> Teacher Login </button>
+		  <!--KN: createLoginDisplay(isTeacher) is defined in publicView.js -->
+		  <button id="teacherLogin" onclick="createLoginDisplay(true)"> Teacher Login </button> 
 		  <button id="studentLogin" onclick="createLoginDisplay(false)" disabled="true"> Student Login </button>
 		  <span id="loginArea" />
 		</div>

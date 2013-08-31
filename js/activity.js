@@ -13,7 +13,7 @@ var feed = {};
 
 
 
-//Instantiates the array activities with student activitivities
+//Instantiates the array activities with student activities
 //This function is invoked by ajax function but this happens when the teacher selects a hunt.
 //It creates the list of all students and display them in the list box along with a update button.
 //It also creates the array activities .

@@ -1,13 +1,15 @@
-<script src="js/login.js"></script>
-<script src="js/main.js"></script>
+<!-- KN: Accessed when a user clicks on either the Teacher or Student login buttons -->
+
+<script src="js/login.js"></script> <!-- KN: login.js has the functions for verifying a login attempt-->
+<script src="js/main.js"></script> <!-- KN: handles the ajax?-->
 <form id="login">
     <h1>Log In</h1>
     <fieldset id="inputs">
-        <input id="username" type="text" placeholder="Username" autofocus required>
+        <input id="username" type="text" placeholder="Username" autofocus required>   <!-- KN: autofocus makes it so that users don't have to click on the field in order to start typing into it -->
         <input id="password" type="password" placeholder="Password" required>
     </fieldset>
     <fieldset id="actions">
-        <button id="submit" value="Log in" onclick="return verify();"> Log in </button>
-        <a href="">Forgot your password?</a>
+        <button id="submit" value="Log in" onclick="return verify();"> Log in </button> <!--KN: verify() is defined in login.js -->
+        <a href="">Forgot your password?</a> <!--KN: QUESTION: Doesn't seem like this button does anything anywhere... -->
     </fieldset>
 </form>

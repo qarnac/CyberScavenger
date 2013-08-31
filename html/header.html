@@ -1,3 +1,7 @@
+<!-- KN: Has the header used for all pages, and also includes the stylesheet, json, and getConstants files.
+	json2 is used for converting arrays to json objects, and vice versa (QUESTION: Right?)
+	getConstants turns constants.json, which holds the default coordinates (centered on CSUSM), and file paths.
+ -->
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -16,8 +20,8 @@
 		<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 		<link rel="stylesheet" type="text/css" href="./style/style.css" />
 		
-		<script src="./js/json2.js"></script>
-		<script src="./js/getConstants.js"></script>
+		<script src="./js/json2.js"></script> <!-- KN: Encodes JSON strings to Arrays, and vice versa-->
+		<script src="./js/getConstants.js"></script> <!-- KN: Turns constants.json into a global object -- which holds the default coordinates, and file paths (e.g. /cyberquest/hawk/php/) -->
 		
 	</head>
 

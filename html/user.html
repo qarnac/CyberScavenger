@@ -1,3 +1,6 @@
+<!-- KN: This is the page viewed when a student has logged in. It shows previous activities that they have made, lets them edit those, or create a new one. 
+	QUESTION: Does it get the rest of the page content (-->
+
 <!DOCTYPE html>
 <!-- Start user.html -->
 <html lang="en">
@@ -20,7 +23,7 @@
 
 	</head>
 
-	<body onload="ajax('what=hunts','./php/getHunts.php',wscript_init)">
+	<body onload="ajax('what=hunts','./php/getHunts.php',wscript_init)">	<!--KN: getHunts.php gets all hunt data, for either student or for teacher, depending on which is logged in -->
 		<div id="googlemap"><div id="map_canvas"></div></div>
 		<div id="contents">
 		<div>
@@ -41,7 +44,7 @@
 			</div>
 			</div>
 			</div>
-			<script src="./js/script.js"></script>
+			<script src="./js/script.js"></script> <!-- KN: QUESTION: The only script.js is in the CyberhawkIntegration dir, this currently gives a 404 error -->
 			<script src="./js/wscript.js"></script>
 			<script src="./js/dragdrop.js"></script>
 			<script src="./js/jpegmeta.js"></script>
