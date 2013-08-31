@@ -1,4 +1,5 @@
-<!-- KN: Used to show details of a selected student activity (their uploaded photo, answers to the teacher's questions, etc)-->
+<!-- KN: Used by student.
+Used to show details of the currently logged-in student's activity (their uploaded photo, answers to the teacher's questions, etc)-->
 
 <!-- Start activityView.html -->
 <table class="activityTable" cellpadding="5px">
@@ -12,7 +13,7 @@
 		<div name="partner_names"> <br /> </div>
 		<div class="questionLabel" name="interesting_url_question"> Do you have an interesting link related to this article? </div>
 		<div name="interesting_url"> <br /> </div>
-		<div class="questionLabel" name="optionalQuestion1"> <br /> </div> <!-- KN: These 3 are questions created by the teacher for the hunt (every activity should answer them) -->
+		<div class="questionLabel" name="optionalQuestion1"> <br /> </div> <!-- KN: These 3 are questions created by the teacher for the hunt, to be answered by students when they post their activity -->
 		<div name="optionalAnswer1"> <br /> </div>
 		<div class="questionLabel" name="optionalQuestion2"> <br /> </div>
 		<div name="optionalAnswer2"> <br /> </div>
@@ -22,9 +23,9 @@
 	</tr>
 	<tr>
 		<td colspan="2">
-		<div class="questionLabel">Multiple choice question:</div> <!-- KN: These are questions created by the student submitting the activity, to be answered by other students viewing the activity -->
-		<span class="multipleChoiceQuestionText" name="mquestion"></span>
-			<ol class="multipleChoiceAnswers" name="manswers">
+		<div class="questionLabel">Multiple choice question:</div> <!-- KN: These are questions created by the student who is submitting the activity, that other students will be answering when they view this activity elsewhere.-->
+		<span class="multipleChoiceQuestionText" name="mquestion"></span> 
+			<ol class="multipleChoiceAnswers" name="manswers"> <!--KN: When these get populated, the correct answer gains class="correctAnswer" and will look different-->
 			</ol>
 			</td>
 		</tr>

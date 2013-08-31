@@ -1,4 +1,8 @@
-<!-- KN: -->
+<!-- KN: Used by teachers. (No teacher access yet so not a complete/accurate understanding of this file)
+Accessed from createHunt.html, after pressing a button that calls editHuntLatLng() -- ultimately ending up with createGotoControl() calling this page.
+
+When a teacher is creating a new hunt, this allows them to create the boundaries within which students may post activities.
+-->
 <div id="latlongctrl" style="width:300px; background-color: white; border-style: solid; border-width: 1px;  margin:5px; text-align:left; cursor:pointer; z-index: 0; padding:10px;
     overflow-y:auto;" >
 	<div style="text-align:center;"> <strong> Mark Hunt Boundary: </strong> </div>
@@ -40,17 +44,18 @@ Mark the hunt boundary by adjusting the four corners of the proposed quadrant on
 		<input id="longitudeIn" name="longitudeIn" />
 		<br />
 	</div>
-		<a id="takeMeThere" style="text-align: right;"> Take me There! </a>
+		<a id="takeMeThere" style="text-align: right;"> Take me There! </a> <!-- KN: This link will re-center the map on the coordinates selected.
+		QUESTION: For students, "Take me There" is a button. For consistency, should this be one as well? If it's going to be left as a link, I would say at least make it look like a link, rather than just plain text -->
 	<div>
-		<label class="float_none" style="display:inline;" for="searchBar"> Search Address: </label>
-		<input id="searchBar" />
-		<button onclick="searchAddress()"> Search! </button>
+		<label class="float_none" style="display:inline;" for="searchBar"> Search Address: </label> 
+		<input id="searchBar" /> <!-- KN: Input an address or location to search for it (rather than having to figure out coordinates and input them) -->
+		<button onclick="searchAddress()"> Search! </button> <!-- KN: The search button will search for the address put into the search bar, like google maps' search does-->
 	</div>
 	
 	<br />
 	
 	<div>
-	<a style="background-color: green; border-style: dotted; border-width: 1px; padding: 1px; text-align:left;" id="submitButton"> Submit! </a>
+	<a style="background-color: green; border-style: dotted; border-width: 1px; padding: 1px; text-align:left;" id="submitButton"> Submit! </a> <!-- KN: Submit the new hunt!-->
 	
 	</div>
 </div>

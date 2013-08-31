@@ -1,25 +1,28 @@
-<!-- KN: -->
+<!-- KN: Used by students.
+This is the page seen when a logged-in student clicks "New Activity", where they post their information for their teacher's hunt.
+-->
 	<fieldset> 
 		<legend>Image Uploader</legend>  
 		<input type="hidden" id="MAX_FILE_SIZE" name="MAX_FILE_SIZE" value="1000000" />  
 		<div> 	<label for="fileselect">Files to upload:</label> 
 				<input type="file" id="img_fselect" name="fileselect"  onChange="FileSelectHandler(event);"  accept="image/jpg,image/gif,image/jpeg,image/png"/> 	   
 				   <div class="filedrag" ondragover="FileDragHover(event)" ondragleave="FileDragHover(event)" ondrop="FileSelectHandler(event)" ><img src="" id="activityImage">or drop files here</div> 
-				<button onclick=instantiateGoogleMap()> Change lat/lng </button>
+				<button onclick=instantiateGoogleMap()> Change lat/lng </button> <!-- KN: Opens up a google map view to allow the student to select where in the hunt to place their activity-->
 		</div> 
 	</fieldset>                
 <form class="activ" name="multiple" onsubmit="check(this); return false;">
+	<!-- KN: split class gives the boxes set widths, heights, margins, and tells them to float left-->
 	<div  class="split"><label>What are the names of all of the members of the group? <textarea name="partner_names" maxlength="500" onkeyup="removeSpecialChar(this);"></textarea></label></div> 
 	<div  class="split"><label>Do you have an interesting link related to this article? <textarea name="interesting_url" maxlength="500"></textarea></label></div> 
 <!--	<div  class="split"><label>Why did you choose this picture ? *<textarea name="whythis" maxlength="500"></textarea></label></div>  -->                     
-	<div class="split"><label name="optionalQuestion1"> <textarea name="optionalAnswer1" maxlength="500"></textarea> </label> </div>
+	<div class="split"><label name="optionalQuestion1"> <textarea name="optionalAnswer1" maxlength="500"></textarea> </label> </div> <!-- KN: Teachers may set hunt-specific questions to ask all students. If so, this is where they appear -->
 	<div class="split"><label name="optionalQuestion2"> <textarea name="optionalAnswer2" maxlength="500"></textarea> </label> </div>
 	<div class="split"> <label name="optionalQuestion3"> <textarea name="optionalAnswer3" maxlength="500"></textarea> </label> </div>
 	
 	<div class="clear"></div>  
 	<div><label style="width: 600px"> Create a multiple choice question about this picture for your classmates to answer</label> </div>	      
 	<div class="clear"></div> 
-	<div  class="split" style="width: 600px"><label>Multiple choice question text: *<textarea  style="width: 600px" name="mquestion" maxlength="500" ></textarea></label></div>  
+	<div  class="split" style="width: 600px"><label>Multiple choice question text: *<textarea  style="width: 600px" name="mquestion" maxlength="500" ></textarea></label></div>  <!-- KN: The radio box being selected means that is the correct answer. QUESTION: Maybe that should be explained somewhere.-->
 	<div class="split"><label>Choice a* <input maxlength="500" type="text" name="a" placeholder="Enter Answer a"/>  <input checked type="radio" name="answer" value="a" />  </label></div>        
 	<div  class="split"><label>Choice b* <input maxlength="500" type="text"  placeholder="Enter Answer b" name="b"/>  <input type="radio" name="answer" value="b" />  </label> </div>          
 	<div  class="split"><label>Choice c <input type="text" maxlength="500" placeholder="Enter Answer c" name="c"/><input  type="radio" name="answer" value="c" /></label>    </div>            

@@ -1,12 +1,11 @@
-<!-- KN: Called by mapFunctions.js 
+<!-- KN: Used by student.
+Called by mapFunctions.js 
 When a student is creating a new activity, there is a button to edit latitude and longitude, which directs them to this page. 
 Lets the student set the location of their activity. It must fit within the hunt boundaries, and the default location is in the center of the hunt.
-
-QUESTION: Is this the same page used for students adding activities AND teachers adding hunts? Because the text below talks about editing the corners of a field trip -- something that seems like a teacher would be doing -- rather than selecting a single coordinate for the student's activity.
-
 -->
 <div id="latlongctrl" style="width:300px; background-color: white; border-style: solid; border-width: 1px;  margin:5px; text-align:right; cursor:pointer; z-index: 0; padding:15px;" >
-	<div id="welcomeTxt" style="text-align:left;" > Please adjust the four corners of the proposed quadrant for your field trip. The geo-coordinates of the center point of your quadrant will be adjusted accordingly as you stretch the corners. By default, the geo-coordinates reflect the GPS location of your computer </div> 
+	<div id="welcomeTxt" style="text-align:left;" > Please adjust the four corners of the proposed quadrant for your field trip. The geo-coordinates of the center point of your quadrant will be adjusted accordingly as you stretch the corners. By default, the geo-coordinates reflect the GPS location of your computer </div>  
+	<!--KN: The above text needs to be fixed. It was directly copied and pasted from the teacher's version, but this page performs a different function -->
 	
 <!-- Start newActivityControl.html -->	
 <!-- KN: "float_none" class is used to override some other CSS behavior in maps UI, it just sets "float: none"-->

@@ -1,4 +1,7 @@
-<!-- KN: -->
+<!-- KN: Used by teachers. (No teacher access yet so not a complete/accurate understanding of this file)
+
+This is the page that the teacher will see once they log in. The main content is from huntInformation.html, which will display all of their hunts and relevant information.
+-->
 <!DOCTYPE html>
 <!-- Start teacher.html -->
 <html lang="en">
@@ -17,32 +20,32 @@
 
 	</head>
 
-	<body onload="ajax('what=hunts','./php/getHunts.php',createHuntList);">
+	<body onload="ajax('what=hunts','./php/getHunts.php',createHuntList);"> <!-- KN: Once the page is loaded, the getHunts.php page will be included, which will then get all of the hunts owned by the teacher from the database. Then, createHuntList is called, which will take the retrieved hunts and make a list to be displayed -->
 		<div id="contents">
-		<div>
+			<div>
 
-		<div id="contentSection" role="main">
-				<div style="float: left;width: 200px;font-weight:bold">Welcome <span id='username'></span> <a href="php/logout.php">Log out</a></div>
-				<div style="float: left;width: 200px;">
-					<select onchange="huntsel(this.value)" id="selecthunt">
-  					<option value="null">Select</option>
-					</select>
+				<div id="contentSection" role="main">
+					<div style="float: left;width: 200px;font-weight:bold">Welcome <span id='username'></span> <a href="php/logout.php">Log out</a></div>
+					<div style="float: left;width: 200px;">
+						<select onchange="huntsel(this.value)" id="selecthunt"> <!-- KN: Dropdown menu with a list of the teacher's owned hunts-->
+						<option value="null">Select</option>
+						</select>
+					</div>
+					<button value="New Hunt" id='newhunt' onclick="createhunt()" class="cyberButton"> New Hunt </button>
+					<div class="clear"></div>
+					<div id="students"></div> <!-- KN: A list of the teacher's students?-->
+					<ul id="activity"></ul> <!--KN: A list of the students' activities? -->
 				</div>
-				<button value="New Hunt" id='newhunt' onclick="createhunt()" class="cyberButton"> New Hunt </button>
-				<div class="clear"></div>
-				<div id="students"></div>
-				<ul id="activity"></ul>
 			</div>
-			</div>
-			</div>
-			<script src="./js/main.js"></script>
-			<script src="./js/activity.js"></script>
-			<script src="./js/hunt.js"></script>
-			<script src="./js/createActivityMap.js"></script>
-			<script src="./js/geocompress.js"></script>
-			<script src="./js/mapFunctions.js"></script>
-				 <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyB9JU8fk8vwDcneDmPhbnMtp-hcUL0E_tA&sensor=false"></script>
-			<script type="text/javascript"> sessionStorage.huntInformation=""; </script>
-			</body>
-			</html>
+		</div>
+		<script src="./js/main.js"></script>
+		<script src="./js/activity.js"></script>
+		<script src="./js/hunt.js"></script>
+		<script src="./js/createActivityMap.js"></script>
+		<script src="./js/geocompress.js"></script>
+		<script src="./js/mapFunctions.js"></script>
+			 <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyB9JU8fk8vwDcneDmPhbnMtp-hcUL0E_tA&sensor=false"></script>
+		<script type="text/javascript"> sessionStorage.huntInformation=""; </script> <!-- KN: sessionStorage.huntInformation contains data from when a teacher is creating a hunt (in editHuntLatLng()). This clears it so there is no conflict when making multiple hunts-->
+	</body>
+</html>
 <!-- End teacher.html -->
