@@ -1,3 +1,10 @@
+<!--KN: Used by public.
+Called by verify() in login.js (from log_in_form.html)
+
+Takes the sent string (containing user, password, status (student/teacher), and parent (QUESTION: What is this?) and checks it against the database.
+If the information is correct, it will log in.
+ -->
+
 <?php
 include '../php/credentials.php';
 if(isset($_POST['user']))
