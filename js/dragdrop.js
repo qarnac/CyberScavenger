@@ -1,4 +1,11 @@
 ///image valid
+/* KN: Used by students.
+Called by user.html
+
+Used for drag-and-drop file uploading.
+(Have gone through it all but some of it is still unclear)
+ */
+ 
 /*
  * This file handles all the drag and drop functionality.
  * Creates a global varialble morc which stores the image information such as dataurl,geolocation
@@ -18,7 +25,7 @@ function validimg(url) {
 	// can't submit the form yet, it will get sumbitted in the callback
 }
 //supported formats
-//KN: QUESTION: Since this is just a single line, and exclusivley called by validimg, why make it a separate function?
+//KN: QUESTION: Since this is just a single line, and exclusively called by validimg, why make it a separate function?
 function checkURL(url) {
 	return (url.match(/\.(jpeg|jpg|gif|png)$/) != null);
 }
@@ -61,33 +68,35 @@ function FileDragHover(e) {
 }
 
 // file selection handler
-// FileSelectHandler is called from "/quest/user/htm/multiple.htm" on a drag and drop event, or the onchange event of the image input on that page
+// FileSelectHandler is called from "/quest/user/htm/multiple.htm" on a drag and drop event, or the onchange event of the image input on that page 
+// KN: QUESTION: There is no multiple.htm file anywhere.
 
 // note: morc is a global variable
 // 'morc' is eventually set as contents['media'] in user/js/wscript.js
 // which is then sent in a POST to upload.php as 'media' after being JSON.stringify'd
 var morc; // image object with compressed image with geo location
 
+// KN: This function is called when the user has selected a file in the old file select window (rather than the drag-and-drop), in createActivity.html
 function FileSelectHandler(e) {
 	var activity=new Object();
-	form=document.getElementById("activity").childNodes[3];
+	form=document.getElementById("activity").childNodes[3]; //KN: This is the form named "multiple", which contains all of the questions (and the submit button)
 	for (var i=0; i<form.length; i++) {
-			activity[form[i].name] = form[i].value;
+			activity[form[i].name] = form[i].value; //KN: Populate the object with the names and values from the form. Form's names become attributes, and values are the values.
 	}
-	sessionStorage.activity=JSON.stringify(activity);
-	FileDragHover(e);
-	var files = e.target.files || e.dataTransfer.files;
+	sessionStorage.activity=JSON.stringify(activity); //KN: Turn activity into a JSON string, and store that in session storage
+	FileDragHover(e); // KN: Treat the image selection as having dragged it into the box
+	var files = e.target.files || e.dataTransfer.files; // KN: target means user selected the file from the explorer, dataTransfer means user did drag and drop. Whichever they did, take that file and put it into the variable "files".
 	if (files.length >= 1) {
-		var obj = new geocompress(files[0], "file");
-		morc = obj;
+		var obj = new geocompress(files[0], "file");  //KN: Compresses the image, and gets the geo-tag data from it if possible (if not, asks user to manually set location). -- Have only had time to take a quick glance at geocompress.js, may be missing something here.
+		morc = obj; //KN: Take that result and put it into the global variable morc.
 
 	}
-	else {
-		if (validimg(e.dataTransfer.getData("text/uri-list"))) {
-			if (c_alldata.length < media.count) {
-				geocompress(e.dataTransfer.getData("text/uri-list"), "iurl");
+	else { // KN: QUESTION: I don't really get this section at all
+		if (validimg(e.dataTransfer.getData("text/uri-list"))) {  //KN: QUESTION: Does this mean that they put a URI into the drag box rather than a file?
+			if (c_alldata.length < media.count) { // KN: QUESTION: c_alldata isn't declared anywhere in the main Cyberscavenger directories... only somewhere within CyberHawk.
+				geocompress(e.dataTransfer.getData("text/uri-list"), "iurl"); //KN: Compress and geotag the destination of the URI
 			}
-			else {
+			else { 
 				alert("Media content is Full delete some to add new ");
 			}
 		}

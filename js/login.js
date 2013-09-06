@@ -47,7 +47,7 @@ function getQueryVariable(variable) {
     var vars = query.split('&'); 						//KN: Separates the string into an array of strings at the &s (see above note)
     for (var i = 0; i < vars.length; i++) { 
         var pair = vars[i].split('='); 					//KN: Separates each of those new strings at the =s (see above note)
-        if (decodeURIComponent(pair[0]) == variable) { 	//KN: (Unsure) If the first piece of the pair (e.g. "who") is the variable that was sent to this function
+        if (decodeURIComponent(pair[0]) == variable) { 	//KN: If the first piece of the pair (e.g. "who") is the desired variable
             return decodeURIComponent(pair[1]);			//KN: ...Then, return the other piece (e.g. "teacher")
         }
     }
