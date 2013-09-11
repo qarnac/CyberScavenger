@@ -20,7 +20,7 @@ function verify()
 	return false;
 }
 
-//KN: QUESTION: What does this do? Does this mean that if I have an html element named #theinput, I can access it as $(theinput)? 
+//KN: Allows you to access an element by it's ID. e.g. for one with id="myelement", you can say $('myelement') (Basically like the jQuery call just without the #)
 function $(x){return document.getElementById(x);}
 
 //reacts according to the verification of credentials. if correct just refresh the page that will redirect to different page which has user functionalities
@@ -34,12 +34,8 @@ function verifyLogin(x)
 }
 
 //KN: Used in verify(), to find the specified element within the window.
-/*KN: The .split function will take a string and split it into an array, with elements being the contents between the key.  example:
-	var str="Hello this is my program";
-	var n=str.split(" ");
-	The elements of the array n will be "Hello", "this", "is", "my", and "program".
-	
-	So with the url "who=teacher&parentHunt=0", first split('&') will create the strings "who=teacher" and "parentHunt=0"
+/*KN: The .split function will take a string and split it into an array, with elements being the contents between the key.
+	With the string "who=teacher&parentHunt=0", calling split('&') will create the strings "who=teacher" and "parentHunt=0"
 	Then split('=') will create the strings "who" and "teacher", and "parentHunt" and "0"
 */
 function getQueryVariable(variable) {

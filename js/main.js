@@ -14,7 +14,7 @@ QUESTION: What do they mean by saying it handles ajax? Doesn't look like there's
 
 //invoked by ajax function but loaded when the page is finished loading. THis receives the hunts from the server and it transfers it to javascript variable hunts
 // Will also now store the hunts in sessionStorage.
-// KN: Called when a teacher is logged in.
+// KN: Gets a list of hunts for the teacher
 function createHuntList(x) {
 	hunts = JSON.parse(x); // KN: hunts is declared in activity.js. 
 	$('username').innerHTML = hunts[0];
@@ -29,12 +29,12 @@ function createHuntList(x) {
 var uniq = Math.floor((Math.random() * 100) + 1);
 
 //shortcut to get object with their id
-// KN: QUESTION: Isn't this just reinventing the wheel that jquery made? $('#myelement')
 function $(x) {
 	return document.getElementById(x);
 }
 
 //this function is invoked when a teacher selects a hunt
+//KN: It will retrieve all of the activities for the hunt and put them on the page, as well as adding buttons to view hunt info and see the activities as a list.
 function huntsel() {
 	$('activity').innerHTML = ''; //KN: Get rid of whatever was previously on screen
 	$('students').innerHTML = ''; //KN: Remove the students
@@ -73,7 +73,7 @@ function createElement(x, y) {
 //Pretty sure we could refactor these two prototype functions out and just use array's .indexOf() which returns -1
 
 // a custom prototype thats been added to array object to find existence of particular value 
-//KN: Doesn't show where it is, just that it exists.
+//KN: Checks if a certain element is in an array.
 Array.prototype.has = function(v) {
 	for ( i = 0; i < this.length; i++) {
 		if (this[i] == v)
@@ -82,6 +82,7 @@ Array.prototype.has = function(v) {
 	return false;
 }
 //A custom prototype verifies whether paticular id exist inside the array
+//KN: Returns an element's location in an array.
 Array.prototype.hassid = function(v) {
 	for ( i = 0; i < this.length; i++) {
 		if (this[i].sid == v)

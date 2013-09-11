@@ -2,7 +2,7 @@
 Called by header.html
 
 This file is used to convert the constants.json file (which holds the default longitude/latitude, rectangle size (QUESTION: This is for the size of the map itself?), and location of the PHP and HTML folders) into a global variable.
-QUESTION: Why not just have it as a global variable to begin with?
+We create the global variable this way, instead of having one from the start, so that users can change the values for their session without changing the source code.
  */
 
 // Grabs the constants.json file, and parses it into a const global variable to be used by the rest of the js files.
@@ -22,8 +22,8 @@ function ajax(data, url, callback) {
 	
 	xmlhttp.onreadystatechange = function() { 		//KN: This will check for EVERY time the readystate changes, but ignore until it's 4 below.
 		if (xmlhttp.readyState == 4 && xmlhttp.status == 200) { //KN: readystate == 4 means that the operation is done. And a HTTP result code of 200 means a successful request
-			if (xmlhttp.responseText == 'sessionfail') 			// KN: QUESTION: is 'sessionfail' a standard, built-in response? And does this mean it couldn't find the file?
-			window.location = '../'; 			//KN: QUESTION: Does this mean that if some operation failed to happen, the page will go back to the main directory? (i.e. back to index.html with the public view)
+			if (xmlhttp.responseText == 'sessionfail') 			// KN: Response from getHunts.php's getHuntsStudent, if there weren't any hunts found.
+			window.location = '../'; 			//KN: If the operation failed to happen, then go back a directory (ie, from CyberHawk/html/user.html back to Cyberhawk/, the public view) (Not sure why)
 			callback(xmlhttp.responseText); 		//KN: Perform the callback function, with that response text as the parameter
 		}
 	}

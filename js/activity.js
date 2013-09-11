@@ -239,6 +239,7 @@ function radioSelect(button, label, isCorrect){
 // Is now also called from studentActivityList to create the list.
 // Added isStudent parameter so that way the specifications that only need to be shown to teachers aren't shown to students.
 // Is also called from createPlacemark for the activity map.
+// KN: This function is used to populate the infoWindow (which shows when you click on an activity) with the information like students' names, picture, answers, and question.
 function generateActivityView(activity, isStudent, tableNumber) {
 	var activityTable = document.createElement('table');
 	// activityTable is appended to the body so that way it's elements will be returned during a document.getElementsByName() request.

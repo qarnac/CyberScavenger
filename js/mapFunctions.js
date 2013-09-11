@@ -43,6 +43,7 @@ function displayHuntBounds(){
 	rectangle.setDraggable(false);
 }
 
+//KN: Hides the map. Used when submitting coordinates.
 function removeMap(){
 	$('map_canvas').style.display = 'none';
 	$('contents').style.display = 'block';
@@ -65,7 +66,7 @@ function createRectangleOverlay(map, bounds){
 }
 
 
-// Is called when the user searches an address on the map.  Changes the coordinates to the coordinates of the address.
+// Is called when the user searches an address on the map (For teachers looking for the location of a new hunt).  Changes the coordinates to the coordinates of the address.
 function searchAddress(){
 	var address=document.getElementById("searchBar").value.replace(" ", "+");
 	ajax("GET", "http://maps.googleapis.com/maps/api/geocode/json?address=" + address + "&sensor=true", function(event){

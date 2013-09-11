@@ -69,7 +69,7 @@ function FileDragHover(e) {
 
 // file selection handler
 // FileSelectHandler is called from "/quest/user/htm/multiple.htm" on a drag and drop event, or the onchange event of the image input on that page 
-// KN: QUESTION: There is no multiple.htm file anywhere.
+// KN: QUESTION: There is no multiple.htm file anywhere, nor any quest directory
 
 // note: morc is a global variable
 // 'morc' is eventually set as contents['media'] in user/js/wscript.js
@@ -91,9 +91,10 @@ function FileSelectHandler(e) {
 		morc = obj; //KN: Take that result and put it into the global variable morc.
 
 	}
-	else { // KN: QUESTION: I don't really get this section at all
-		if (validimg(e.dataTransfer.getData("text/uri-list"))) {  //KN: QUESTION: Does this mean that they put a URI into the drag box rather than a file?
-			if (c_alldata.length < media.count) { // KN: QUESTION: c_alldata isn't declared anywhere in the main Cyberscavenger directories... only somewhere within CyberHawk.
+	// KN: Ignore this section for now. It is intended for cases where the students drag images from websites (Not pasting URLs, but actually dragging the image over). Not implemented.
+	else { 
+		if (validimg(e.dataTransfer.getData("text/uri-list"))) {  //KN: Get the URI from the dragged web image.
+			if (c_alldata.length < media.count) { // KN: media.count stems from the plan to have multiple media in cyberhawk. 
 				geocompress(e.dataTransfer.getData("text/uri-list"), "iurl"); //KN: Compress and geotag the destination of the URI
 			}
 			else { 
