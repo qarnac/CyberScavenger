@@ -2,8 +2,7 @@
 /* KN: Used by students.
 Called by user.html
 
-Used for drag-and-drop file uploading.
-(Have gone through it all but some of it is still unclear)
+This is what makes the drag-and-drop uploading functional.
  */
  
 /*

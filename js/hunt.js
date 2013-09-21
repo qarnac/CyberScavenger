@@ -1,6 +1,8 @@
 /* KN: Used by public, student, and teacher
 Included in index.html, teacher.html, and user.html
 
+
+This file is used for creating new hunts, such as setting the location, making the map overlay, and showing hunt information.
 */
 // The purpose of this file is for the creation of the new hunts.
 // When the New Hunt button is clicked, the createHunt function is called.

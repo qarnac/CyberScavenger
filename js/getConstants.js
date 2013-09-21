@@ -1,7 +1,7 @@
 /* KN: Used by public, student, and teacher.
 Called by header.html
 
-This file is used to convert the constants.json file (which holds the default longitude/latitude, rectangle size (QUESTION: This is for the size of the map itself?), and location of the PHP and HTML folders) into a global variable.
+This file is used to convert the constants.json file (which holds the default longitude/latitude, rectangle size (QUESTION: This is for the size of the map itself on the screen?), and location of the PHP and HTML folders) into a global variable.
 We create the global variable this way, instead of having one from the start, so that users can change the values for their session without changing the source code.
  */
 

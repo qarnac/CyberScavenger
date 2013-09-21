@@ -1,7 +1,7 @@
 /* KN: Used by public, student, and teacher.
 Called by index.html
 
-This file contains common scripts.
+This file contains common scripts, such as getting a list of hunts for a teacher, getting the activities for a selected hunt, and checking for an element inside of an array.
 QUESTION: What do they mean by saying it handles ajax? Doesn't look like there's anything defining how to deal with ajax in here... That's actually in getConstants.js.
  */
 /*

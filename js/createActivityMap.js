@@ -1,3 +1,8 @@
+/*KN
+
+Makes the map of activities for a selected hunt (including the boundaries, all of the pins), and makes a button to view the map.
+*/
+
 // The purpose of this js file is to take care of the creation of the KML files.
 // Queries the server for the list of activities active in a specific hunt.
 // Once the response is received, it will create the Placemarks on the map.
@@ -9,7 +14,7 @@
 function createTeacherMap(){
 	ajax("huntid=" + document.getElementById("selecthunt").value,
 		GLOBALS.PHP_FOLDER_LOCATION + "getAllActivitiesFromHunt.php",
-		jsonToMap);
+		jsonToMap); //KN: Send the hunt ID to getAllActivitiesFromHunt.php, and then build the map from that.
 }
 
 // Takes the response from getAllActivitiesFromHunt.php and displays them and the hunt boundaries on the map.
@@ -17,23 +22,24 @@ function jsonToMap(serverResponse){
 	if(document.getElementById("slist")!=null) 
 		document.getElementById("slist").style.display="none"; //KN: Hide the student list
 	document.getElementById("mapButton").value="List View";
-	serverResponse=JSON.parse(serverResponse);
-	var hunts=JSON.parse(sessionStorage.hunts);
+	serverResponse=JSON.parse(serverResponse); //KN: Parse the activities retrieved via the php call.
+	var hunts=JSON.parse(sessionStorage.hunts); 
 	var selectedHunt;
-	for(var i=0; i<hunts.length; i++){
+	for(var i=0; i<hunts.length; i++){	//KN: Find which hunt has the same ID as the one selected from the select dropdown.
 		if(document.getElementById("selecthunt").value==hunts[i].id){
 			selectedHunt=i;
 			break;
 		}
 	}
-	var bounds=new google.maps.LatLngBounds(new google.maps.LatLng(hunts[selectedHunt].minlat, hunts[selectedHunt].minlng), new google.maps.LatLng(hunts[selectedHunt].maxlat, hunts[selectedHunt].maxlng));
-	var map=initializeMap(bounds.getCenter().lat(), bounds.getCenter().lng());
+	var bounds=new google.maps.LatLngBounds(new google.maps.LatLng(hunts[selectedHunt].minlat, hunts[selectedHunt].minlng), new google.maps.LatLng(hunts[selectedHunt].maxlat, hunts[selectedHunt].maxlng)); //KN: Define the boundaries on the google map...
+	var map=initializeMap(bounds.getCenter().lat(), bounds.getCenter().lng()); //KN: ...and then draw the map with them.
 	createRectangleOverlay(map, bounds);
 	for(var i=0; i<serverResponse.length; i++){
 		createPlacemark(serverResponse[i], map); //KN: Go through the list of activities for a selected hunt, and puts their pins (createPlacemark is declared in this same file)
 	}
 }
 
+// KN: This function creates the placemark and the corresponding infoWindow for activities.
 // Is called for every activity response from the server.
 // Adds a Placemark to the map.
 // isStudent==0==false, teacher view.
@@ -41,7 +47,6 @@ function jsonToMap(serverResponse){
 // isStudent==2, public view.
 // TODO: Create an enum for the integer values of isStudent to help grant more clarity when checking isStudent.
 // Returns the placemark.
-// KN: This function creates the placemark and the corresponding infoWindow for activities.
 function createPlacemark(activity, map, isStudent){
 	if(isStudent==undefined) isStudent=0;
 	var marker = new google.maps.Marker({
@@ -68,8 +73,8 @@ function createPlacemark(activity, map, isStudent){
 	return marker; //KN: This is the pin representing the activity -- addHuntToViewTable in publicView makes use of this return.
 }
 
-// This is the function called by the view Map button.
-// It sets up the display of the map, and then sets up the display of the list if the map already exists.
+// This function sets up the display of the map, and then sets up the display of the list if the map already exists.
+// Called by the view Map button.
 function mapListButton(){
 	document.getElementById("editHunt").value="View Hunt Info";
 	if(document.getElementById("map_canvas")==null || document.getElementById("map_canvas").style.display=="none") createTeacherMap(); //KN: If either there is no map, or it is hidden, make the map

@@ -5,18 +5,22 @@
  * verifies all the form data
  * submits the form data and image data to server
  */
+/* KN
 
+Contains a function that checks student Activity submission validity, and another that initializes the map when a student selects a hunt.
+*/
  
 var hunts;
 var multiple;
 
 //KN: QUESTION: The only time this gets called (in user.html), is with an ajax call, with no parameters. What gets passed as x? Is it whatever gets echoed from the php file?
+//KN: The parameter x is what's echoed from getHunts.php, the array called temp. If the logged-in user is student, then x[0] is the student info, x[1] is the list of hunts they can submit to, x[2] is the form for creating an activity. IF they are logged in as a teacher, x[0] is their name, and x[1] is their list of hunts.
 function wscript_init(x) {                                                             
 	hunts = JSON.parse(x);
 	student=JSON.parse(hunts[0]); 
 	$('username').innerHTML=student.firstname;
-	multiple=hunts[2];
-	hunts=hunts[1];
+	multiple=hunts[2]; 
+	hunts=hunts[1]; 
 	
 	if(student.parentHunt==0){	//KN: If there isn't a selected hunt, add all of the hunts from the JSON string passed, and add them to the dropdown list of hunts.
 		sessionStorage.hunts=JSON.stringify(hunts);

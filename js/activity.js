@@ -2,16 +2,15 @@
  * @author sabareesh kkanan subramani
  * Additions by Bill Sanders and Jeff Rackauckas
  */
-var hunts;
-// All the hunts from the teacher will be stored in this variable
+ /*KN:
+ 
+ This file is for things related to students' activities.
+ */
+var hunts; // All the hunts from the teacher will be stored in this variable
 
-var activities = new Array();
-// Holds all the activities of a particular hunt organised by student id
+var activities = new Array(); // Holds all the activities of a particular hunt organised by student id
 
-var feed = {};
-// Has the status of each activity like its id,comment and status.
-
-
+var feed = {}; // Has the status of each activity like its id,comment and status.
 
 //Instantiates the array activities with student activities
 //This function is invoked by ajax function but this happens when the teacher selects a hunt.
@@ -22,70 +21,76 @@ function create_activity_obj(allActivities) {
 		alert("No one has created an activity yet");
 	else{
 		activities = [];
-		activityList = JSON.parse(allActivities);
-		var studentList = listbox(activityList);
-		feedactivity(activityList, studentList);
-		$('students').appendChild(studentList);
+		activityList = JSON.parse(allActivities);	//KN: Put the set of activities from the server into an array
+		var studentList = listbox(activityList);	
+		feedactivity(activityList, studentList);	
+		$('students').appendChild(studentList); //KN: Add the created list to the students div
 	}
 }
 
+//KN: Listbox is a box with a list of students, similar to a Select dropdown list. x is the list of activities from the server. list_box is the list of students.
+//KN: QUESTION: Can you look over feedactivity? It is an extremely messy function.
 // I wonder if it would be better to only fetch student activities
 // once the student has been selected, instead of all students at the same time.
 function feedactivity(x, list_box) {
-	for ( m = 0; m < x.length; m++) {
+	for ( m = 0; m < x.length; m++) { //KN: Go through the list of activities
 		var z;
-		if (activities.hassid(x[m]['student_id']) == 'false') {
+		if (activities.hassid(x[m]['student_id']) == 'false') { //KN: If the student is not yet in the list in activities, then add them:
 			z = new Object();
-			z.sid = x[m]['student_id'];
+			z.sid = x[m]['student_id']; //KN: Put the student ID into a new object...
 			z.contents = new Array();
-			z.contents.push(x[m]);
-			activities.push(z);
+			z.contents.push(x[m]);  //KN: ...and put the activity into that new object...
+			activities.push(z);		//KN: ...and push that new object into the activities array.
 			// couldn't this just be replaced with .add() ?
-			list_box.addoption(x[m]['firstname'] + " " + x[m]['lastname'], x[m]['student_id']);
-		} else {
-			z = activities.hassid(x[m]['student_id']);
-			activities[z].contents.push(x[m]);
+			list_box.addoption(x[m]['firstname'] + " " + x[m]['lastname'], x[m]['student_id']); //KN: Add the students from the database (with IDs for value) to the list box
+		} else { //KN: Else, 
+			z = activities.hassid(x[m]['student_id']); //KN: set z equal to whether or not activities already has the student (x[m]). (0 or 1).
+			activities[z].contents.push(x[m]); //KN: Push the contents of activityList[m] inside of activities[z]
 		}
+		
+		//KN: After either putting the name and ID into listbox, remake z. 
 		z = new Object();
-		z.grant = "true";
+		z.grant = "true"; //KN: grant is used in activityStatus. (Will have to read more to figure out what it does)
 		z.comment = '';
-		feed[x[m]['id']] = z;
+		feed[x[m]['id']] = z;  
 	}
 }
 
-// This is the listbox which houses each teacher's students.
+//KN: Used to add a new element to the listbox. 
+// This is the listbox which houses each teacher's students. Listbox is like a select dropdown.
 function listbox(activityList){
-	var temp = document.createElement('select');
-	temp.id = 'slist';
+	var temp = document.createElement('select'); //KN: Make a new select menu
+	temp.id = 'slist'; 
 	temp.size = 20;
 	temp.style.display="none";
-	temp.multiple = 'multiple';
+	temp.multiple = 'multiple'; //KN: Multiple options may be selected
 	// couldn't this just be replaced with .add() ?
-	temp.addoption = function(label, value) {
-		this.options[this.options.length] = new Option(label, value);
+	temp.addoption = function(label, value) { //KN: This will add another element to the listbox, where label is the student's name (displayed) and value is their ID (hidden).
+		this.options[this.options.length] = new Option(label, value); 
 	};
-	temp.onchange = function() {
-		$('activity').innerHTML = "";
+	temp.onchange = function() { //KN: When the student is selected, this will generate a list of their activities.
+		$('activity').innerHTML = ""; 
 		student_id=this.value;
-		var x = activities.hassid(student_id);
-		if (x == "false") {
+		var x = activities.hassid(student_id); //KN: Is the student already in activities?
+		if (x == "false") { 
 			// Only happens when a user is selected, and then unselected (via shift-click)
 		}
-		else {
+		else { //KN: If they are,get all of their activities (QUESTION: Right?)
 			var tableNumber=0;
-			for ( var i = 0; i < activityList.length; i++) {
-					if(activityList[i].student_id!=student_id) continue;
-					$('activity').appendChild(generateActivityView(activityList[i], false, tableNumber++));
-					}
+			for ( var i = 0; i < activityList.length; i++) { //KN: Go through the activityList
+					if(activityList[i].student_id!=student_id) continue; //KN: If the selected activity is not owned by the desired student, then ignore it.
+					$('activity').appendChild(generateActivityView(activityList[i], false, tableNumber++)); //KN: If they are the owner, then add that activity to the list.
+					} //KN: QUESTION: I have to look at it more but why pass a table number? Why not just use push, which will automatically go to the end?
 			}
 	};
-	return temp;
+	return temp; //KN: Return the newly created select Option.
 }
 
+//KN: Fills the answer sections in an Activity. If it was left blank, a standard response ("N/A") will be filled in.
 // Wrapped into function due to the multiple times this is done.
 function fillAnswerDiv(Dom, answer){
 	if(answer==""){
-		Dom.innerHTML = GLOBALS.EMPTY_QUESTION_RESPONSE;
+		Dom.innerHTML = GLOBALS.EMPTY_QUESTION_RESPONSE; 
 		Dom.className = "unansweredQuestion";
 	} else{
 		Dom.innerHTML=answer;
@@ -111,9 +116,9 @@ function fillActivityTable(activity, isStudent, tableNumber){
 */
 		// Sets up the multiple choice display.
 		var orderedList = document.getElementsByName("manswers")[tableNumber];
-		orderedList.className = "multipleChoiceAnswers";
+		// orderedList.className = "multipleChoiceAnswers";
 		var answerList=JSON.parse(activity.choices);
-		for (var i = 0; i < answerList.choices.length; i++) {
+		for (var i = 0; i < answerList.choices.length; i++) { //KN: This loop will fill the list of choices, and tag the correct one with a class.
 			var answer = document.createElement('li');
 			if (answerList.choices[i].ans == "true") { // style correct answer
 				var answerSpan = document.createElement('span');
@@ -124,49 +129,63 @@ function fillActivityTable(activity, isStudent, tableNumber){
 			else {
 				answer.innerHTML = answerList.choices[i].content;
 			}
-			orderedList.appendChild(answer);
+			orderedList.appendChild(answer); //KN: Add the answer choice to the list, whether it's right or wrong
 		}
-		// Else we have to take care of the special cases for public view.
-	} else{
+		
+	} 
+	else{ // Else we have to take care of the special cases for public view.
 		var choices=JSON.parse(activity.choices).choices;
+		//KN: The following section goes through the list of potential choices. If they have been filled in, add them to the display, and set the onclick function to display right or wrong immediately. If they haven't been filled in, don't display anything for them.
+		//KN: QUESTION: This has got to be able to be simplified. Can we do something e.g. getElementById("q" + i), and getElementById("answer" + i)? Will it handle that properly?
+		//KN: QUESTION: Why exactly is this handled differently from the student/teacher view?
 		if(choices[0]!= undefined){
 			document.getElementById("answer1").innerHTML=choices[0].content;
 			document.getElementsByName("mchoice")[tableNumber*4].onclick=function(){radioSelect(document.getElementById("q0"), document.getElementById("answer1"), choices[0].ans!="false");};
-		} else{ document.getElementById("q0").style.display="none"; }
+		} 
+		else{ document.getElementById("q0").style.display="none"; }
+		
 		if(choices[1]!=undefined){
 			document.getElementById("answer2").innerHTML=choices[1].content;
 			document.getElementsByName("mchoice")[tableNumber*4+1].onclick=function(){radioSelect(document.getElementById("q1"), document.getElementById("answer2"),choices[1].ans!="false");};
-		} else{ document.getElementById("q1").style.display="none"; }
+		} 
+		else{ document.getElementById("q1").style.display="none"; }
+		
 		if(choices[2]!=undefined){
 			document.getElementById("answer3").innerHTML=choices[2].content;
 			document.getElementsByName("mchoice")[tableNumber*4+2].onclick=function(){radioSelect(document.getElementById("q2"), document.getElementById("answer3"), choices[2].ans!="false")};
-		} else{ document.getElementById("q2").style.display="none"; }
+		} 
+		else{ document.getElementById("q2").style.display="none"; }
+		
 		if(choices[3]!=undefined){
 			document.getElementById("answer4").innerHTML=choices[3].content;
 			document.getElementsByName("mchoice")[tableNumber*4+3].onclick=function(){radioSelect(document.getElementById("q3"), document.getElementById("answer4"), choices[3].ans!="false");};
-		} else{ document.getElementById("q3").style.display="none"; }
+		} 
+		else{ document.getElementById("q3").style.display="none"; }
+		
 		if(choices[4]!=undefined){
 			document.getElementById("answer5").innerHTML=choices[4].content;
 			document.getElementsByName("mchoice")[tableNumber*4+4].onclick=function(){radioSelect(document.getElementById("q4"), document.getElementById("answer5"), choices[4].ans!="false");};
-		} else{ document.getElementById("q4").style.display="none"; }
-	}
+		} 
+		else{ document.getElementById("q4").style.display="none"; }
+	} //KN: End the else section for public view.
+	
 	// Everything else is the same for both views.
-	fillAnswerDiv(document.getElementsByName("mquestion")[tableNumber], activity.mquestion);
-	var link=document.createElement("a");
+	fillAnswerDiv(document.getElementsByName("mquestion")[tableNumber], activity.mquestion); 
+	var link=document.createElement("a"); //KN: Make the interesting URL submitted an actual link.
 	document.getElementsByName("interesting_url")[tableNumber].innerHTML="";
 	document.getElementsByName("interesting_url")[tableNumber].appendChild(link);
 	fillAnswerDiv(link, activity.interesting_url);
 	fillAnswerDiv(document.getElementsByName("partner_names")[tableNumber], activity.partner_names);
 ;
-	if(activity.interesting_url!=""){
+	if(activity.interesting_url!=""){ //KN: If they had something for the URL, set the response for clicking on it.
 		link.setAttribute("href", activity.interesting_url)
 		link.onclick=function(){
 			var win=window.open(activity.interesting_url, "_blank");
 			win.focus();
-			return false;
+			return false; //KN: QUESTION: Why return anything?
 		}
 	}
-	document.getElementsByName("activityImage")[tableNumber].src= GLOBALS.PHP_FOLDER_LOCATION + "image.php?id=" + activity.media_id;
+	document.getElementsByName("activityImage")[tableNumber].src= GLOBALS.PHP_FOLDER_LOCATION + "image.php?id=" + activity.media_id; 
 	/*
 	if(isStudent==2){
 		document.getElementsByName("optionalQuestion1")[tableNumber].style.display="none";
@@ -176,38 +195,38 @@ function fillActivityTable(activity, isStudent, tableNumber){
 		document.getElementsByName("optionalQuestion3")[tableNumber].style.display="none";
 		document.getElementsByName("optionalAnswer3")[tableNumber].style.display="none";
 	} */
-		var hunt=JSON.parse(sessionStorage.hunts)[getHuntSelectNumber(activity.hunt_id)];
-		if(hunt.additionalQuestions==undefined || hunt.additionalQuestions==""){
-			document.getElementsByName("optionalQuestion1")[tableNumber].style.display="none";
-			document.getElementsByName("optionalAnswer1")[tableNumber].style.display="none";
-			document.getElementsByName("optionalQuestion2")[tableNumber].style.display="none";
-			document.getElementsByName("optionalAnswer2")[tableNumber].style.display="none";
-			document.getElementsByName("optionalQuestion3")[tableNumber].style.display="none";
-			document.getElementsByName("optionalAnswer3")[tableNumber].style.display="none";
-		} else{
-			// If the student answered answered the additional questions, parse the answers.
-			// Otherwise just leave the variable blank (but still initialize)
-			if(activity.additionalAnswers) var additionalAnswers=JSON.parse(activity.additionalAnswers);
-			else var additionalAnswers={a:"",b:"",c:""};
-			// Parse the questions from the hunt.
-			var additionalQuestions=JSON.parse(hunt.additionalQuestions);
-			
-			// Fill in the Divs with the questions and answers (only if they exist).
-			if(additionalQuestions.questiona){
-				document.getElementsByName("optionalQuestion1")[tableNumber].innerHTML=additionalQuestions.questiona;
-				fillAnswerDiv(document.getElementsByName("optionalAnswer1")[tableNumber], additionalAnswers.answera);
-			}
-			if(additionalQuestions.questionb){
-				document.getElementsByName("optionalQuestion2")[tableNumber].innerHTML=additionalQuestions.questionb;
-				fillAnswerDiv(document.getElementsByName("optionalAnswer2")[tableNumber], additionalAnswers.answerb);
-			}
-			if(additionalQuestions.questionc){
-				document.getElementsByName("optionalQuestion3")[tableNumber].innerHTML=additionalQuestions.questionc;
-				fillAnswerDiv(document.getElementsByName("optionalAnswer3")[tableNumber], additionalAnswers.answerc);
-			}
-		} // end of dealing with additional questions.
+	var hunt=JSON.parse(sessionStorage.hunts)[getHuntSelectNumber(activity.hunt_id)]; //KN: Get the information for the hunt to which this activity belongs.
+	if(hunt.additionalQuestions==undefined || hunt.additionalQuestions==""){ //KN: Hide the section for teacher's questions if they haven't defined any.
+		document.getElementsByName("optionalQuestion1")[tableNumber].style.display="none";
+		document.getElementsByName("optionalAnswer1")[tableNumber].style.display="none";
+		document.getElementsByName("optionalQuestion2")[tableNumber].style.display="none";
+		document.getElementsByName("optionalAnswer2")[tableNumber].style.display="none";
+		document.getElementsByName("optionalQuestion3")[tableNumber].style.display="none";
+		document.getElementsByName("optionalAnswer3")[tableNumber].style.display="none";
+	} else{
+		// If the student answered answered the additional questions, parse the answers.
+		// Otherwise just leave the variable blank (but still initialize)
+		if(activity.additionalAnswers) var additionalAnswers=JSON.parse(activity.additionalAnswers); //KN: If some answers have been filled in, then put them into the additionalAnswers object.
+		else var additionalAnswers={a:"",b:"",c:""}; //KN: Else, make it an object with 3 empty strings.
+		// Parse the questions from the hunt.
+		var additionalQuestions=JSON.parse(hunt.additionalQuestions); //KN: get the appropriate questions from the hunt.
+		
+		// Fill in the Divs with the questions and answers (only if they exist).
+		if(additionalQuestions.questiona){ //KN: QUESTION: Since the only thing changing between these 3 is a/b/c and 1/2/3, is it possible to make this a loop somehow? 
+			document.getElementsByName("optionalQuestion1")[tableNumber].innerHTML=additionalQuestions.questiona;
+			fillAnswerDiv(document.getElementsByName("optionalAnswer1")[tableNumber], additionalAnswers.answera);
+		}
+		if(additionalQuestions.questionb){
+			document.getElementsByName("optionalQuestion2")[tableNumber].innerHTML=additionalQuestions.questionb;
+			fillAnswerDiv(document.getElementsByName("optionalAnswer2")[tableNumber], additionalAnswers.answerb);
+		}
+		if(additionalQuestions.questionc){
+			document.getElementsByName("optionalQuestion3")[tableNumber].innerHTML=additionalQuestions.questionc;
+			fillAnswerDiv(document.getElementsByName("optionalAnswer3")[tableNumber], additionalAnswers.answerc);
+		}
+	} // end of dealing with additional questions.
 	
-
+	//KN: Makes a button to allow teachers to edit an activity.
 	if(isStudent==1){
 		document.getElementsByName("editButton")[tableNumber].onclick=function(){editActivityAsStudent(activity);};
 		/*
@@ -217,11 +236,12 @@ function fillActivityTable(activity, isStudent, tableNumber){
 																									document.getElementsByName("editButton")[tableNumber],
 																									activity.id);};
 		*/
-	}else{
+	}else{ //KN: Hides the edit button from public users.
 		if(isStudent!=2) document.getElementsByName("editButton")[tableNumber].style.display="none";
 	}
 }
 
+//KN: Used when public users try to answer multiple choice questions.
 // This is the function that is called when a radio button is clicked in the public view.
 // Changes the view of the button and the label, changing whether they answered correctly or incorrectly.
 function radioSelect(button, label, isCorrect){
@@ -232,21 +252,22 @@ function radioSelect(button, label, isCorrect){
 		else img.src=GLOBALS.HTML_FOLDER_LOCATION + "delete.png";
 		// We have to specify the parent div for the label that we want to insert before in.
 		document.getElementById("mcForm").insertBefore(img, label);
-
 }
 
 
 // Is now also called from studentActivityList to create the list.
 // Added isStudent parameter so that way the specifications that only need to be shown to teachers aren't shown to students.
 // Is also called from createPlacemark for the activity map.
-// KN: This function is used to populate the infoWindow (which shows when you click on an activity) with the information like students' names, picture, answers, and question.
+//KN: Used to populate the infoWindow for a selected activity, with the information that group has entered.
 function generateActivityView(activity, isStudent, tableNumber) {
 	var activityTable = document.createElement('table');
 	// activityTable is appended to the body so that way it's elements will be returned during a document.getElementsByName() request.
 	document.body.appendChild(activityTable);
-	if(isStudent==2) activityTable.insertAdjacentHTML("afterbegin",GLOBALS.publicActivityView);
+	
+	//This will get slightly different infowindows depending on whether they are logged in or not (publicActivityView.html vs activityView.html) 
+	if(isStudent==2) activityTable.insertAdjacentHTML("afterbegin",GLOBALS.publicActivityView); 
 	else activityTable.insertAdjacentHTML("afterbegin",GLOBALS.activityView);
-	fillActivityTable(activity, isStudent, tableNumber);
+	fillActivityTable(activity, isStudent, tableNumber); 
 	// Remove the table from the body so that way the other functions can place the table wherever they would like.
 	document.body.removeChild(activityTable);
 	return activityTable;
@@ -254,6 +275,7 @@ function generateActivityView(activity, isStudent, tableNumber) {
 
 // This generates the list of multiple choice answers, as well as the question
 // and puts it in a table data cell
+// KN: QUESTION: This doesn't seem to be called by anything. Skipping this for now.
 function generateMultipleChoiceList(question, answerList) {
 	var cellData = document.createElement('td');
 	cellData.colSpan = "2";
@@ -316,6 +338,7 @@ function addTeacherComments(activityTable, editButton, activity_id){
 	editButton.value="Submit Comments";
 }
 
+//KN: Skipping this, since its only use is in an unused function.
 function submitTeacherComments(activityTable, activity_id){
 	var comment=activityTable.childNodes[2].childNodes[1].childNodes[0].value;
 	var status=activityTable.childNodes[2].childNodes[3].childNodes[0].value;
@@ -325,7 +348,7 @@ function submitTeacherComments(activityTable, activity_id){
 	ajax(content, PHP_FOLDER_LOCATION + "teacher_upload.php", function(){successfulCommentUpdate(activity_id, comment, status)});
 }
 
-
+//KN: Skipping this, since its only use is in an unused function.
 function successfulCommentUpdate(activity_id, comment, status){
 	sid=document.getElementById("slist").value;
 	var activitiesNumber;
@@ -347,6 +370,8 @@ function successfulCommentUpdate(activity_id, comment, status){
 	activityTable.childNodes[2].childNodes[3].innerHTML=status;
 }
 
+//KN: Allows teachers to modify a student's activity.
+//KN: Called by clicking a button offered in the teacher view, for every activity.
 function editActivityAsStudent(activity) {
 
 	// Before storing into the session storage, make sure that it exists.
@@ -358,11 +383,11 @@ function editActivityAsStudent(activity) {
 	}
 	
 	// multiple gets initialized in wscript_init.  It's supposed to be multiple.htm.
-	$('activity').innerHTML = multiple;
-	choices = JSON.parse(activity.choices);
+	$('activity').innerHTML = multiple; //KN: Multiple is the whole form for making an activity.
+	choices = JSON.parse(activity.choices); 
 	// Ugly onsubmit, but only way I know of passing a parameter onsubmit.
-	document.getElementsByName("multiple")[0].onsubmit = function() {
-		submitEdit(activity['id']); return false;
+	document.getElementsByName("multiple")[0].onsubmit = function() { //KN: This handles the submission for the edit.
+		submitEdit(activity['id']); return false; 
 	};
 	// Adds the image that was already uploaded to the edit page.
 	document.getElementById("activityImage").src = GLOBALS.PHP_FOLDER_LOCATION + "image.php?id=" + activity.media_id;
@@ -376,9 +401,10 @@ function editActivityAsStudent(activity) {
 	document.getElementsByName("mquestion")[0].innerHTML = activity.mquestion;
 	document.getElementsByName("interesting_url")[0].innerHTML= activity.interesting_url;
 	
-	for(var i=0; i<document.getElementById("selecthunt").options.length; i++){
+	//KN: Go through the list of hunts. Find the one that this activity belongs to. Store that to optionNumber
+	for(var i=0; i<document.getElementById("selecthunt").options.length; i++){ 
 		if(document.getElementById("selecthunt").options[i].value==activity.hunt_id){
-			optionNumber=i-1;
+			optionNumber=i-1; //KN: QUESTION: This variable isn't used anywhere. What was it supposed to be for?
 			break;
 		}
 	}
@@ -392,14 +418,15 @@ function editActivityAsStudent(activity) {
 		}
 	}
 	
-	// Sets up huntboundary in order so when a new image is uploaded, they can plot the location on the map.
+	//KN: Find the appropriate hunt.
 	var hunt;
-	for (var i=0; i<hunts.length; i++) {
+	for (var i=0; i<hunts.length; i++) { 
 		if (hunts[i]['id'] == document.getElementById("selecthunt").value) {
 			hunt=hunts[i];
 		}
 	}
 
+	// Sets up huntboundary in order so when a new image is uploaded, they can plot the location on the map.
 	huntboundary = new google.maps.LatLngBounds(new google.maps.LatLng(hunt['minlat'],hunt['minlng']),new google.maps.LatLng(hunt['maxlat'],hunt['maxlng']));
 	
 	// Fill the multiple choice questions with the correct answers.
@@ -410,55 +437,66 @@ function editActivityAsStudent(activity) {
 	document.getElementsByName("e")[0].value = choices[4].content;
 }
 
+//KN: Sends the updated Activity to the server (updateActivity.php). 
+//KN: Takes the activity's ID. Used within editActivityAsStudent.
 function submitEdit(id) {
 	console.log("submit");
-	var form = document.getElementsByName('multiple')[0];
-	var x = document.getElementsByName('answer');
-	var contents = {};
-	for (var i = 0; i < x.length; i++) {
+	var form = document.getElementsByName('multiple')[0]; //KN: Multiple is the div with the entirety of the activity form. 
+	var x = document.getElementsByName('answer'); //KN: Answer is the radio buttons, signifying the correct multiple choice option.
+	var contents = {}; 
+	
+	//KN: Put the correct radio button's name (a, b, c, d, e) into contents['answer'].
+	for (var i = 0; i < x.length; i++) 
+	{ 
 		if (x[i].checked) {
 			contents['answer'] = x[i].value;
 			break;
-			}
 		}
-		var y=new Array("textarea","text","number");
-		for (var i=0; i<form.length; i++) {
-			if (y.indexOf(form[i].type)!=-1) {
-				contents[form[i].name] = form[i].value;
-			}
+	}
+	
+	//KN: Store any responses in the form into contents. Will store into the attribute with the same name as the element name.
+	//KN: Does so by searching the form for textarea, text, or number elements, and puts them into the array. This will avoid putting in the teacher's questions, etc.
+	var y=new Array("textarea","text","number");
+	for (var i=0; i<form.length; i++) {
+		if (y.indexOf(form[i].type)!=-1) {
+			contents[form[i].name] = form[i].value;
 		}
-		contents['id']=id;
-		if (morc && morc.verify()) {
-			var mediaContents={};
-			mediaContents.media=morc;
-			mediaContents.lat=morc.loc.lat();
-			mediaContents.lng=morc.loc.lng();
-			mediaContents.id=id;
-			mediaContents=JSON.stringify(mediaContents);
-			ajax("content="+mediaContents, GLOBALS.PHP_FOLDER_LOCATION + "updateImage.php", function(serverResponse){ console.log(serverResponse);});
-		} else if(sessionStorage.lat && sessionStorage.lng){
-			var mediaContents={};
-			mediaContents.lat=sessionStorage.lat;
-			mediaContents.lng=sessionStorage.lng;
-			mediaContents.id=id;
-			mediaContents=JSON.stringify(mediaContents);
-			ajax("content=" + mediaContents, GLOBALS.PHP_FOLDER_LOCATION + "updateImage.php", function(serverResponse){console.log(serverResponse);});
-		}
-		// Checks to make sure that all of the required attribute are filled in.
-		if(contents.aboutmedia && contents.a && contents.b && contents.howhelpful && contents.mquestion && contents.yourdoubt){
-			contents.status="Unverified";
-		} else{
-			contents.status="Incomplete";
-		}
-		// If the url does not start with http:// add http:// to the start.  This makes it so that when the page is linked to, it doesn't look for the page
-		// on the ouyangdev server.
-		if(contents.interesting_url.indexOf("http://")==-1 && contents.interesting_url!="") contents.interesting_url= "http://" + contents.interesting_url;
-		contents=JSON.stringify(contents);
-		// The encodeURIComponent enables the use of special characters such as & to be sent in the string contents.
-		// PHP automatically decodes the post data, so no changes need to be made in php code.
+	}
+	contents['id']=id;
+	
+	//KN: Update the image and coordinates.
+	if (morc && morc.verify()) { //KN: morc is a geocompress object, which holds a compressed image and geolocation information. Verify makes sure the image is the right type, and lat/long exist.
+		var mediaContents={};
+		mediaContents.media=morc;
+		mediaContents.lat=morc.loc.lat();
+		mediaContents.lng=morc.loc.lng();
+		mediaContents.id=id;
+		mediaContents=JSON.stringify(mediaContents);
+		ajax("content="+mediaContents, GLOBALS.PHP_FOLDER_LOCATION + "updateImage.php", function(serverResponse){ console.log(serverResponse);}); //KN: Send morc and location to updateImage.php
+	}
+	//KN: Use session storage if you can't use morc.	
+	else if(sessionStorage.lat && sessionStorage.lng){ 
+		var mediaContents={};
+		mediaContents.lat=sessionStorage.lat;
+		mediaContents.lng=sessionStorage.lng;
+		mediaContents.id=id;
+		mediaContents=JSON.stringify(mediaContents);
+		ajax("content=" + mediaContents, GLOBALS.PHP_FOLDER_LOCATION + "updateImage.php", function(serverResponse){console.log(serverResponse);}); //KN: Send morc and location to updateImage.php
+	}
+	// Checks to make sure that all of the required attribute are filled in.
+	if(contents.aboutmedia && contents.a && contents.b && contents.howhelpful && contents.mquestion && contents.yourdoubt){
+		contents.status="Unverified";
+	} else{
+		contents.status="Incomplete";
+	}
+	// If the url does not start with http:// add http:// to the start.  This makes it so that when the page is linked to, it doesn't look for the page on the ouyangdev server.
+	if(contents.interesting_url.indexOf("http://")==-1 && contents.interesting_url!="") contents.interesting_url= "http://" + contents.interesting_url;
+	contents=JSON.stringify(contents);
+	// The encodeURIComponent enables the use of special characters such as & to be sent in the string contents.
+	// PHP automatically decodes the post data, so no changes need to be made in php code.
 	ajax("contents="+ encodeURIComponent(contents), GLOBALS.PHP_FOLDER_LOCATION + "updateActivity.php", successfulUpload);
 }
-
+//KN: Alerts the status of the upload, of the teacher's edits to an Activity.
 function successfulUpload(serverResponse){
 	if (serverResponse=="true") {
 		window.location.reload();
@@ -468,6 +506,8 @@ function successfulUpload(serverResponse){
 	}
 }
 
+//KN: Speculation: Allows teachers to give comments on an activity, by adding a text box for them. 
+//KN: QUESTION: This isn't called by anything
 function feedback(x)
 {
 	var div = createElement('div','');
@@ -483,26 +523,31 @@ function feedback(x)
 	div.appendChild(activityStatus(comments,x));
 	return div;
 }
+
+//KN: Not spending too much time on this since it isn't used.
+//KN: Called by feedback, which isn't used by anything presently, so I can't figure out what x is.
 function activityStatus(comments,x)
 {
 	if(feed[x] == undefined) return;
+	
+	//KN: Make options to accept or decline comments.
 	var status = document.createElement('select');
 	status.options[status.options.length] = new Option("ACCEPT", "true");
 	status.options[status.options.length] = new Option("DECLINE", "false");
 	status.onchange = function() {
-		if (this.value == "false") {
-			this.parentNode.insertBefore(comments, this.nextSibling);
-			feed[x].grant = "false";
-		} else {
-			this.parentNode.removeChild(comments);
+		if (this.value == "false") { //KN: If they clicked DECLINE
+			this.parentNode.insertBefore(comments, this.nextSibling); //KN: Then insert the comments after the button
+			feed[x].grant = "false"; 
+		} else {	//KN: If they clicked ACCEPT
+			this.parentNode.removeChild(comments); //KN: Then remove the comments.
 			feed[x].grant = 'true';
 			feed[x].comment = '';
 		}
 	};
 	status.value = feed[x].grant;
-	if (status.value == "false") {
-		comments.childNodes[1].value = feed[x].comment;
-		status.parentNode.insertBefore(comments, status.nextSibling);
+	if (status.value == "false") { //KN: if status is false (ie they clicked DECLINE)...
+		comments.childNodes[1].value = feed[x].comment; //KN: then put the comment from feed into the comments div
+		status.parentNode.insertBefore(comments, status.nextSibling); //KN: And put the comments after the select dropdown
 	}
 	return status;
 }
@@ -531,6 +576,7 @@ function displayAdditionalQuestions(additionalAnswers){
 		
 		// Check that the question exists.  If it does, fill in the question and the answer.
 		// If not, make the q/a not displayed.
+		//KN: QUESTION: Can we simplify this to a loop? Change "optionalQuestion1" to "optionalQuestion"+i, and do something for answera answerb answerc?
 		if(additionalQuestions.questiona){
 			// We just want to add the string to the start of the HTML, not delete what was already there.
 			document.getElementsByName("optionalQuestion1")[0].innerHTML=additionalQuestions.questiona + document.getElementsByName("optionalQuestion1")[0].innerHTML;
@@ -563,9 +609,17 @@ function displayAdditionalQuestions(additionalAnswers){
 // This function is used in createActivity.html to remove special characters.
 // Is used to prevent an error caused in php by having an & in the partner_names category.
 function removeSpecialChar(char){
-	char.value = char.value.replace(/[^a-z,10-9\s]*/ig,'');
-
+	char.value = char.value.replace(/[^a-z,10-9\s]*/ig,''); //KN: Looks for anything that is NOT a letter (upper or lower), number, or whitespace. It will replace all of those instances with '' (ie, get rid of them completely).
+	/*KN: Look up "RegExp" for more explanation on this replacement.
+	The search key is delimited by the opening and closing / /
+	[^asdf] would mean that you're looking for any characters which are NOT asdf.
+	\s is any single whitespace character (space, tab).
+	* means that it will match the previous character repeating 0 or more times.... so bo* will match boo, boooo, bird (remember, 0 or more), but NOT goat (it's missing the b).
+	"g" signifies it will replace every instance, not just 1. "i" signifies it is case-insensitive. the [^xyz] means anything that is NOT xyz. */
 }
+
+//KN: Applies the "clear" class to a near element.
+//KN: clear in css means that the element cannot have a floating element to the side of it (typically images float).
 // don't really need this as a separate function....
 function clear()
 {
@@ -573,7 +627,7 @@ function clear()
 	clear.className = 'clear';
 	return clear;
 }
-//
+//KN: QUESTION: Not used by anything.
 function handleupload(x) {
 	if (x == "unexpectedrequest")
 		alert("Something went wrong while uploading Data");

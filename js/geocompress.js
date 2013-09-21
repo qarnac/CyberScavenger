@@ -19,7 +19,13 @@ function geocompress(file, type) {
 	this.loc = gpsverify(file);  // If gps coords not embedded, will start google map
 	this.verify = function() {
 		if (this.file.dataurl && this.loc.lat() && this.loc.lng()) {
-			this.file.dataurl = this.file.dataurl.replace(/^data:image\/(png|jpg|jpeg);base64,/, "");
+			this.file.dataurl = this.file.dataurl.replace(/^data:image\/(png|jpg|jpeg);base64,/, "");  //KN: Removes anything unacceptable from the URL. Look up "Regex" for more details.
+				/*KN: /^xyz/ means that it will replace anything that is NOT xyz.
+				\ is an escape character, so \/ means that it can use "/" for the search.
+				png|jpg|jpeg checks file endings, those are the only allowed ones. 
+				/(x) means it will remember the match, so it can later be recalled.
+				base64 means it checks that the data is base 64 (a-z, A-Z, 0-9, +, -, =)
+				*/
 			return true;
 		}
 		else {
@@ -31,14 +37,15 @@ function geocompress(file, type) {
 // TODO: What type of object is 'x'?  What type of object is morc?
 // Note: morc is first instantiated and described in dragdrop.js as:
 //// var morc; // image object with compressed image with geo location
+
 // Compresses the image by first by resizing the image to smaller size
 // and converting the resized image to jpeg dta url with quality of 0.8
 function compress(file, type) {
 	var x = new Object();
 	var img = new Image();
-	var reader = new FileReader();
-	reader.readAsDataURL(file);
-	reader.onload = function(e) {
+	var reader = new FileReader(); //KN: A built-in class.
+	reader.readAsDataURL(file); //KN: Treat file value as a url, and read from that url. 
+	reader.onload = function(e) {  
 		img.src = e.target.result;
 		img.onload = function() {
 
@@ -50,7 +57,7 @@ function compress(file, type) {
 			var MAX_HEIGHT = 280;
 			var width = img.width;
 			var height = img.height;
-
+			//KN: Draw the image in a canvas, such it fits within the canvas boundaries. If it is too big, scale down both axes proportionally.
 			if (width > height) {
 				if (width > MAX_WIDTH) {
 					height *= MAX_WIDTH / width;
@@ -67,7 +74,7 @@ function compress(file, type) {
 			canvas.height = height;
 			var ctx = canvas.getContext("2d");
 			ctx.drawImage(img, 0, 0, width, height);
-			x.dataurl = canvas.toDataURL("image/jpeg", 0.8);
+			x.dataurl = canvas.toDataURL("image/jpeg", 0.8); //KN: Take the image drawn onto the canvas, and convert it to a jpg, with 80% quality.
 			//dataurl=dataurl.replace(/^data:image\/(png|jpg|jpeg);base64,/, "");
 		}
 	}
@@ -78,13 +85,13 @@ function compress(file, type) {
 function gpsverify(file) {
 	var loc = new Object();
 	var binary_reader = new FileReader();
-	binary_reader.readAsBinaryString(file);
+	binary_reader.readAsBinaryString(file); //KN: Read the file as binary (every byte is an integer 0-255). QUESTION: why?
 
 	binary_reader.onloadend = function(e) {
-		var jpeg = new JpegMeta.JpegFile(e.target.result, file.name);
+		var jpeg = new JpegMeta.JpegFile(e.target.result, file.name); //KN: Get the meta information from the jpg file.
 		if (jpeg.gps && jpeg.gps.longitude) {
 			var x = new google.maps.LatLng(jpeg.gps.latitude.value, jpeg.gps.longitude.value);
-			if (huntboundary.contains(x)) {
+			if (huntboundary.contains(x)) { //KN: Check that the geolocation is within the boundaries.
 //			var gps_loc = new google.maps.LatLng(jpeg.gps.latitude.value, jpeg.gps.longitude.value);
 //			if (huntboundary.contains(gps_loc)) { //  <- currently doing nothing.
 				loc.latlng = new google.maps.LatLng(jpeg.gps.latitude.value, jpeg.gps.longitude.value);
@@ -104,14 +111,14 @@ function gpsverify(file) {
 
 // This function builds the map interface with the proper locations, bounds, etc.
 function instantiateGoogleMap() {
-	var x = new Object();
+	var x = new Object(); //KN: QUESTION: x isn't even used anywhere. 
 	
-	var map = initializeMap(huntboundary.getCenter().lat(), huntboundary.getCenter().lng(), document.getElementById("main"));
+	var map = initializeMap(huntboundary.getCenter().lat(), huntboundary.getCenter().lng(), document.getElementById("main")); //KN: Sets up the map, with coordinates, zoom level, display style, etc. defined in MapFunctions.js. 
 
-	map.fitBounds(huntboundary);
+	map.fitBounds(huntboundary);  //KN: Sets the viewport to contain the boundaries of the hunt.
 
 	// Creates the Rectangle overlay on the map.
-	createRectangleOverlay(map, huntboundary);
+	createRectangleOverlay(map, huntboundary); 
 	
 	var myMarker = new google.maps.Marker(
 	{
