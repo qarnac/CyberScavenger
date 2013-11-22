@@ -1,6 +1,8 @@
 html, body {
 	height: 100%;
 }
+
+/*Started in header.html, is the "real" body for all documents.*/
 #main {
 	width: 960px;
 	padding: 10px;
@@ -8,9 +10,9 @@ html, body {
 	border-radius: 15px;
 	background-color: white;
 	margin: 0 auto;
-	margin-bottom: 40px;
-	
-}
+	margin-bottom: 40px;}
+
+/*Set the font and background gradient for the whole site, to "light grayish blue" */
 body {
 	font: 12px 'Lucida Sans Unicode', 'Trebuchet MS', Arial, Helvetica;
 	margin: 0;
@@ -20,51 +22,19 @@ body {
 	background-image: -moz-linear-gradient(top, #ebeef2, #d9dee2);
 	background-image: -ms-linear-gradient(top, #ebeef2, #d9dee2);
 	background-image: -o-linear-gradient(top, #ebeef2, #d9dee2);
-	background-image: linear-gradient(top, #ebeef2, #d9dee2);
-}
+	background-image: linear-gradient(top, #ebeef2, #d9dee2);}
 
-/*--------------------*/
-
+/*Login submit button in log_in_form.html*/
 #login {
-	background-color: #fff;
-	background-image: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#eee));
-	background-image: -webkit-linear-gradient(top, #fff, #eee);
-	background-image: -moz-linear-gradient(top, #fff, #eee);
-	background-image: -ms-linear-gradient(top, #fff, #eee);
-	background-image: -o-linear-gradient(top, #fff, #eee);
-	background-image: linear-gradient(top, #fff, #eee);
 	height: 240px;
 	width: 400px;
 	margin: -150px 0 0 -230px;
 	padding: 30px;
 	position: absolute;
 	top: 50%;
-	left: 50%;
-	z-index: 0;
-	-moz-border-radius: 3px;
-	-webkit-border-radius: 3px;
-	border-radius: 3px;
-	-webkit-box-shadow: 0 0 2px rgba(0, 0, 0, 0.2), 0 1px 1px rgba(0, 0, 0, .2), 0 3px 0 #fff, 0 4px 0 rgba(0, 0, 0, .2), 0 6px 0 #fff, 0 7px 0 rgba(0, 0, 0, .2);
-	-moz-box-shadow: 0 0 2px rgba(0, 0, 0, 0.2), 1px 1px 0 rgba(0,   0,   0,   .1), 3px 3px 0 rgba(255, 255, 255, 1), 4px 4px 0 rgba(0,   0,   0,   .1), 6px 6px 0 rgba(255, 255, 255, 1), 7px 7px 0 rgba(0,   0,   0,   .1);
-	box-shadow: 0 0 2px rgba(0, 0, 0, 0.2), 0 1px 1px rgba(0, 0, 0, .2), 0 3px 0 #fff, 0 4px 0 rgba(0, 0, 0, .2), 0 6px 0 #fff, 0 7px 0 rgba(0, 0, 0, .2);
-}
+	left: 50%;}
 
-#login:before {
-/*	content: ''; */
-	position: absolute;
-	z-index: -1;
-	border: 1px dashed #ccc;
-	top: 5px;
-	bottom: 5px;
-	left: 5px;
-	right: 5px;
-	-moz-box-shadow: 0 0 0 1px #fff;
-	-webkit-box-shadow: 0 0 0 1px #fff;
-	box-shadow: 0 0 0 1px #fff;
-}
-
-/*--------------------*/
-
+/*"Cyber Scavenger" header in header.html, "Log In" header in log_in_form.html*/
 h1 {
 	text-shadow: 0 1px 0 rgba(255, 255, 255, .7), 0px 2px 0 rgba(0, 0, 0, .5);
 	text-transform: uppercase;
@@ -73,18 +43,18 @@ h1 {
 	margin: 0 0 30px 0;
 	letter-spacing: 4px;
 	font: normal 26px/1 Verdana, Helvetica;
-	position: relative;
-}
+	position: relative;}
 
+/*Before and after the headers, draw those lines coming out to the sides of them.*/
 h1:after, h1:before {
 	background-color: #777;
 	content: "";
 	height: 1px;
 	position: absolute;
 	top: 15px;
-	width: 120px;
-}
+	width: 120px;}
 
+/*Before and after the headers, draw those lines coming out to the sides of them.*/
 h1:after {
 	background-image: -webkit-gradient(linear, left top, right top, from(#777), to(#fff));
 	background-image: -webkit-linear-gradient(left, #777, #fff);
@@ -92,9 +62,9 @@ h1:after {
 	background-image: -ms-linear-gradient(left, #777, #fff);
 	background-image: -o-linear-gradient(left, #777, #fff);
 	background-image: linear-gradient(left, #777, #fff);
-	right: 0;
-}
+	right: 0;}
 
+/*Before and after the headers, draw those lines coming out to the sides of them.*/
 h1:before {
 	background-image: -webkit-gradient(linear, right top, left top, from(#777), to(#fff));
 	background-image: -webkit-linear-gradient(right, #777, #fff);
@@ -102,23 +72,19 @@ h1:before {
 	background-image: -ms-linear-gradient(right, #777, #fff);
 	background-image: -o-linear-gradient(right, #777, #fff);
 	background-image: linear-gradient(right, #777, #fff);
-	left: 0;
-}
+	left: 0;}
 
-/*--------------------*/
 
+/*For sets of inputs in fields, createActivity.html, createHunt.html, log_in_form.html*/
 fieldset {
 	border: 0;
 	padding: 0;
-	margin: 0;
-}
+	margin: 0;}
 #activity fieldset {
 	float: left;
-	width: 450px;
-	
-}
-/*--------------------*/
+	width: 450px;}
 
+/*Username and password for the login form in log_in_form.html*/
 #inputs input {
 	background: #f1f1f1 url(http://www.red-team-design.com/wp-content/uploads/2011/09/login-sprite.png) no-repeat;
 	padding: 15px 15px 15px 30px;
@@ -130,121 +96,70 @@ fieldset {
 	border-radius: 5px;
 	-moz-box-shadow: 0 1px 1px #ccc inset, 0 1px 0 #fff;
 	-webkit-box-shadow: 0 1px 1px #ccc inset, 0 1px 0 #fff;
-	box-shadow: 0 1px 1px #ccc inset, 0 1px 0 #fff;
-}
+	box-shadow: 0 1px 1px #ccc inset, 0 1px 0 #fff;}
 
+/*Username for login log_in_form.html*/
 #username {
-	background-position: 5px -2px !important;
-}
+	background-position: 5px -2px !important;}
 
+/*Password for login log_in_form.html*/
 #password {
-	background-position: 5px -52px !important;
-}
+	background-position: 5px -52px !important;}
 
+/*The username and password fields in log_in_form.html*/
 #inputs input:focus {
 	background-color: #fff;
 	border-color: #e8c291;
 	outline: none;
 	-moz-box-shadow: 0 0 0 1px #e8c291 inset;
 	-webkit-box-shadow: 0 0 0 1px #e8c291 inset;
-	box-shadow: 0 0 0 1px #e8c291 inset;
-}
-
-/*--------------------*/
+	box-shadow: 0 0 0 1px #e8c291 inset;}
+	
+/*The "Log in" and "Forgot password" buttons in log_in_form.html*/
 #actions {
-	margin: 25px 0 0 0;
-}
+	margin: 25px 0 0 0;}
 
-#submit {
-	background-color: #ffb94b;
-	background-image: -webkit-gradient(linear, left top, left bottom, from(#fddb6f), to(#ffb94b));
-	background-image: -webkit-linear-gradient(top, #fddb6f, #ffb94b);
-	background-image: -moz-linear-gradient(top, #fddb6f, #ffb94b);
-	background-image: -ms-linear-gradient(top, #fddb6f, #ffb94b);
-	background-image: -o-linear-gradient(top, #fddb6f, #ffb94b);
-	background-image: linear-gradient(top, #fddb6f, #ffb94b);
-	-moz-border-radius: 3px;
-	-webkit-border-radius: 3px;
-	border-radius: 3px;
-	text-shadow: 0 1px 0 rgba(255,255,255,0.5);
-	-moz-box-shadow: 0 0 1px rgba(0, 0, 0, 0.3), 0 1px 0 rgba(255, 255, 255, 0.3) inset;
-	-webkit-box-shadow: 0 0 1px rgba(0, 0, 0, 0.3), 0 1px 0 rgba(255, 255, 255, 0.3) inset;
-	box-shadow: 0 0 1px rgba(0, 0, 0, 0.3), 0 1px 0 rgba(255, 255, 255, 0.3) inset;
-	border-width: 1px;
-	border-style: solid;
-	border-color: #d69e31 #e3a037 #d5982d #e3a037;
-	float: left;
-	height: 35px;
-	padding: 0;
-	width: 120px;
-	cursor: pointer;
-	font: bold 15px Arial, Helvetica;
-	color: #8f5a0a;
-}
-
-#submit:hover, #submit:focus {
-	background-color: #fddb6f;
-	background-image: -webkit-gradient(linear, left top, left bottom, from(#ffb94b), to(#fddb6f));
-	background-image: -webkit-linear-gradient(top, #ffb94b, #fddb6f);
-	background-image: -moz-linear-gradient(top, #ffb94b, #fddb6f);
-	background-image: -ms-linear-gradient(top, #ffb94b, #fddb6f);
-	background-image: -o-linear-gradient(top, #ffb94b, #fddb6f);
-	background-image: linear-gradient(top, #ffb94b, #fddb6f);
-}
-
-#submit:active {
-	outline: none;
-	-moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5) inset;
-	-webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5) inset;
-	box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5) inset;
-}
-
-#submit::-moz-focus-inner {
-	border: none;
-}
-
+/*The "Forgot password" link in log_in_form.html*/
 #actions a {
 	color: #3151A2;
 	float: right;
 	line-height: 35px;
-	margin-left: 10px;
-}
+	margin-left: 10px;}
 
-/*--------------------*/
-
+/*NO IDEA*/
 #back {
 	display: block;
 	text-align: center;
 	position: relative;
 	top: 60px;
-	color: #999;
-}
-/*------------------*/
-textarea {
+	color: #999;}
 
+/*Used in createActivity.html,createHunt.html, index.html (the search), and some js */
+textarea {
 	float: left;
 	font-size: 12px;
 	padding: 4px 2px;
 	border: solid 1px #aacfe4;
 	width: 300px;
 	margin: 2px 0 5px 5px;
-}
-select {
+	background:#fff;}
 
+/*used in newActivityControl.html and newHuntControl.html for selecting Lat/Long, N/S, E/W; teacher.html for selecting hunts; user.html for selecting hunts*/
+select {
 	float: left;
 	font-size: 12px;
 	padding: 4px 2px;
 	border: solid 1px #aacfe4;
 	width: 200px;
-	margin: 2px 0 5px 5px;
-}
+	margin: 2px 0 5px 5px;}
+
+/*in newActivityControl.html and newHuntControl.html, the direction selection*/
 select.short {
 	float: none;
-	width: 80px;
-}
-/*--------*/
+	width: 80px;}
 
 /*Dropbox*/
+/*UNUSED*/
 #dropbox {
 	background-color: Gray;
 	color: White;
@@ -252,30 +167,30 @@ select.short {
 	text-align: center;
 	width: 420px;
 	height: 280px;
-	display: block;
-}
+	display: block;}
+
+/*UNUSED*/
 .cent {
 	display: block;
 	margin: 0px auto;
-	width: 30%;
-}
+	width: 30%;}
+
+/*UNUSED*/
 img.large {
 	width: 420px;
-	height: 280px;
-}
+	height: 280px;}
+
+/*Used in createActivity.html, createHunt.html, teacher.html, user.html*/
+/*Works like a linebreak, making sure that no matter how many elements are in one grouping, the next grouping starts below rather than in-line with it.*/
 .clear {
-	clear: both;
-}
+	clear: both;}
 
-/*
- drop
- */
-
+/*Within fieldsets. Used in createActivity.html, createHunt.html*/
 legend {
 	font-weight: bold;
-	color: #333;
-}
+	color: #333;}
 
+/*File drag area in createActivity.html*/
 div.filedrag {
 	width: 460px;
 	height: 280px;
@@ -284,21 +199,23 @@ div.filedrag {
 	margin: 1em 0;
 	color: #555;
 	border: 2px dashed #555;
-	cursor: default;
-}
+	cursor: default;}
 
+/*File drag area in createActivity.html*/
 .filedrag.hover {
 	color: #f00;
 	border-color: #f00;
 	border-style: solid;
-	box-shadow: inset 0 3px 4px #888;
-}
+	box-shadow: inset 0 3px 4px #888;}
 
+/*The whole content area of every page (within the white area)*/
 #activity {
 	margin: 10px;
 	height: 100%;
 	min-height: 800px;
 }
+
+/* Sets layout of the questions+boxes in createActivity.html*/
 .split {
 	float: left;
 	width: 46%;
@@ -306,6 +223,8 @@ div.filedrag {
 	padding: 5px;
 	height: auto;
 }
+
+/*UNUSED*/
 .split1 {
 	float: left;
 	width: 46%;
@@ -313,13 +232,15 @@ div.filedrag {
 	padding: 5px;
 }
 
+/*The only use of <p> is in user.html, saying to use a dropdown list to choose the field trip for the activity.*/
 p {
 	font-size: 11px;
 	color: #666666;
 	margin-bottom: 20px;
 	border-bottom: solid 1px #b7ddf2;
-	padding-bottom: 10px;
-}
+	padding-bottom: 10px;}
+
+/*Labels for inputs. used in newHuntControl, newActivityControl, createHunt, createActivity*/	
 label {
 	display: block;
 	font-weight: bold;
@@ -328,16 +249,18 @@ label {
 	float: left;
 	padding: 5px;
 	margin: 10px;
-	height: auto;
-}
+	height: auto;}
+
+/*UNUSED*/	
 .small {
 	color: #666666;
 	display: block;
 	font-size: 11px;
 	font-weight: normal;
 	text-align: right;
-	width: 140px;
-}
+	width: 140px;}
+	
+/*One-line input textboxes. Used in createActivity.html and log_in_form.html*/	
 input[type="text"] {
 	float: left;
 	font-size: 12px;
@@ -346,14 +269,17 @@ input[type="text"] {
 	width: 200px;
 	margin: 2px 0 5px 5px;
 }
+
+/*UNUSED*/
 input[type="url"] {
 	float: left;
 	font-size: 12px;
 	padding: 4px 2px;
 	border: solid 1px #aacfe4;
 	width: 200px;
-	margin: 2px 0 5px 5px;
-}
+	margin: 2px 0 5px 5px;}
+
+/*UNUSED*/	
 input[type="number"] {
 	float: left;
 	font-size: 12px;
@@ -362,8 +288,10 @@ input[type="number"] {
 	width: 200px;
 	margin: 2px 0 5px 5px;
 }
+
+/*UNUSED*/
+/*Note: newActivityControl and newHuntControl have a div and button respectively named submitButton. Maybe that's what they were TRYING to use this for?*/
 input[type="submitButton"] {
-
 	float: right;
 	margin: 2px 0 5px 5px;
 	padding: 4px 2px;
@@ -374,29 +302,17 @@ input[type="submitButton"] {
 	line-height: 3px;
 	color: #FFFFFF;
 	font-size: 11px;
-	font-weight: bold;
-}
-.cyberButton{
+	font-weight: bold;}
 
-	float: right;
-	margin: 2px 0 5px 5px;
-	padding: 4px 2px;
-	width: 125px;
-	height: 31px;
-	background: #666666;
-	text-align: center;
-	line-height: 3px;
-	color: #FFFFFF;
-	font-size: 11px;
-	font-weight: bold;
-}
 
 /* Added float_none on July 10, 2012 to override above label CSS behavior in maps UI */
-
+/*Used in newHuntControl.html and newActivityControl.html, to override some class styles (Which??), making it so the element will be placed as expected in text, rather than float over to the left or right.*/
 label.float_none {
-  float: none;
+  float: right;
 }
 
+/*UNUSED*/
+/*Note: declared in user.html. Only thing that ever happens to it is height gets set to 0 in geocompress.js. Empty, useless div. You'd think this is where the map went. Nope.*/
 #googlemap {
 	position: absolute;
 	z-index: 10;
@@ -404,9 +320,10 @@ label.float_none {
 	height: 100%;
 	display: none;
 	top: 0px;
-	left: 0px;
-}
+	left: 0px;}
 
+/*The proper div for the google map, used in index.html and user.html*/
+/*NOTE: The declaration in user.html is actually not the real usage. The real one is generated inside of activity (by publicView.js::initializePublicMapDisplay I think??).*/
 #map_canvas { 
 	position: fixed;
 	z-index: 10;
@@ -414,146 +331,198 @@ label.float_none {
 	height: 100%;
 	display: none;
 	top: 0px;
-	left: 0px;
-}
+	left: 0px;}
+
+/*UNUSED*/	
 #content {
 	z-index: 1;
-	display: block;
-}
+	display: block;}
 
 /* These are all used for displaying student activities */
 
+/*Used for viewing activities*/
+/*NOTE: The table supposedly gets removed in activity.js::generateActivityView for some reason.*/
 .activityTable {
 	min-height: 100%;
 	width: 690px;
-	position: relative;
-}
+	position: relative;}
 
+/*The real content of every page is in activity.*/
+/* list-style-type makes ul/ol have roman numerals, circles, squares, etc. none is none. (WHY is that used?). Margin and padding override other classes to ensure centering*/	
 #activity {
 	list-style-type: none;
 	margin-left: 0px;
-	padding-left: 0px;
-}
+	padding-left: 0px;}
 
+/*UNUSED*/
 .activityItem {
 	margin-left: 0px;
 	width: 650px;
 }
 
+/*UNUSED*/
 .activityItem:nth-child(odd) {
 	margin-left: 0px;
 	background-color: #f2f2f2;
 }
 
+/*UNUSED*/
+/*Note: this section exists in activityview and publicactivityview, but the size restriction here doesn't matter, because the photo is an inner element.*/
 .activityPhotoCell {
 	width: 200px;
 }
 
+/*Used in activityView.html and publicActivityView.html, for the details of the activity*/
 .aboutPhotoCell {
 	width: 600px;
 }
 
+/*UNUSED*/
+/*Supposed to restrict image size for activities.*/
 .activityTable img {
 	height: 160px;
 	width: 200px;
 }
 
+/*Used for looking at activities, in activityView, publicActivityView, and huntInformation.*/
 .questionLabel {
 	font-weight: bold;
 	font-style: italic;
 }
 
+/*Used for looking at activities, in activityView, publicActivityView, and huntInformation. Adds spacing below the whole section, and makes choice abcd (rather than 1234)*/
 .multipleChoiceAnswers {
 	list-style-type: lower-alpha;
 	padding-bottom: 1px;
 }
 
+/*Used for looking at activities, in activityView, publicActivityView, and huntInformation. Adds spacing between choices*/
+/*NOTE: background-color doesn't work here.*/
 .multipleChoiceAnswers li {
 	margin-bottom: .5em;
 	background-color: none;
 }
 
+/*Used for looking at activities, in activityView, publicActivityView, and huntInformation. Underlines the correct choice*/
 .correctAnswer {
 	color: green;
 	border-bottom-color: green;
 	border-bottom-style: dotted;
 }
 
+/*NOT SURE*/
 .unansweredQuestion {
 	color: #9D1B0B;
 }
 
 /* end styling for displaying student activities */
 
-/* This is in the Image uploader section of createActivity.html */
-#activityImage {
-	height: 280px;
-	width: 460px;
-}
-
-
-}
+/*UNUSED*/
 .dummyimg{
 	height: 80px;
 	width:100px;
-	
 	margin-right:40px;
 	float:right;
-	
 }
+
+/*Used in teacher.html. A list of students, generated within activity.js::create_activity_obj*/
 #students {
 	float:right;
 }
-/* Styling class used for the infoWindow when a student activity is clicked on
-on the google map object. */
+
+
+/*UNUSED*/
+/*infoWindows are the google maps popup section for a selected pin.*/
 .infoWindow {
 }
 
-/* Start styling for createHunt.html */
-form#createHuntForm textarea{
-	float:left;
-	-moz-border-radius:10px;
-	-webkit-border-radius:10px;
-	-khtml-border-radius:10px;
-	border-radius:10px;
-	background:#e9fff9;
+
+/*Start form section*/
+/*Forms are used in createActivity, createHunt, log_in_form, publicActivityView.*/
+form{
+	background-color: #fff;
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#eee));
+	background-image: -webkit-linear-gradient(top, #fff, #eee);
+	background-image: -moz-linear-gradient(top, #fff, #eee);
+	background-image: -ms-linear-gradient(top, #fff, #eee);
+	background-image: -o-linear-gradient(top, #fff, #eee);
+	background-image: linear-gradient(top, #fff, #eee);
+	z-index: 0;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+	-webkit-box-shadow: 0 0 2px rgba(0, 0, 0, 0.2), 0 1px 1px rgba(0, 0, 0, .2), 0 3px 0 #fff, 0 4px 0 rgba(0, 0, 0, .2), 0 6px 0 #fff, 0 7px 0 rgba(0, 0, 0, .2);
+	-moz-box-shadow: 0 0 2px rgba(0, 0, 0, 0.2), 1px 1px 0 rgba(0,   0,   0,   .1), 3px 3px 0 rgba(255, 255, 255, 1), 4px 4px 0 rgba(0,   0,   0,   .1), 6px 6px 0 rgba(255, 255, 255, 1), 7px 7px 0 rgba(0,   0,   0,   .1);
+	box-shadow: 0 0 2px rgba(0, 0, 0, 0.2), 0 1px 1px rgba(0, 0, 0, .2), 0 3px 0 #fff, 0 4px 0 rgba(0, 0, 0, .2), 0 6px 0 #fff, 0 7px 0 rgba(0, 0, 0, .2);
 }
+form:before {
+	position: absolute;
+	z-index: -1;
+	-moz-box-shadow: 0 0 0 1px #fff;
+	-webkit-box-shadow: 0 0 0 1px #fff;
+	box-shadow: 0 0 0 1px #fff;
+}
+
+/*Used in createHunt.html, make the legends bigger.*/
+form legend {
+	font-size: 16px;
+}
+
+/*createHuntForm is used in createHunt.html.*/
+/*NOTE: the only input is for the date*/
 form#createHuntForm input{
-	float:left;
-	-moz-border-radius:10px;
-	-webkit-border-radius:10px;
-	-khtml-border-radius:10px;
-	border-radius:10px;
-	background:#e9fff9;
-}
+	float:left;}	
 form#createHuntForm{
-	background:#d2fff2;
 	height:100%;
-	width:100%
-}
+	width:100%;}
+/*Groupings within the form. (Is this necessary??)*/	
 form#createHuntForm fieldset{
 	width:100%;
 }
 
-form#createHuntForm button{
-	background:#17d0db;
-	border:none;
-	-moz-border-radius:10px;
-	-webkit-border-radius:10px;
-	-khtml-border-radius:10px;
-	border-radius:10px;
-	font-size:18px;
-	font-weight:bold;
-	padding: 5px 10px;
+/*End form section*/
+
+
+
+/*Start button section*/
+/*Buttons are in activityView, createActivity, createHunt, index, log_in_form, newActivityControl, newHuntControl, teacher*/
+button{
+	margin: 2px 0 5px 5px;
+	padding: 4px 2px;
+	height: 31px;
+	background: #666666;
+	text-align: center;
+	line-height: 3px;
+	color: #FFFFFF;
+	font: bold 15px Arial, Helvetica;
+	cursor: pointer;
 	text-shadow: 0 1px 1px #000000;
-	color: #ffffff;
 }
-form#createHuntForm button:hover{
-	cursor:pointer;
-	background:#0d7c83;
+button:hover, button:focus {
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#ffb94b), to(#fddb6f));
+	background-image: -webkit-linear-gradient(top, #ffb94b, #fddb6f);
+	background-image: -moz-linear-gradient(top, #ffb94b, #fddb6f);
+	background-image: -ms-linear-gradient(top, #ffb94b, #fddb6f);
+	background-image: -o-linear-gradient(top, #ffb94b, #fddb6f);
+	background-image: linear-gradient(top, #ffb94b, #fddb6f);
 }
-form#createHuntForm legend {
-	color: #0d7c83;
-	font-size: 16px;
-	font-weight: bold;
+button:active {
+	-moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5) inset;
+	-webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5) inset;
+	box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5) inset;
 }
+
+/*Specific kind of button, used in activityView, teacher*/
+/*NOTE: Float right is important*/
+.cyberButton {
+	float: right;
+	width: 125px;
+}
+
+/*Used for log_in_form*/
+#submit {
+	float: left;
+	height: 35px;
+	width: 120px;	
+}
+/*End button section*/

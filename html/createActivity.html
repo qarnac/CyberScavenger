@@ -1,12 +1,22 @@
 <!-- KN: Used by students.
 This is the page seen when a logged-in student clicks "New Activity", where they post their information for their teacher's hunt.
 -->
+
+
+
+
+<link rel="stylesheet" type="text/css" href="../style/style.css" />
+
+
+
+
+
 	<fieldset> 
 		<legend>Image Uploader</legend>  
 		<input type="hidden" id="MAX_FILE_SIZE" name="MAX_FILE_SIZE" value="1000000" />  
 		<div> 	<label for="fileselect">Files to upload:</label> 
 				<input type="file" id="img_fselect" name="fileselect"  onChange="FileSelectHandler(event);"  accept="image/jpg,image/gif,image/jpeg,image/png"/> 	   
-				   <div class="filedrag" ondragover="FileDragHover(event)" ondragleave="FileDragHover(event)" ondrop="FileSelectHandler(event)" ><img src="" id="activityImage">or drop files here</div> 
+				   <div class="filedrag" ondragover="FileDragHover(event)" ondragleave="FileDragHover(event)" ondrop="FileSelectHandler(event)" ><img src="" id="activityImage" style="height: 280px; width: 460px;">or drop files here</div> 
 				<button onclick=instantiateGoogleMap()> Change lat/lng </button> <!-- KN: Opens up a google map view to allow the student to select where in the hunt to place their activity-->
 		</div> 
 	</fieldset>                

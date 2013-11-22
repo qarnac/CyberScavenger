@@ -1,7 +1,8 @@
 /* KN: Used by public, student, and teacher.
 Called by header.html
 
-This file is used to convert the constants.json file (which holds the default longitude/latitude, rectangle size (QUESTION: This is for the size of the map itself on the screen?), and location of the PHP and HTML folders) into a global variable.
+This file is used to convert the constants.json file into a global variable. 
+constants.json holds the default longitude/latitude, rectangle size (QUESTION: This is for the size of the map itself on the screen?), and location of the PHP and HTML folders.
 We create the global variable this way, instead of having one from the start, so that users can change the values for their session without changing the source code.
  */
 
@@ -9,6 +10,7 @@ We create the global variable this way, instead of having one from the start, so
 // Is called from the header.html file, so it should be included on every page.
 
 //ajax POST request
+//KN: ajax requests call other files (typically php files, to get something from the database) and then perform callback functions afterward (sending the "echo" from the php file as a parameter, if needed)
 function ajax(data, url, callback) {
 	var xmlhttp;
 	
@@ -23,7 +25,7 @@ function ajax(data, url, callback) {
 	xmlhttp.onreadystatechange = function() { 		//KN: This will check for EVERY time the readystate changes, but ignore until it's 4 below.
 		if (xmlhttp.readyState == 4 && xmlhttp.status == 200) { //KN: readystate == 4 means that the operation is done. And a HTTP result code of 200 means a successful request
 			if (xmlhttp.responseText == 'sessionfail') 			// KN: Response from getHunts.php's getHuntsStudent, if there weren't any hunts found.
-			window.location = '../'; 			//KN: If the operation failed to happen, then go back a directory (ie, from CyberHawk/html/user.html back to Cyberhawk/, the public view) (Not sure why)
+			window.location = '../'; 			//KN: If the operation failed to happen, then go back a directory (ie, from CyberHawk/html/user.html back to Cyberhawk/, the public view) QUESTION: Why?
 			callback(xmlhttp.responseText); 		//KN: Perform the callback function, with that response text as the parameter
 		}
 	}
@@ -41,9 +43,11 @@ function ajax(data, url, callback) {
 	}
 }
 
+//KN: Get the constants.json file and make the constant variables from it.
 ajax("GET", "http://ouyangdev.cs.csusm.edu/cyberhawk/quest/constants.json", createGlobalConstant);
 var GLOBALS;
 
+//KN: Set attributes for the global variable, specificially where certain files are. 
 function createGlobalConstant(serverResponse){
 	GLOBALS=JSON.parse(serverResponse);
 	ajax("GET", GLOBALS.HTML_FOLDER_LOCATION + "activityView.html", function(serverResponse){GLOBALS.activityView=serverResponse;});

@@ -6,26 +6,15 @@
  * finds geo location of image
  * If geo location is not found displays map which allows user to select a location from it.
  */
-
- // Nice global variable up here...
- // Wanted to move the string to an easy to find spot in case it ever needs to be changed in the future.
  
-// geocompress is the main point of entry into this file.
-// As of Aug 8, 2012, only called from dragdrop.js
-// creates the media object that has compressed image data url and geo co-ordinates
+// creates the media object that has compressed image data url and geo co-ordinates. Called by dragdrop.js
 // This is eventually POST'd in upload.php
 function geocompress(file, type) {
 	this.file = compress(file, type);
 	this.loc = gpsverify(file);  // If gps coords not embedded, will start google map
 	this.verify = function() {
 		if (this.file.dataurl && this.loc.lat() && this.loc.lng()) {
-			this.file.dataurl = this.file.dataurl.replace(/^data:image\/(png|jpg|jpeg);base64,/, "");  //KN: Removes anything unacceptable from the URL. Look up "Regex" for more details.
-				/*KN: /^xyz/ means that it will replace anything that is NOT xyz.
-				\ is an escape character, so \/ means that it can use "/" for the search.
-				png|jpg|jpeg checks file endings, those are the only allowed ones. 
-				/(x) means it will remember the match, so it can later be recalled.
-				base64 means it checks that the data is base 64 (a-z, A-Z, 0-9, +, -, =)
-				*/
+			this.file.dataurl = this.file.dataurl.replace(/^data:image\/(png|jpg|jpeg);base64,/, "");  //KN: Removes anything unacceptable from the URL.  Google "Regex" for more info (mozilla's page is really good).
 			return true;
 		}
 		else {
@@ -33,10 +22,6 @@ function geocompress(file, type) {
 		}
 	}
 }
-
-// TODO: What type of object is 'x'?  What type of object is morc?
-// Note: morc is first instantiated and described in dragdrop.js as:
-//// var morc; // image object with compressed image with geo location
 
 // Compresses the image by first by resizing the image to smaller size
 // and converting the resized image to jpeg dta url with quality of 0.8
@@ -81,6 +66,7 @@ function compress(file, type) {
 	return x;
 }
 
+//KN: This function will check the geolocation in a picture, if they are within bounds, they will be accepted. If outside, or if not geolocated, then user will have to manually enter.
 // If gps coords not embedded, will start google map UI for manual user GPS entry
 function gpsverify(file) {
 	var loc = new Object();
@@ -91,9 +77,7 @@ function gpsverify(file) {
 		var jpeg = new JpegMeta.JpegFile(e.target.result, file.name); //KN: Get the meta information from the jpg file.
 		if (jpeg.gps && jpeg.gps.longitude) {
 			var x = new google.maps.LatLng(jpeg.gps.latitude.value, jpeg.gps.longitude.value);
-			if (huntboundary.contains(x)) { //KN: Check that the geolocation is within the boundaries.
-//			var gps_loc = new google.maps.LatLng(jpeg.gps.latitude.value, jpeg.gps.longitude.value);
-//			if (huntboundary.contains(gps_loc)) { //  <- currently doing nothing.
+			if (huntboundary.contains(x)) { //KN: Check that the geolocation is within the boundaries. If so, save the location in latlng.
 				loc.latlng = new google.maps.LatLng(jpeg.gps.latitude.value, jpeg.gps.longitude.value);
 				loc.from = "Native";
 			}
@@ -109,7 +93,7 @@ function gpsverify(file) {
 	return loc;
 }
 
-// This function builds the map interface with the proper locations, bounds, etc.
+// KN: This function sets up the map so that a student can select their activity's location.
 function instantiateGoogleMap() {
 	var x = new Object(); //KN: QUESTION: x isn't even used anywhere. 
 	
@@ -120,14 +104,14 @@ function instantiateGoogleMap() {
 	// Creates the Rectangle overlay on the map.
 	createRectangleOverlay(map, huntboundary); 
 	
-	var myMarker = new google.maps.Marker(
+	var myMarker = new google.maps.Marker( //KN: Markers are the little pinpoints on the map, in this case representing Activities.
 	{
 		position: huntboundary.getCenter(),
 		draggable: true,
 		map: map
 	});
 
-	var gotoControl = createGotoControl(map, huntboundary.getCenter(), GoToControlOnSubmit, myMarker, false);
+	var gotoControl = createGotoControl(map, huntboundary.getCenter(), GoToControlOnSubmit, myMarker, false);  //KN: QUESTION: Why is this stored in a variable that isn't used anywhere else?
 
 	google.maps.event.addListener(map, 'click', function(e) {
 		alert("You can only select a location within the hunt area.\n")
@@ -153,9 +137,7 @@ function instantiateGoogleMap() {
 	});
 }
 
-// acks the marker being chosen
-// then sets fields of the morc object
-// and switches back from the map to the form view
+// KN: Goes back to the form view (from the map), displays activity information, and shows submitted image.
 // TODO: Add code for clustering markers into the same latlng position
 function submitLatLng(location) {
 	if(morc){
@@ -165,13 +147,13 @@ function submitLatLng(location) {
 		sessionStorage.lat=location.lat();
 		sessionStorage.lng=location.lng();
 	}
-	removeMap();
+	removeMap(); //KN: Go back to the form view.
 	if(typeof(Storage)!=="undefined"){
 		if(sessionStorage.isEdit=="true"){
 			editActivityAsStudent(JSON.parse(sessionStorage.activity));
 		} else{
 			// TODO: Find a way to check if additional questions exist.
-			document.getElementById("activity").innerHTML=multiple;
+			document.getElementById("activity").innerHTML=multiple; //KN: Fill the activity div with the Activities' submission form.
 			var activity=JSON.parse(sessionStorage.activity);
 			var additionalAnswers={answera:activity.optionalAnswer1, answerb:activity.optionalAnswer2, answerc:activity.optionalAnswer3};
 			document.getElementsByName("interesting_url")[0].innerHTML=activity.interesting_url;
@@ -184,6 +166,8 @@ function submitLatLng(location) {
 	} else{
 		// TODO: How to handle the user not submitting local storage?
 	}
+	
+	//KN: The following will get the submitted image and displays it.
 	var activityImageDiv = document.getElementById('activityImage').parentNode;
 	activityImageDiv.innerHTML = "";
 	var activityImage = document.createElement('img');
@@ -196,7 +180,7 @@ function submitLatLng(location) {
 	activityImageDiv.appendChild(activityImage);
 }
 
-// The function that is called when the GoToControl Submit button is clicked.
+// KN: This function submits coordinates for activity. Called when the GoToControl Submit button is clicked, when teacher is selecting coordinates for a hunt.
 function GoToControlOnSubmit() {
 		// BUG: If you move the marker out of bounds and click submit, this function still submits
 		// TODO: bounds checking?
@@ -231,7 +215,7 @@ function updateLatLngFollow(marker, location) {
 }
 
 
-// Called when the user clicks the "Take me there!" button
+// KN: Moves map's view to designated coordinates, Called when the user clicks the "Take me there!" button
 function placeMarker(marker, location) {
 	updateLatLngBox(location,false);
 	updateLatLngDMS(location);
@@ -240,36 +224,38 @@ function placeMarker(marker, location) {
 }
 
 
-// Currently unused, but will be rolled out soon.
-// Bill Sanders 8/2012.
-// We use this to reduce precision of LatLng's in order to 'clump' near locations together.
-// The gist is: Take each coord.
-//	Multiply by 1000 and use Math.floor() to drop the decimals.
-//	Divide by 1000 to get it back to a coord.
-//	Add .0005 to "center"
-// function reducePrecision(location) {
-// 	latitude = Math.floor(location.lat() * 1000) / 1000 + .0005;
-// 	longitude = Math.floor(location.lng() * 1000) / 1000 + .0005;
-// 	
-// 	newLoc = new google.maps.LatLng(latitude, longitude);
-// 	if (bounds.contains(newLoc)) {
-// 		return (newLoc);
-// 	}
-// 	// adjust latlng if coord falls out of bounds
-// 	else {
-// 		if (latitude < bounds.getSouthWest().lat())
-// 			latitude = bounds.getSouthWest().lat();
-// 		else if (latitude > bounds.getNorthEast().lat())
-// 			latitude = bounds.getNorthEast().lat();
-// 		if (longitude < bounds.getSouthWest().lng())
-// 			longitude = bounds.getSouthWest().lng();
-// 		else if (longitude < bounds.getNorthEast().lng())
-// 			longitude = bounds.getNorthEast().lng();
-// 
-// 		return(new google.maps.LatLng(latitude, longitude));
-// 	}
-// }
+/* Currently unused, but will be rolled out soon.
+ Bill Sanders 8/2012.
+ We use this to reduce precision of LatLng's in order to 'clump' near locations together.
+ The gist is: Take each coord.
+ Multiply by 1000 and use Math.floor() to drop the decimals.
+	Divide by 1000 to get it back to a coord.
+	Add .0005 to "center"
+ function reducePrecision(location) {
+ 	latitude = Math.floor(location.lat() * 1000) / 1000 + .0005;
+ 	longitude = Math.floor(location.lng() * 1000) / 1000 + .0005;
+ 	
+ 	newLoc = new google.maps.LatLng(latitude, longitude);
+ 	if (bounds.contains(newLoc)) {
+ 		return (newLoc);
+ 	}
+ 	// adjust latlng if coord falls out of bounds
+ 	else {
+ 		if (latitude < bounds.getSouthWest().lat())
+ 			latitude = bounds.getSouthWest().lat();
+ 		else if (latitude > bounds.getNorthEast().lat())
+ 			latitude = bounds.getNorthEast().lat();
+ 		if (longitude < bounds.getSouthWest().lng())
+ 			longitude = bounds.getSouthWest().lng();
+ 		else if (longitude < bounds.getNorthEast().lng())
+ 			longitude = bounds.getNorthEast().lng();
+ 
+ 		return(new google.maps.LatLng(latitude, longitude));
+ 	}
+ }*/
 
+
+// KN: This will bring any points from outside of the boundaries, to inside.
 function enforceBounds(bounds, location) {
 	if (bounds.contains(location)) {
 		return (location)

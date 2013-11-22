@@ -2,6 +2,17 @@
 The main page. Allows a user to sign in as either a student or teacher, or just browse the map and look at the scavenger hunts created by teachers, and activities filled out by students, either by using the search feature or just scrolling around the map.-->
 
 <!-- Begin index.html -->
+
+
+
+
+
+<link rel="stylesheet" type="text/css" href="../style/style.css" />
+
+
+
+
+
 	 <style type="text/css">
       #map_canvas { height: 100%; width: 75% } <!-- KN: The canvas will take up 75% of the div it is in (white section)-->
 	  #list{height: 100%; width: 25%}			<!-- KN: The table takes up the other 25%-->
@@ -21,7 +32,7 @@ The main page. Allows a user to sign in as either a student or teacher, or just 
 		<div id="list" style="float:left">
 		  <textarea style="height:9px; width:45%" id="searchArea"></textarea>
 		  <!-- Currently the searchButton gets its onclick defined in publicView.js::initializePublicMapDisplay() --> 
-		  <button id="searchButton"> Search For Hunt </button>
+		  <button type="submit" id="searchButton" class="buttons"> Search For Hunt </button>
 		  <table id="huntTable" borderColor=#000000 border=1 width=100%>
 			<tr>
 				<th> Hunt Name </th>
@@ -29,8 +40,8 @@ The main page. Allows a user to sign in as either a student or teacher, or just 
 			</tr>
 		  </table>
 		  <!--KN: createLoginDisplay(isTeacher) is defined in publicView.js -->
-		  <button id="teacherLogin" onclick="createLoginDisplay(true)"> Teacher Login </button> 
-		  <button id="studentLogin" onclick="createLoginDisplay(false)" disabled="true"> Student Login </button>
+		  <button id="teacherLogin" onclick="createLoginDisplay(true)" class="buttons"> Teacher Login </button> 
+		  <button id="studentLogin" onclick="createLoginDisplay(false)" disabled="true" class="buttons"> Student Login </button>
 		  <span id="loginArea" />
 		</div>
 		<div id="map_canvas" style="float:right"></div>

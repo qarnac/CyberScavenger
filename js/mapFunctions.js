@@ -26,12 +26,12 @@ function initializeMap(lat, lng){
 	return mapInstance;
 }
 
-// This function is called from createHunt.html
-// The purpose of this function is to display the hunt bounds on the right side of the form.
+// This function displays the hunt bounds on the right side of the form. Called from createHunt.html
 function displayHuntBounds(){
 	var bounds=JSON.parse(sessionStorage.toPlot);
-	// Convert the bounds to a google maps LatLngBounds object.
-	bounds=new google.maps.LatLngBounds(new google.maps.LatLng(bounds.minLat, bounds.minLng), new google.maps.LatLng(bounds.maxLat, bounds.maxLng));
+	
+	bounds=new google.maps.LatLngBounds(new google.maps.LatLng(bounds.minLat, bounds.minLng), new google.maps.LatLng(bounds.maxLat, bounds.maxLng)); // Convert the bounds to a google maps LatLngBounds object.
+	
 	// Initialize the options for the google maps.
 	var myOptions = {
 		center :new google.maps.LatLng(bounds.getCenter().lat(),bounds.getCenter().lng()),
@@ -66,9 +66,9 @@ function createRectangleOverlay(map, bounds){
 }
 
 
-// Is called when the user searches an address on the map (For teachers looking for the location of a new hunt).  Changes the coordinates to the coordinates of the address.
+//Changes the coordinates to the coordinates of the address. Called when a teacher searches an address to select hunt location. 		
 function searchAddress(){
-	var address=document.getElementById("searchBar").value.replace(" ", "+"); //KN: Get rid of spaces in the bar
+	var address=document.getElementById("searchBar").value.replace(" ", "+"); //KN: Get rid of spaces in the query
 	ajax("GET", "http://maps.googleapis.com/maps/api/geocode/json?address=" + address + "&sensor=true", function(event){ //KN: sensor=true means that user location was obtained from something like a GPS sensor.
 		address=JSON.parse(event);
 		console.log(address);
@@ -85,13 +85,14 @@ function searchAddress(){
 	var rectOptions = {
 		bounds : bounds
 	};
+
+	//KN: Recenter the map onto the boundaries.
 	rectangle.setOptions(rectOptions);
-	rectangle.getMap().panTo(rectangle.getBounds().getCenter()); //KN: Recenter the map onto the boundaries.
+	rectangle.getMap().panTo(rectangle.getBounds().getCenter()); 
 	}); //KN: Ajax callback ends here.
 }
 
-// Submits the new hunt. Is called by the submit button in the gotoControlBox. 
-// KN: QUESTION: They keep using this term, gotocontrolbox. But I don't see anything named that, only used in comments. Should these be changed?
+// Submits the new hunt, sending all data to createHunt.php which will put it in the database.	 Is called by the submit button in the gotoControlBox. 
 function submitNewHunt(){
 	var toPlot=JSON.parse(sessionStorage.toPlot); //KN: The boundaries of the map, set in displayNewHuntForm
 	var additionalQuestions=new Object(); 
@@ -111,13 +112,13 @@ function submitNewHunt(){
 		"&additionalQuestions=" + JSON.stringify(additionalQuestions) +
 		"&dateOfTrip=" + date
 		, GLOBALS.PHP_FOLDER_LOCATION + "createHunt.php", function(serverResponse){
-			if(serverResponse=="success") window.location.reload(); //KN: If the submission worked, then refresh the page (QUESTION: Will show the dashboard with the new hunt?)
+			if(serverResponse=="success") window.location.reload(); //KN: If the submission worked, then refresh the page 
 			else console.log(serverResponse);
 		});
 	return false;
 }
 
-//KN: Centers the map on given coordinates. Used by the "Take me there" button for students trying to pick coordinates for their activity.
+//KN: Moves a placemarker to specified coordinates. Used by the "Take me there" button for students trying to pick coordinates for their activity.
 function takeMeThereActivity(toPlot){
 	var latValue;
 	var longValue;
@@ -130,7 +131,7 @@ function takeMeThereActivity(toPlot){
 	else{ //KN: Then they have chosen DMS. So take lat and long values, and check their directions (N/S, W/E). And then convert the values into decimal.
 		var latDirection;
 		var longDirection;
-		if (document.getElementById("latNSSelect").selectedIndex == 0) { latDirection = "N"; } //KN: .selectedIndex for both lines is the element number in the Select form. N/W = 0.
+		if (document.getElementById("latNSSelect").selectedIndex == 0) { latDirection = "N"; } //KN: selectedIndex for both is the element number in the Select. N/W = 0. S/E = 1.
 			else { latDirection = "S"; }
 			if (document.getElementById("longNSSelect").selectedIndex == 0) { longDirection = "W"; }
 			else { longDirection = "E"; }
@@ -138,10 +139,12 @@ function takeMeThereActivity(toPlot){
 			latValue = toDecimal(latDirection, document.getElementById("latDegrees").value, document.getElementById("latMinutes").value); 
 			longValue = toDecimal(longDirection, document.getElementById("longDegrees").value, document.getElementById("longMinutes").value);
 		}
+		
 	placeMarker(toPlot, new google.maps.LatLng(latValue, longValue));	//KN: Then, regardless of whether they used DMS or Decimal, move the placemarker.
 }
-// This is the function that is called when the user clicks the edit lat/lng button on the createHunt.html form.
-// This function stores all entered values (The answers) into the sessionStorage and then creates the map view.
+
+
+//KN: This function will store new values and make a map view. Called when the user clicks the edit lat/lng button on the createHunt.html form.
 function editHuntLatLng(){
 	var form=document.getElementById("createHuntForm");
 	var answers=new Object();
@@ -151,8 +154,8 @@ function editHuntLatLng(){
 	sessionStorage.huntInformation=JSON.stringify(answers);
 	createhunt();
 }
-// Called from clicking the submit button in the new hunt control.
-// This function removes the map display, and shows the new hunt form.
+
+// This function removes the map display, and shows the new hunt form. Called from clicking the submit button in the new hunt control.
 // The variable toPlot is the hunt boundaries. Store that into sessionStorage.
 function displayNewHuntForm(toPlot){
 	// Store toPlot into the sessionStorage.
@@ -164,12 +167,13 @@ function displayNewHuntForm(toPlot){
 	bounds.startLat=toPlot.getBounds().getCenter().lat();
 	bounds.startLng=toPlot.getBounds().getCenter().lng();
 	sessionStorage.toPlot=JSON.stringify(bounds); 	//KN: Store the bounds
-	// The display is going to be needed a lot, so store it in a variable for faster runtime.
-	var display=document.getElementById("activity");
+	
+	var display=document.getElementById("activity");	// The display is going to be needed a lot, so store it in a variable for faster runtime.
 	display.innerHTML=GLOBALS.createHunt; //KN: This will display createHunt.html (put into this variable in getConstants.js' createGlobalConstant
 	// Force a DOM refresh.
 	display.style.display="none";
 	display.style.display="block";
+	
 	// If the user has previously entered information about the hunt, plug it in.
 	if(sessionStorage.huntInformation!=""){
 		var hunt=JSON.parse(sessionStorage.huntInformation);
@@ -177,10 +181,11 @@ function displayNewHuntForm(toPlot){
 			document.getElementById(element).value=hunt[element];
 		}
 	}
+	
 	displayHuntBounds();
 }	
 
-// Fills the goToControlbox and sets up events. Called by createGotoControl
+// Fills the goToControlbox (Where teachers select coordinates for the hunt) and sets up events. Called by createGotoControl
 function initializeLatLng(toPlot, isRectangle){
 	var latDMS = toDMS("lat", sessionStorage.lat); //KN: toDMS is defined in this file
 	var lngDMS = toDMS("long", sessionStorage.lng);
@@ -192,7 +197,10 @@ function initializeLatLng(toPlot, isRectangle){
 	document.getElementById("longDegrees").value=lngDMS.degrees;
 	document.getElementById("longMinutes").value=lngDMS.minutes;
 	google.maps.event.addDomListener(document.getElementById("decimalDMSSelect"), 'change', changeSelectedLatLngDisplay);
-	if(isRectangle){
+	
+	
+	//KN: Makes buttons do something -- either submit the data or update the map view. These are buttons within the gotocontrolbox (where users select location for something) 
+	if(isRectangle){ //KN: teacher view.
 		google.maps.event.addDomListener(document.getElementById("submitButton"), 'click', function(event){ displayNewHuntForm(toPlot); });
 		google.maps.event.addDomListener(document.getElementById("takeMeThere"), 'click', function(event) { updateRectangle(toPlot);});
 	} else{
@@ -201,20 +209,22 @@ function initializeLatLng(toPlot, isRectangle){
 	}
 }
 
-// Is called when the select for Decimal or DMS is changed in the control box.
-//KN: Changes the coordinate type and updates the contents in the fields.
+//KN: Changes the coordinate type and updates the contents in the fields. USed in the control box, called when the user changes between DMS and Decimal.
 function changeSelectedLatLngDisplay(){
 	var latValue = document.getElementById("latitudeIn").value;
 	var longValue = document.getElementById("longitudeIn").value;
 		
-		if (document.getElementById("decimalDMSSelect").selectedIndex == "1") //KN: If they selected DMS
+		//KN: If they selected DMS
+		if (document.getElementById("decimalDMSSelect").selectedIndex == "1") 
 		{
 			document.getElementById("DMSLatLng").style.display = "block";		//KN: Then show the DMS elements (N/S and E/W, Degrees+Minutes)
 			document.getElementById("decimalLatLng").style.display = "none";	//KN: And hide decimal elements (Lat/Lng)
 
 			updateLatLngDMS(new google.maps.LatLng(latValue, longValue));
 		}
-		else //KN: If they selected Decimal
+
+		//KN: If they selected Decimal
+		else 
 		{
 			document.getElementById("DMSLatLng").style.display = "none";		//KN: Then hide DMS elements (N/S and E/W, Degrees+Minutes)
 			document.getElementById("decimalLatLng").style.display = "block"; 	//KN: And show decimal elements (Lat/Lng)
@@ -237,14 +247,14 @@ function changeSelectedLatLngDisplay(){
 	
 }
 
-// This function fills an html div with the contents of the map latlng control
+// This function fills an html div, for selecting coordinates of a hunt/activity, seen on the map view.
 function createGotoControl(map, center, onSubmit, toPlot, isRectangle)
 {
 	var ctrlDiv = document.createElement('div');
 	var latDMS = toDMS("lat", center.lat());
 	var lngDMS = toDMS("long", center.lng());
-	// Right now, I've seperated out the new Hunt control box into an HTML file, and so when it's a rectangle we will just load the HTML
-	// file and then plug in the values where needed.
+	
+	// Right now, I've seperated out the new Hunt control box into an HTML file, and so when it's a rectangle we will just load the HTML file and then plug in the values where needed.
 	if(isRectangle){
 		ajax("GET", GLOBALS.HTML_FOLDER_LOCATION + "newHuntControl.html", function(serverResponse){
 			document.body.appendChild(ctrlDiv);
@@ -269,8 +279,6 @@ function createGotoControl(map, center, onSubmit, toPlot, isRectangle)
 		});
 	
 	}
-
-
 }
 // Updates the GoToControlBox from decimal to DMS.
 function updateLatLngDMS(location, isRectangle) {

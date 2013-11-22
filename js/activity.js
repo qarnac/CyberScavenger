@@ -609,13 +609,7 @@ function displayAdditionalQuestions(additionalAnswers){
 // This function is used in createActivity.html to remove special characters.
 // Is used to prevent an error caused in php by having an & in the partner_names category.
 function removeSpecialChar(char){
-	char.value = char.value.replace(/[^a-z,10-9\s]*/ig,''); //KN: Looks for anything that is NOT a letter (upper or lower), number, or whitespace. It will replace all of those instances with '' (ie, get rid of them completely).
-	/*KN: Look up "RegExp" for more explanation on this replacement.
-	The search key is delimited by the opening and closing / /
-	[^asdf] would mean that you're looking for any characters which are NOT asdf.
-	\s is any single whitespace character (space, tab).
-	* means that it will match the previous character repeating 0 or more times.... so bo* will match boo, boooo, bird (remember, 0 or more), but NOT goat (it's missing the b).
-	"g" signifies it will replace every instance, not just 1. "i" signifies it is case-insensitive. the [^xyz] means anything that is NOT xyz. */
+	char.value = char.value.replace(/[^a-z,10-9\s]*/ig,''); //KN: Looks for anything that is NOT a letter (upper or lower), number, or whitespace. It will replace all of those instances with '' (ie, get rid of them completely). Google "Regex" for more info (mozilla's page is really good).
 }
 
 //KN: Applies the "clear" class to a near element.
