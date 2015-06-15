@@ -2,6 +2,7 @@
 // Is called from the header.html file, so it should be included on every page.
 
 //ajax POST request
+
 function ajax(data, url, callback) {
 	var xmlhttp;
 	console.log("Sending ajax request to " + url);
@@ -32,7 +33,7 @@ function ajax(data, url, callback) {
 	}
 }
 
-ajax("GET", "http://ouyangdevvm.cs.csusm.edu/cyberscavenger/constants.json", createGlobalConstant);
+ajax("GET", "../cyberscavenger/constants.json", createGlobalConstant);
 var GLOBALS;
 
 function createGlobalConstant(serverResponse){
