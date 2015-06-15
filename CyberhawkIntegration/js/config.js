@@ -1,5 +1,5 @@
 // reference links for 3D models
-var MODEL_PATH = 'http://projects.cs.csusm.edu/cyberhawk/models/';
+var MODEL_PATH = '../../../cyberhawk/models/';
 var MODEL_HAWK = 'hawk.kmz';
 var MODEL_BUILDS = new Array('visitor center loc.kmz', 
 							'mountain range loc.kmz',
