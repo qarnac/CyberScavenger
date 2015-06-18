@@ -58,9 +58,11 @@ function fillHuntInformation(){
 
 // Is called by the Hunt Info button from the teacher view.
 function viewHuntInformation(){
-	document.getElementById("students").style.display="none";
+	var contents = {};
+
+	//document.getElementById("students").style.display="none";
 	document.getElementById("activity").innerHTML=GLOBALS.createHunt;
-	document.getElementById("activity").style.display="none";
+	//document.getElementById("activity").style.display="none";
 	document.getElementById("activity").style.display="block";
 	var hunt=JSON.parse(sessionStorage.hunts)[getHuntSelectNumber(document.getElementById("selecthunt").value)];
 	document.getElementById("title").value=hunt.title;
@@ -69,17 +71,60 @@ function viewHuntInformation(){
 	if(additionalQuestions.questiona) document.getElementById("additionalQuestion1").value=additionalQuestions.questiona;
 	if(additionalQuestions.questionb) document.getElementById("additionalQuestion2").value=additionalQuestions.questionb;
 	if(additionalQuestions.questionc) document.getElementById("additionalQuestion3").value=additionalQuestions.questionc;
-	document.getElementById("editLatLngButton").style.display="none";
-	document.getElementById("submit").style.display="none";
+	//document.getElementById("editLatLngButton").style.display="none";
+	//document.getElementById("submit").style.display="none";
 	document.getElementById("editHunt").value="Map View";
 	document.getElementById("editHunt").onclick=function(){
 		huntsel(document.getElementById("selecthunt").value);
 		document.getElementById("editHunt").onclick=viewHuntInformation;
 		document.getElementById("editHunt").value="View Hunt Info";
+
 	}
+	document.getElementById("submit").onclick=function(){
+	window.alert("hey bob");
+	var toPlot=JSON.parse(sessionStorage.toPlot);
+	var additionalQuestions=new Object();
+	additionalQuestions["questiona"]=document.getElementById("additionalQuestion1").value;
+	additionalQuestions["questionb"]=document.getElementById("additionalQuestion2").value;
+	additionalQuestions["questionc"]=document.getElementById("additionalQuestion3").value;
+	var date=(Date.parse(document.getElementById("dateOfTrip").value)/1000)+86400
+	ajax("title=" + document.getElementById("title").value +
+		"&username=" + document.getElementById("huntUsername").value +
+		"&password=" + document.getElementById("password").value +
+		"&maxLat=" + toPlot.maxLat +
+		"&minLat=" + toPlot.minLat +
+		"&minLng=" + toPlot.minLng +
+		"&maxLng=" + toPlot.maxLng +
+		"&start_lat=" + toPlot.startLat +
+		"&start_lng=" + toPlot.startLng +
+		"&additionalQuestions=" + JSON.stringify(additionalQuestions) +
+		"&dateOfTrip=" + date
+		, GLOBALS.PHP_FOLDER_LOCATION + "updateHunt.php", function(serverResponse){
+			if(serverResponse=="success") 
+				{
+					window.alert("sucess!");
+					window.location.reload();
+			}
+
+
+			else console.log(serverResponse);
+		});
+	return false;
+				}
+
 	displayHuntBounds();
 }
-
+function successfulUpload(serverResponse){
+	if (serverResponse=="true") {
+		window.location.reload();
+	}
+	else {
+		alert(serverResponse);
+	}
+}
+function submitEdit(id){
+	console.log("Submit");
+}
 // Returns which option from the select is the selected hunt.
 function getHuntSelectNumber(id){
 	// If the selecthunt option exists, then the only hunts in sessionStorage.hunts are the one that the student or teacher is a part of.
