@@ -33,7 +33,7 @@ function ajax(data, url, callback) {
 	}
 }
 
-ajax("GET", "../cyberscavenger/constants.json", createGlobalConstant);
+ajax("GET", "../cyberscavenger/constants.json", createGlobalConstant); //relative path
 var GLOBALS;
 
 function createGlobalConstant(serverResponse){
