@@ -12,7 +12,7 @@
 	"' where id='" . $hunt_id .
 	"' and teacher_id='" . $_SESSION['id'] . "';") or die(mysql_error());
 	
-	$huntId=$_POST["ïd"];
+	$huntId=$_POST["id"];
 	mysql_query("UPDATE `students`".
 		"SET username='" . mysql_escape_string($_POST["username"]) . 
 		"', firstname='" . mysql_escape_string($_POST["username"]) .
