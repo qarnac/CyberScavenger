@@ -7,6 +7,7 @@
 // Checks if the browser can find out users location, if so, use that for the coords to load the google map.
 // Otherwise, we center it at the default coords.
 function createhunt() {
+	//document.getElementById("change").style.display="none";
 	document.getElementById("selecthunt").value=0;
 	if(document.getElementById("slist")) document.getElementById("slist").style.display="none";
   if (navigator.geolocation){
@@ -41,6 +42,7 @@ function newHuntMap(map){
 
 // Fills huntInformation.html
 function fillHuntInformation(){
+
 	var hunt=JSON.parse(sessionStorage.hunts)[getHuntSelectNumber(document.getElementById("selecthunt").value)];
 	ajax("id=" + document.getElementById("selecthunt").value, GLOBALS.PHP_FOLDER_LOCATION + "getStudentForHunt.php", function(serverResponse){
 		if(serverResponse=="false"){
@@ -60,9 +62,9 @@ function fillHuntInformation(){
 function viewHuntInformation(){
 	var contents = {};
 
-	//document.getElementById("students").style.display="none";
+	document.getElementById("students").style.display="none";
 	document.getElementById("activity").innerHTML=GLOBALS.createHunt;
-	//document.getElementById("activity").style.display="none";
+	document.getElementById("activity").style.display="none";
 	document.getElementById("activity").style.display="block";
 	var hunt=JSON.parse(sessionStorage.hunts)[getHuntSelectNumber(document.getElementById("selecthunt").value)];
 	document.getElementById("title").value=hunt.title;
@@ -71,8 +73,8 @@ function viewHuntInformation(){
 	if(additionalQuestions.questiona) document.getElementById("additionalQuestion1").value=additionalQuestions.questiona;
 	if(additionalQuestions.questionb) document.getElementById("additionalQuestion2").value=additionalQuestions.questionb;
 	if(additionalQuestions.questionc) document.getElementById("additionalQuestion3").value=additionalQuestions.questionc;
-	//document.getElementById("editLatLngButton").style.display="none";
-	//document.getElementById("submit").style.display="none";
+	document.getElementById("editLatLngButton").style.display="none";
+	document.getElementById("submit").style.display="none";
 	document.getElementById("editHunt").value="Map View";
 	document.getElementById("editHunt").onclick=function(){
 		huntsel(document.getElementById("selecthunt").value);
@@ -80,39 +82,40 @@ function viewHuntInformation(){
 		document.getElementById("editHunt").value="View Hunt Info";
 
 	}
-	document.getElementById("submit").onclick=function(){
-	window.alert("hey bob");
-	var toPlot=JSON.parse(sessionStorage.toPlot);
+	//document.getElementById("change").onclick=function(){
+	
+	
+	//			}
+
+	displayHuntBounds();
+}
+function edit()
+{
+	var hunt=JSON.parse(sessionStorage.hunts)[getHuntSelectNumber(document.getElementById("selecthunt").value)];
 	var additionalQuestions=new Object();
+	
 	additionalQuestions["questiona"]=document.getElementById("additionalQuestion1").value;
 	additionalQuestions["questionb"]=document.getElementById("additionalQuestion2").value;
 	additionalQuestions["questionc"]=document.getElementById("additionalQuestion3").value;
-	var date=(Date.parse(document.getElementById("dateOfTrip").value)/1000)+86400
+	//var toPlot=JSON.parse(sessionStorage.toPlot);
+	//var date=(Date.parse(document.getElementById("dateOfTrip").value)/1000)+86400;
 	ajax("title=" + document.getElementById("title").value +
 		"&username=" + document.getElementById("huntUsername").value +
 		"&password=" + document.getElementById("password").value +
-		"&maxLat=" + toPlot.maxLat +
-		"&minLat=" + toPlot.minLat +
-		"&minLng=" + toPlot.minLng +
-		"&maxLng=" + toPlot.maxLng +
-		"&start_lat=" + toPlot.startLat +
-		"&start_lng=" + toPlot.startLng +
-		"&additionalQuestions=" + JSON.stringify(additionalQuestions) +
-		"&dateOfTrip=" + date
+				"&additionalQuestions=" + JSON.stringify(additionalQuestions) +
+		
+		"&id=" + hunt.id
 		, GLOBALS.PHP_FOLDER_LOCATION + "updateHunt.php", function(serverResponse){
 			if(serverResponse=="success") 
 				{
-					window.alert("sucess!");
+					
 					window.location.reload();
 			}
 
 
 			else console.log(serverResponse);
 		});
-	return false;
-				}
-
-	displayHuntBounds();
+	return false;	
 }
 function successfulUpload(serverResponse){
 	if (serverResponse=="true") {
