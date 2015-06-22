@@ -173,6 +173,7 @@ function displayNewHuntForm(toPlot){
 			document.getElementById(element).value=hunt[element];
 		}
 	}
+	document.getElementById("change").style.display="none";
 	displayHuntBounds();
 }	
 
