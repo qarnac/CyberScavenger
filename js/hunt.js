@@ -72,9 +72,12 @@ function viewHuntInformation(){
 			document.getElementById("password").value = student.password;
 			document.getElementById("title").value=hunt.title;
 
+<<<<<<< HEAD
 					}
 	});
 		
+=======
+>>>>>>> 7d38a224eb8b3dd4c2190f21c869e82052908ab2
 	document.getElementById("students").style.display="none";
 	document.getElementById("activity").innerHTML=GLOBALS.createHunt;
 	document.getElementById("activity").style.display="none";
