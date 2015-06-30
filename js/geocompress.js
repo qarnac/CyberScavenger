@@ -184,7 +184,7 @@ function submitLatLng(location) {
 	if(morc){
 		activityImage.src = morc.file.dataurl;
 	} else if(sessionStorage.activity){
-		activityImage.src= PHP_FOLDER_LOCATION + "image.php?id=" + JSON.parse(sessionStorage.activity).media_id;
+		activityImage.src= GLOBALS.PHP_FOLDER_LOCATION + "image.php?id=" + JSON.parse(sessionStorage.activity).media_id;
 	}
 	activityImageDiv.appendChild(activityImage);
 }

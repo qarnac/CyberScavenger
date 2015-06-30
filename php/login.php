@@ -7,7 +7,8 @@ if(isset($_POST['user']))
 	$who=mysql_escape_string($_POST['who']);
 	if(isset($_POST['parent']) && $_POST['parent']!=0){
 		$parent=$_POST['parent'];
-		$query="SELECT * FROM $who WHERE username='$username' AND password='$pwd' AND parentHunt='$parent'";
+		$query="SELECT * FROM $who WHERE username='$username' AND password='$pwd'";
+		//$query="SELECT * FROM $who WHERE username='$username' AND password='$pwd' AND parentHunt='$parent'";
 		} else $query="SELECT * FROM $who WHERE username='$username' AND password='$pwd'";
 	$result=mysql_query($query) or die(mysql_error());
 	if(mysql_num_rows($result)==1)

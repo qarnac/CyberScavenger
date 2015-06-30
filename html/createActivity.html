@@ -1,22 +1,23 @@
+
 	<fieldset> 
 		<legend>Image Uploader</legend>  
 		<input type="hidden" id="MAX_FILE_SIZE" name="MAX_FILE_SIZE" value="1000000" />  
 		<div> 	<label for="fileselect">Files to upload:</label> 
 				<input type="file" id="img_fselect" name="fileselect"  onChange="FileSelectHandler(event);"  accept="image/jpg,image/gif,image/jpeg,image/png"/> 	   
-				   <div class="filedrag" ondragover="FileDragHover(event)" ondragleave="FileDragHover(event)" ondrop="FileSelectHandler(event)" ><img src="" id="activityImage">or drop files here</div> 
+				   <div class="filedrag" ondragover="FileDragHover(event)" ondragleave="FileDragHover(event)" ondrop="FileSelectHandler(event)" ><img src="" id="activityImage">or drop files here</div>  
 				<button onclick=instantiateGoogleMap()> Change lat/lng </button>
 		</div> 
 	</fieldset>                
 <form class="activ" name="multiple" onsubmit="check(this); return false;">
-	<div  class="split"><label>Wht are the names of all of the members of the group? <textarea name="partner_names" maxlength="500" onkeyup="removeSpecialChar(this);"></textarea></label></div> 
+	<div  class="split"><label>What are names of all of the members of the group? <textarea name="partner_names" maxlength="500" onkeyup="removeSpecialChar(this);"></textarea></label></div> 
 	<div  class="split"><label>Do you have an interesting link related to this article? <textarea name="interesting_url" maxlength="500"></textarea></label></div> 
-<!--	<div  class="split"><label>Why did you choose this picture ? *<textarea name="whythis" maxlength="500"></textarea></label></div>  -->                     
-	<div class="split"><label name="optionalQuestion1"> <textarea name="optionalAnswer1" maxlength="500"></textarea> </label> </div>
-	<div class="split"><label name="optionalQuestion2"> <textarea name="optionalAnswer2" maxlength="500"></textarea> </label> </div>
-	<div class="split"> <label name="optionalQuestion3"> <textarea name="optionalAnswer3" maxlength="500"></textarea> </label> </div>
+<!--	<div  class="split"><label>Why did you choose this picturekkk ? *<textarea name="whythis" maxlength="500"></textarea><mmmm/label></div>  -->                     
+	<div class="split"><label name="optionalQuestion1"> <textarea name="optionalAnswer1" maxlength="300"></textarea> </label> </div>
+	<div class="split"><label name="optionalQuestion2"> <textarea name="optionalAnswer2" maxlength="300"></textarea> </label> </div>
+	<div class="split"> <label name="optionalQuestion3"> <textarea name="optionalAnswer3" maxlength="300"></textarea> </label> </div>
 	
 	<div class="clear"></div>  
-	<div><label style="width: 600px"> Create a multiple choice question about this picture for your classmates to answer</label> </div>	      
+	<div><label style="width: 600px"> Create a multiple choice question about this picture for your classmates to answer </label> </div>	      
 	<div class="clear"></div> 
 	<div  class="split" style="width: 600px"><label>Multiple choice question text: *<textarea  style="width: 600px" name="mquestion" maxlength="500" ></textarea></label></div>  
 	<div class="split"><label>Choice a* <input maxlength="500" type="text" name="a" placeholder="Enter Answer a"/>  <input checked type="radio" name="answer" value="a" />  </label></div>        
@@ -27,3 +28,4 @@
 	 <div class="clear"></div>
 	  <div class="split"><button value="Submit"> Submit </button> </div> <div class="clear"></div>
 </form>
+

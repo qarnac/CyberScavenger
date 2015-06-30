@@ -8,13 +8,32 @@
 
 //invoked by ajax function but loaded when the page is finished loading. THis receives the hunts from the server and it transfers it to javascript variable hunts
 // Will also now store the hunts in sessionStorage.
-function createHuntList(x) {
+function createHuntList(x) 
+{
+
 	hunts = JSON.parse(x);
 	$('username').innerHTML = hunts[0];
 	hunts = hunts[1];
 	sessionStorage.hunts=JSON.stringify(hunts);
-	for ( x = 0; x < hunts.length; x++)
-		$('selecthunt').options[$('selecthunt').options.length] = new Option(hunts[x]['title'], hunts[x]['id']);
+	if(hunts.length > 0)
+	{  
+		for ( x = 0; x < hunts.length; x++)
+		{
+			$('selecthunt').options[$('selecthunt').options.length] = new Option(hunts[x]['title'], hunts[x]['id']);
+
+		}
+		$('selecthunt').selectedIndex = $('selecthunt').options.length-1;
+		//$('selecthunt').options[$('selecthunt').selectedIndex]= $('selecthunt').options[$('selecthunt').options.length-1];
+		//$('selecthunt').options[$('selecthunt').selectedIndex].text = $('selecthunt').options[$('selecthunt').options.length-1].text;
+		huntsel(document.getElementById("selecthunt").value);
+	}
+	else
+	{
+		window.alert("You haven't created a hunt yet");
+		var display=document.getElementById("activity");
+		display.innerHTML=GLOBALS.noHunt;
+
+	}
 }
 
 //Creates some random number
@@ -26,6 +45,7 @@ function $(x) {
 
 //this function is invoked when a teacher selects a hunt
 function huntsel() {
+	//window.alert(document.getElementById("selecthunt").value);
 	$('activity').innerHTML = '';
 	$('students').innerHTML = '';
 	ajax("what=activities&id=" + document.getElementById("selecthunt").value, GLOBALS.PHP_FOLDER_LOCATION + 'getHunts.php', create_activity_obj);

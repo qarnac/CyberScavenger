@@ -90,6 +90,8 @@ function searchAddress(){
 
 // Is called by the submit button in the gotoControlBox submit for a new hunt.
 function submitNewHunt(){
+	document.getElementById("change").style.display="none";
+
 	var toPlot=JSON.parse(sessionStorage.toPlot);
 	var additionalQuestions=new Object();
 	additionalQuestions["questiona"]=document.getElementById("additionalQuestion1").value;
@@ -152,6 +154,7 @@ function editHuntLatLng(){
 // The variable toPlot is the hunt boundaries.  Store that into sessionStorage.
 function displayNewHuntForm(toPlot){
 	// Store toPlot into the sessionStorage.
+
 	var bounds=new Object();
 	bounds.maxLat=toPlot.getBounds().getNorthEast().lat();
 	bounds.minLat=toPlot.getBounds().getSouthWest().lat();
@@ -171,8 +174,11 @@ function displayNewHuntForm(toPlot){
 		var hunt=JSON.parse(sessionStorage.huntInformation);
 		for(element in hunt){
 			document.getElementById(element).value=hunt[element];
+
 		}
 	}
+	document.getElementById("change").style.display="none";
+
 	displayHuntBounds();
 }	
 
