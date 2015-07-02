@@ -17,6 +17,10 @@ function verify()
 
 function $(x){return document.getElementById(x);}
 
+  // Original JavaScript code by Chirp Internet: www.chirp.com.au
+  // Please acknowledge use of this code by including this header.
+
+ 
 //reacts according to the verification of credentials. if correct just refresh the page that will redirect to different page which has user functionalities
 function verifyLogin(x)
 {
@@ -25,7 +29,21 @@ function verifyLogin(x)
 	else if(x=="false")
 	alert("Username or Password is not correct");
 }
-
+function forgotPassword()
+{
+	var name = document.getElementById("name").value;
+	var mail = document.getElementById("emailPass").value;
+	var school = document.getElementById("schoolname").value;
+	var message= document.getElementById("message").value;
+	ajax("name=" + name +
+		"&mail=" + mail +
+		"&school=" + school +
+		"&message=" + message, GLOBALS.PHP_FOLDER_LOCATION + "sendEmail.php", function(serverResponse){
+			if(serverResponse=="success") window.location.reload();
+			else console.log(serverResponse);
+		});
+	;
+}
 function getQueryVariable(variable) {
     var query = window.location.search.substring(1);
     var vars = query.split('&');

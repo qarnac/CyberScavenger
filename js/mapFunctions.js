@@ -178,10 +178,7 @@ function displayNewHuntForm(toPlot){
 		}
 	}
 	document.getElementById("change").style.display="none";
-<<<<<<< HEAD
 
-=======
->>>>>>> 7d38a224eb8b3dd4c2190f21c869e82052908ab2
 	displayHuntBounds();
 }	
 
