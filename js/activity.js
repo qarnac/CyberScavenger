@@ -17,6 +17,63 @@ var feed = {};
 //This function is invoked by ajax function but this happens when the teacher selects a hunt.
 //It creates the list of all students and display them in the list box along with a update button.
 //It also creates the array activities .
+function textCounter(field,field2,maxlimit)
+{
+ var countfield = document.getElementById(field2);
+ if ( field.value.length > maxlimit ) {
+  field.value = field.value.substring( 0, maxlimit );
+  return false;
+ } else {
+  countfield.value = maxlimit - field.value.length;
+ }
+}
+function checkRightAnswer(isChecked){
+	switch (isChecked){
+		case 1:
+		document.getElementById("rightAnswerA").innerHTML = "<img src='./html/apply.png'><br><font color='green'>that will be the right answer</font>";
+		document.getElementById("rightAnswerB").innerHTML = "<img src='./html/delete.png'>";
+		document.getElementById("rightAnswerC").innerHTML = "<img src='./html/delete.png'>";
+		document.getElementById("rightAnswerD").innerHTML = "<img src='./html/delete.png'>";
+		document.getElementById("rightAnswerE").innerHTML = "<img src='./html/delete.png'>";
+		break;
+		case 2:
+		document.getElementById("rightAnswerB").innerHTML = "<img src='./html/apply.png'><br><font color='green'>&thinsp;that will be the right answer</font>";
+		document.getElementById("rightAnswerA").innerHTML = "<img src='./html/delete.png'>";
+		document.getElementById("rightAnswerC").innerHTML = "<img src='./html/delete.png'>";
+		document.getElementById("rightAnswerD").innerHTML = "<img src='./html/delete.png'>";
+		document.getElementById("rightAnswerE").innerHTML = "<img src='./html/delete.png'>";
+		break;
+		case 3:
+		document.getElementById("rightAnswerC").innerHTML = "<img src='./html/apply.png'><br><font color='green'>&thinsp;that will be the right answer</font>";
+		document.getElementById("rightAnswerA").innerHTML = "<img src='./html/delete.png'>";
+		document.getElementById("rightAnswerB").innerHTML = "<img src='./html/delete.png'>";
+		document.getElementById("rightAnswerD").innerHTML = "<img src='./html/delete.png'>";
+		document.getElementById("rightAnswerE").innerHTML = "<img src='./html/delete.png'>";
+		break;
+		case 4:
+		document.getElementById("rightAnswerD").innerHTML = "<img src='./html/apply.png'><br><font color='green'>&thinsp;that will be the right answer</font>";
+		document.getElementById("rightAnswerA").innerHTML = "<img src='./html/delete.png'>";
+		document.getElementById("rightAnswerB").innerHTML = "<img src='./html/delete.png'>";
+		document.getElementById("rightAnswerC").innerHTML = "<img src='./html/delete.png'>";
+		document.getElementById("rightAnswerE").innerHTML = "<img src='./html/delete.png'>";
+		break;
+		case 5:
+		document.getElementById("rightAnswerE").innerHTML = "<img src='./html/apply.png'><br><font color='green'>&thinsp;that will be the right answer</font>";
+		document.getElementById("rightAnswerA").innerHTML = "<img src='./html/delete.png'>";
+		document.getElementById("rightAnswerB").innerHTML = "<img src='./html/delete.png'>";
+		document.getElementById("rightAnswerC").innerHTML = "<img src='./html/delete.png'>";
+		document.getElementById("rightAnswerD").innerHTML = "<img src='./html/delete.png'>";
+		break;
+		default:
+		document.getElementById("rightAnswerA").innerHTML = "<img src='./html/apply.png'><br><font color='green'>that will be the right answer</font>";
+		document.getElementById("rightAnswerB").innerHTML = "<img src='./html/delete.png'>";
+		document.getElementById("rightAnswerC").innerHTML = "<img src='./html/delete.png'>";
+		document.getElementById("rightAnswerD").innerHTML = "<img src='./html/delete.png'>";
+		document.getElementById("rightAnswerE").innerHTML = "<img src='./html/delete.png'>";
+		break;
+
+	}
+}
 function create_activity_obj(allActivities) {
 	if (allActivities == "none")//server returns false if it cannot find any activities
 		alert("No one has created an activity yet");

@@ -34,7 +34,11 @@ function forgotPassword()
 	var name = document.getElementById("name").value;
 	var mail = document.getElementById("emailPass").value;
 	var school = document.getElementById("schoolname").value;
-	var message= document.getElementById("message").value;
+	var message = document.getElementById("message").value;
+	if (message == "")
+		{
+			message = "None"; 
+		}
 	ajax("name=" + name +
 		"&mail=" + mail +
 		"&school=" + school +

@@ -149,6 +149,7 @@ function editHuntLatLng(){
 	sessionStorage.huntInformation=JSON.stringify(answers);
 	createhunt();
 }
+
 // This is the new function that is called from clicking the submit button in the new hunt control.
 // The goal of this function is to remove the map display, and show the new hunt form.
 // The variable toPlot is the hunt boundaries.  Store that into sessionStorage.
@@ -178,9 +179,33 @@ function displayNewHuntForm(toPlot){
 		}
 	}
 	document.getElementById("change").style.display="none";
-
+	document.getElementById("changeMap").style.display="none";
 	displayHuntBounds();
 }	
+function updateHuntBoundaries(toPlot){
+	// Store toPlot into the sessionStorage.
+	var bounds=new Object();
+	bounds.maxLat=toPlot.getBounds().getNorthEast().lat();
+	bounds.minLat=toPlot.getBounds().getSouthWest().lat();
+	bounds.minLng=toPlot.getBounds().getSouthWest().lng();
+	bounds.maxLng=toPlot.getBounds().getNorthEast().lng();
+	bounds.startLat=toPlot.getBounds().getCenter().lat();
+	bounds.startLng=toPlot.getBounds().getCenter().lng();
+	sessionStorage.toPlot=JSON.stringify(bounds);
+	var toPlot=JSON.parse(sessionStorage.toPlot);
+	
+	ajax("maxLat=" + toPlot.maxLat +
+		"&minLat=" + toPlot.minLat +
+		"&minLng=" + toPlot.minLng +
+		"&maxLng=" + toPlot.maxLng +
+		"&start_lat=" + toPlot.startLat +
+		"&start_lng=" + toPlot.startLng +
+		"&id=" + hunt.id
+		, GLOBALS.PHP_FOLDER_LOCATION + "updateHuntMap.php", function(serverResponse){
+			if(serverResponse=="success") window.location.reload();
+			else window.alert(serverResponse);
+		});
+			}	
 
 // Is called by createGotoControl in order to fill in the goToControlbox and set up events.
 function initializeLatLng(toPlot, isRectangle){
@@ -197,11 +222,34 @@ function initializeLatLng(toPlot, isRectangle){
 	if(isRectangle){
 		google.maps.event.addDomListener(document.getElementById("submitButton"), 'click', function(event){ displayNewHuntForm(toPlot); });
 		google.maps.event.addDomListener(document.getElementById("takeMeThere"), 'click', function(event) { updateRectangle(toPlot);});
+		
 	} else{
 		google.maps.event.addDomListener(document.getElementById("submitButton"), 'click', function(event){ GoToControlOnSubmit(); });
 		google.maps.event.addDomListener(document.getElementById("takeMeThere"), 'click', function(event) { takeMeThereActivity(toPlot);});
+		
 	}
 }
+function initializeEditLatLng(toPlot, isRectangle){
+	var latDMS = toDMS("lat", sessionStorage.lat);
+	var lngDMS = toDMS("long", sessionStorage.lng);
+	document.getElementById("decimalDMSSelect").value=1;
+	document.getElementById("latNSSelect").value=(latDMS.compass=="N")? 0:1;
+	document.getElementById("latDegrees").value=latDMS.degrees;
+	document.getElementById("latMinutes").value=latDMS.minutes;
+	document.getElementById("longNSSelect").value=(lngDMS.compass=="W")?0:1;
+	document.getElementById("longDegrees").value=lngDMS.degrees;
+	document.getElementById("longMinutes").value=lngDMS.minutes;
+	google.maps.event.addDomListener(document.getElementById("decimalDMSSelect"), 'change', changeSelectedLatLngDisplay);
+	if(isRectangle){
+		google.maps.event.addDomListener(document.getElementById("submitEditButton"), 'click', function(event){ updateHuntBoundaries(toPlot); });
+		google.maps.event.addDomListener(document.getElementById("takeMeThere"), 'click', function(event) { updateRectangle(toPlot);});
+		
+	} else{
+		google.maps.event.addDomListener(document.getElementById("takeMeThere"), 'click', function(event) { takeMeThereActivity(toPlot);});
+		google.maps.event.addDomListener(document.getElementById("submitEditButton"), 'click', function(event){ GoToControlOnSubmit(); });
+	}
+}
+
 
 // Is called when the select for Decimal or DMS is changed in the control box.
 function changeSelectedLatLngDisplay(){
@@ -271,6 +319,41 @@ function createGotoControl(map, center, onSubmit, toPlot, isRectangle)
 
 
 }
+function editGotoControl(map, center, onSubmit, toPlot, isRectangle)
+{
+	var ctrlDiv = document.createElement('div');
+	var latDMS = toDMS("lat", center.lat());
+	var lngDMS = toDMS("long", center.lng());
+	// Right now, I've seperated out the new Hunt control box into an HTML file, and so when it's a rectangle we will just load the HTML
+	// file and then plug in the values where needed.
+	if(isRectangle){
+		ajax("GET", GLOBALS.HTML_FOLDER_LOCATION + "editHuntControl.html", function(serverResponse){
+			document.body.appendChild(ctrlDiv);
+			ctrlDiv.innerHTML=serverResponse;
+			map.controls[google.maps.ControlPosition.BOTTOM_LEFT].push(ctrlDiv);
+			// Changing the display to none/block is a reliable way to refresh the DOM.
+			ctrlDiv.style.display="none";
+			ctrlDiv.style.display="block";
+			initializeEditLatLng(toPlot, isRectangle);
+			//document.body.removeChild(ctrlDiv);
+			});
+		sessionStorage.lat=center.lat();
+		sessionStorage.lng=center.lng();
+		return;
+	} else{
+		ajax("GET", GLOBALS.HTML_FOLDER_LOCATION + "newActivityControl.html", function(serverResponse){
+			ctrlDiv.innerHTML=serverResponse;
+			map.controls[google.maps.ControlPosition.BOTTOM_LEFT].push(ctrlDiv);
+			sessionStorage.lat=center.lat();
+			sessionStorage.lng=center.lng();
+			setTimeout(function(){initializeEditLatLng(toPlot, isRectangle);}, 750);
+		});
+	
+	}
+
+
+}
+
 // Updates the GoToControlBox from decimal to DMS.
 function updateLatLngDMS(location, isRectangle) {
 	latDMS = toDMS("lat", location.lat());

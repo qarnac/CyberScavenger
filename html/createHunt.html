@@ -19,8 +19,12 @@
 				</fieldset>
 
 				<br style="line-height:5px;" />
-				<div><button type="submit" value="Submit" onclick="return submitNewHunt();" id="submit"/> Submit!</div> <div class="clear"></div>
-				<div><button type="submit" value="Change"  onclick="edit()" id="change"/> Change!</div> <div class="clear"></div>
+
+				<div><button type="submit" value="Submit" onclick="return submitNewHunt();" id="submit"/> Submit!</div> 
+				<table><td><button type="submit" value="Change"  onclick="edit()" id="change"/> Change!
+				<button type="button" value="ChangeMap"  onclick="editMap()" id="changeMap"/> Change boundaries</td> </table>
+				
+				
 		</div>
 		<div>
 			<div id="map" style="height:750px;"></div>

@@ -6,8 +6,8 @@
 
 
 	$hunt_id=$_POST["id"];
-	mysql_query("UPDATE `hunt` " . 
-	"SET title='" . mysql_escape_string($_POST["title"]) . 
+	mysql_query("UPDATE `hunt` SET " . 
+	"title='" . mysql_escape_string($_POST["title"]) . 
 	"', additionalQuestions='" . mysql_escape_string($_POST["additionalQuestions"]) .
 	"' where id='" . $hunt_id .
 	"' and teacher_id='" . $_SESSION['id'] . "';") or die(mysql_error());

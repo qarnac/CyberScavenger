@@ -18,13 +18,44 @@ function createhunt() {
 	}
 }
 
+function editMap() {
+	
+	//document.getElementById("change").style.display="none";
+	document.getElementById("selecthunt").value=0;
+	//sessionStorage.toPlot=JSON.stringify(bounds);
+	//var toPlot=JSON.parse(sessionStorage.toPlot);
+	if(document.getElementById("slist")) document.getElementById("slist").style.display="none";
+  if (navigator.geolocation){
+    navigator.geolocation.getCurrentPosition(receivedEditMapLocation, noEditMapLocation);
+	}
+	else {
+		noEditMapLocation();
+	}
+}
+function receivedEditMapLocation(position){
+	editHuntMap(initializeMap(position.coords.latitude, position.coords.longitude));
+}
+function noEditMapLocation(){
+	editHuntMap(initializeMap(GLOBALS.DEFAULT_LAT, GLOBALS.DEFAULT_LNG));
+}
 function receivedLocation(position){
 	newHuntMap(initializeMap(position.coords.latitude, position.coords.longitude));
 }
 function noLocation(){
 	newHuntMap(initializeMap(GLOBALS.DEFAULT_LAT, GLOBALS.DEFAULT_LNG));
 }
-
+function editHuntMap(map){
+	// Creates the rectangle at the center of the map, and is the default size (according to the default variable).
+	var southwest=new google.maps.LatLng(map.getCenter().lat()-GLOBALS.DEFAULT_RECT_SIZE/2, map.getCenter().lng()-GLOBALS.DEFAULT_RECT_SIZE/2);
+	var northeast=new google.maps.LatLng(map.getCenter().lat()+GLOBALS.DEFAULT_RECT_SIZE/2, map.getCenter().lng()+GLOBALS.DEFAULT_RECT_SIZE/2);
+	var bounds=new google.maps.LatLngBounds(southwest, northeast);
+	rectangle=createRectangleOverlay(map, bounds);
+	rectangle.setEditable(true);
+	editGotoControl(map, rectangle.getBounds().getCenter(), function(){}, rectangle, true)
+	google.maps.event.addListener(rectangle, "bounds_changed", function(event){
+		updateWidthHeight(rectangle.getBounds());
+	});
+}
 
 // Creates a new map, and creates a GoToControlBox for it.  The box can also have it's edges dragged to move it.
 function newHuntMap(map){
@@ -38,12 +69,11 @@ function newHuntMap(map){
 	google.maps.event.addListener(rectangle, "bounds_changed", function(event){
 		updateWidthHeight(rectangle.getBounds());
 	});
-}
-
+};
 // Fills huntInformation.html
 function fillHuntInformation(){
 
-	var hunt=JSON.parse(sessionStorage.hunts)[getHuntSelectNumber(document.getElementById("selecthunt").value)];
+	hunt=JSON.parse(sessionStorage.hunts)[getHuntSelectNumber(document.getElementById("selecthunt").value)];
 	ajax("id=" + document.getElementById("selecthunt").value, GLOBALS.PHP_FOLDER_LOCATION + "getStudentForHunt.php", function(serverResponse){
 		if(serverResponse=="false"){
 			document.getElementById("student_username_label").innerHTML="";
@@ -61,7 +91,7 @@ function fillHuntInformation(){
 // Is called by the Hunt Info button from the teacher view.
 function viewHuntInformation(){
 	var contents = {};
-	var hunt=JSON.parse(sessionStorage.hunts)[getHuntSelectNumber(document.getElementById("selecthunt").value)];
+	hunt=JSON.parse(sessionStorage.hunts)[getHuntSelectNumber(document.getElementById("selecthunt").value)];
 	ajax("id=" + document.getElementById("selecthunt").value, GLOBALS.PHP_FOLDER_LOCATION + "getStudentForHunt.php", function(serverResponse){
 		if(serverResponse=="false"){
 			//error
@@ -81,7 +111,7 @@ function viewHuntInformation(){
 	document.getElementById("activity").style.display="block";
 	//var hunt=JSON.parse(sessionStorage.hunts)[getHuntSelectNumber(document.getElementById("selecthunt").value)];
 	//document.getElementById("title").value=hunt.title;
-	document.getElementById("dateOfTrip").value=hunt.dateofTrip;
+	document.getElementById("dateOfTrip").value=hunt.eventdate;
 	var additionalQuestions=JSON.parse(hunt.additionalQuestions);
 	if(additionalQuestions.questiona) document.getElementById("additionalQuestion1").value=additionalQuestions.questiona;
 	if(additionalQuestions.questionb) document.getElementById("additionalQuestion2").value=additionalQuestions.questionb;
@@ -115,8 +145,8 @@ function edit()
 	ajax("title=" + document.getElementById("title").value +
 		"&username=" + document.getElementById("huntUsername").value +
 		"&password=" + document.getElementById("password").value +
-				"&additionalQuestions=" + JSON.stringify(additionalQuestions) +
-		
+		"&additionalQuestions=" + JSON.stringify(additionalQuestions) +
+	//	"&date=" + date +
 		"&id=" + hunt.id
 		, GLOBALS.PHP_FOLDER_LOCATION + "updateHunt.php", function(serverResponse){
 			if(serverResponse=="success") 
@@ -124,8 +154,6 @@ function edit()
 					
 					window.location.reload();
 			}
-
-
 			else console.log(serverResponse);
 		});
 	return false;	

@@ -12,20 +12,21 @@
 	<div  class="split"><label>What are names of all of the members of the group? <textarea name="partner_names" maxlength="500" onkeyup="removeSpecialChar(this);"></textarea></label></div> 
 	<div  class="split"><label>Do you have an interesting link related to this article? <textarea name="interesting_url" maxlength="500"></textarea></label></div> 
 <!--	<div  class="split"><label>Why did you choose this picturekkk ? *<textarea name="whythis" maxlength="500"></textarea><mmmm/label></div>  -->                     
-	<div class="split"><label name="optionalQuestion1"> <textarea name="optionalAnswer1" maxlength="300"></textarea> </label> </div>
-	<div class="split"><label name="optionalQuestion2"> <textarea name="optionalAnswer2" maxlength="300"></textarea> </label> </div>
-	<div class="split"> <label name="optionalQuestion3"> <textarea name="optionalAnswer3" maxlength="300"></textarea> </label> </div>
+	<div class="split"><label name="optionalQuestion1"> <textarea name="optionalAnswer1" onkeyup="textCounter(this,'counter',300);" maxlength="300"></textarea></label><div class="split"><center><input disabled  maxlength="3" size="3" value="300" id="counter"></center> </div></div> 
+	<div class="split"><label name="optionalQuestion2"> <textarea name="optionalAnswer2" onkeyup="textCounter(this,'counter2',300);" maxlength="300"></textarea> </label> 
+<div class="split"><center><input disabled  maxlength="300" size="3" value="300" id="counter2"></center> </div></div>
+	<div class="split"> <label name="optionalQuestion3"> <textarea name="optionalAnswer3" onkeyup="textCounter(this,'counter3',300);" maxlength="300"></textarea> </label><div class="split"><center><input disabled  maxlength="3" size="3" value="300" id="counter3"></center> </div> </div>
 	
 	<div class="clear"></div>  
 	<div><label style="width: 600px"> Create a multiple choice question about this picture for your classmates to answer </label> </div>	      
 	<div class="clear"></div> 
-	<div  class="split" style="width: 600px"><label>Multiple choice question text: *<textarea  style="width: 600px" name="mquestion" maxlength="500" ></textarea></label></div>  
-	<div class="split"><label>Choice a* <input maxlength="500" type="text" name="a" placeholder="Enter Answer a"/>  <input checked type="radio" name="answer" value="a" />  </label></div>        
-	<div  class="split"><label>Choice b* <input maxlength="500" type="text"  placeholder="Enter Answer b" name="b"/>  <input type="radio" name="answer" value="b" />  </label> </div>          
-	<div  class="split"><label>Choice c <input type="text" maxlength="500" placeholder="Enter Answer c" name="c"/><input  type="radio" name="answer" value="c" /></label>    </div>            
-	<div  class="split"><label>Choice d <input type="text" maxlength="500" placeholder="Enter Answer d"  name="d" /><input type="radio" name="answer" value="d" /></label></div>           
-	 <div  class="split"><label>Choice e <input type="text" maxlength="500" placeholder="Enter Answer e" name="e" /><input type="radio" name="answer" value="e" /></label></div> 
+	<div  class="split" style="width: 600px"><label>Multiple choice question text:* <textarea  style="width: 600px" name="mquestion" maxlength="500" ></textarea></label>
+	<div><label><font color="red">(CHOOSE WHICH ONE WILL BE THE RIGHT ANSWER AND CHECK)</font></label></div>
+	<div ><label>Choice a* <input maxlength="500" type="text" name="a" placeholder="Enter Answer a"/>  <input type="radio" name="answer" onclick="checkRightAnswer(1)" value="a" /> <div id="rightAnswerA"></div> </label>  
+	<div  ><label>Choice b* <input maxlength="500" type="text"  placeholder="Enter Answer b" name="b"/>  <input type="radio" name="answer" onclick="checkRightAnswer(2)" value="b" /><div id="rightAnswerB"></div>  </label>         
+	<div><label>Choice c <input type="text" maxlength="500" placeholder="Enter Answer c" name="c"/><input  type="radio" name="answer" onclick="checkRightAnswer(3)" value="c" /><div id="rightAnswerC"></div></label>               
+	<div  ><label>Choice d <input type="text" maxlength="500" placeholder="Enter Answer d"  name="d" /><input type="radio" name="answer" onclick="checkRightAnswer(4)" value="d" /><div id="rightAnswerD"></div></label>          
+	 <div  ><label>Choice e <input type="text" maxlength="500" placeholder="Enter Answer e" name="e" /><input type="radio" name="answer" onclick="checkRightAnswer(5)" value="e" /><div id="rightAnswerE"></div></label></div> </div> </div> </div> </div>  </div>  
 	 <div class="clear"></div>
 	  <div class="split"><button value="Submit"> Submit </button> </div> <div class="clear"></div>
 </form>
-

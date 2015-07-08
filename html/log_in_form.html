@@ -67,7 +67,7 @@ who = getURLParameter('who');
 
 <div style="text-align: right;"><a id="modal_close" href="#">close <b>X</b></a></div>
 
-<p>Complete the form below to send an email:</p>
+<p>Please complete the form below. An email will be sent to the account manager who will contact you within 24 hours:</p>
 
 <form id="modal_feedback" method="POST" action="#" accept-charset="UTF-8">
 <p><label>Your Complete Name<strong>*</strong><br>
@@ -76,7 +76,7 @@ who = getURLParameter('who');
 <input type="email" required title="Please enter a valid email address" id="emailPass" size="48" name="email" value=""></label></p>
 <p><label>School Name*<br>
 <input type="text" size="48" name="schoolName" id="schoolname" value=""></label></p>
-<p><label>Enquiry<strong>*</strong><br>
+<p><label>Additional Message<br>
 <textarea required name="message" id="message" cols="48" rows="8"></textarea></label></p>
 <p><input type="submit" id="forgotPasswordForm" onclick="forgotPassword()" name="forgotPasswordForm" value="Send Message"></p>
 </form>
@@ -103,12 +103,7 @@ who = getURLParameter('who');
       e.preventDefault ? e.preventDefault() : e.returnValue = false;
       return;
     }
-    if(form.message.value == "") {
-      alert("Please enter your comment or question in the Message box");
-      form.message.focus();
-      e.preventDefault ? e.preventDefault() : e.returnValue = false;
-      return;
-    }
+   
   };
 
 
