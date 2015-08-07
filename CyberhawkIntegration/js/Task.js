@@ -325,7 +325,7 @@ Task.prototype.parse = function()
     }
     catch(exception)
     {
-        alert("error");
+        alert("error!!");
     }	
 }
 

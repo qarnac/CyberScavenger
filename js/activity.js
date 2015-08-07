@@ -276,6 +276,8 @@ function fillActivityTable(activity, isStudent, tableNumber){
 		*/
 	}else{
 		if(isStudent!=2) document.getElementsByName("editButton")[tableNumber].style.display="none";
+		
+		if(isStudent==0)document.getElementsByName("removeButton")[tableNumber].onclick=function(){removeActivityAsTeacher(activity);};
 	}
 }
 
@@ -402,7 +404,22 @@ function successfulCommentUpdate(activity_id, comment, status){
 	activityTable.childNodes[2].childNodes[1].innerHTML=comment;
 	activityTable.childNodes[2].childNodes[3].innerHTML=status;
 }
-
+function removeActivityAsTeacher(activity){
+	if(typeof(Storage)!=="undefined"){
+		sessionStorage.activity=JSON.stringify(activity);
+		sessionStorage.isEdit=true;
+	} else{
+		// TODO:  What do we want to do if they can't store into local storage?
+	}
+	var confirmation = confirm("Are you sure that you want to remove this activity?");
+	if(confirmation == true){
+		ajax("id=" + activity['id']
+		, GLOBALS.PHP_FOLDER_LOCATION + "removeActivity.php", function(serverResponse){
+			if(serverResponse=="success") window.location.reload();
+			else console.log(serverResponse);
+		});
+	}
+}
 function editActivityAsStudent(activity) {
 
 	// Before storing into the session storage, make sure that it exists.

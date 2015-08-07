@@ -3,7 +3,7 @@ header ("Content-Type:text/xml");  //php will act as a xml document to the clien
 //================Database====================================
 include "credentials.php";	 //dbase credentials + dbase connection
 
-$what=$_REQUEST['q'];   //pulls quadrant id from the url
+$what=$_GET['q'];   //pulls quadrant id from the url
 
 $query = "SELECT * FROM stud_activity where hunt_id=$what";
 $location = mysql_query($query, $dbconnect);

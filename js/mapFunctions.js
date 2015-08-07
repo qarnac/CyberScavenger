@@ -23,6 +23,7 @@ function initializeMap(lat, lng){
 	div.style.left = "0px";
 	// odd name because I'm pretty sure at some point there is a global variable named map.
 	var mapInstance = new google.maps.Map(div, myOptions);
+	
 	return mapInstance;
 }
 
@@ -91,7 +92,7 @@ function searchAddress(){
 // Is called by the submit button in the gotoControlBox submit for a new hunt.
 function submitNewHunt(){
 	document.getElementById("change").style.display="none";
-
+	document.getElementById("removeHunt").style.display="none";
 	var toPlot=JSON.parse(sessionStorage.toPlot);
 	var additionalQuestions=new Object();
 	additionalQuestions["questiona"]=document.getElementById("additionalQuestion1").value;
@@ -180,6 +181,7 @@ function displayNewHuntForm(toPlot){
 	}
 	document.getElementById("change").style.display="none";
 	document.getElementById("changeMap").style.display="none";
+	document.getElementById("removeHunt").style.display="none";
 	displayHuntBounds();
 }	
 function updateHuntBoundaries(toPlot){

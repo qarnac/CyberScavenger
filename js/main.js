@@ -55,7 +55,7 @@ function huntsel() {
 		var button=document.createElement("button");
 		button.setAttribute("value", "List View");
 		button.setAttribute("id", "mapButton");
-		button.setAttribute("class", "cyberButton");
+		button.setAttribute("class", "btn btn-success");
 		button.innerHTML="List View";
 		button.onclick=mapListButton;
 		document.getElementById("contentSection").insertBefore(button, document.getElementById("newhunt"));
@@ -65,7 +65,7 @@ function huntsel() {
 		var button=document.createElement("button");
 		button.setAttribute("value", "View Hunt Info");
 		button.setAttribute("id", "editHunt");
-		button.setAttribute("class", "cyberButton");
+		button.setAttribute("class", "btn btn-success");
 		button.onclick=viewHuntInformation;
 		button.innerHTML="View Hunt Info";
 		document.getElementById("contentSection").insertBefore(button, document.getElementById("newhunt"));

@@ -26,7 +26,7 @@ function editMap() {
 	//var toPlot=JSON.parse(sessionStorage.toPlot);
 	if(document.getElementById("slist")) document.getElementById("slist").style.display="none";
   if (navigator.geolocation){
-    navigator.geolocation.getCurrentPosition(receivedEditMapLocation, noEditMapLocation);
+    navigator.geolocation.getCurrentPosition(noEditMapLocation);
 	}
 	else {
 		noEditMapLocation();
@@ -36,7 +36,7 @@ function receivedEditMapLocation(position){
 	editHuntMap(initializeMap(position.coords.latitude, position.coords.longitude));
 }
 function noEditMapLocation(){
-	editHuntMap(initializeMap(GLOBALS.DEFAULT_LAT, GLOBALS.DEFAULT_LNG));
+	editHuntMap(initializeMap(hunt.start_lat, hunt.start_lng));
 }
 function receivedLocation(position){
 	newHuntMap(initializeMap(position.coords.latitude, position.coords.longitude));
@@ -132,9 +132,21 @@ function viewHuntInformation(){
 
 	displayHuntBounds();
 }
+function removeTheHunt(){
+	hunt=JSON.parse(sessionStorage.hunts)[getHuntSelectNumber(document.getElementById("selecthunt").value)];
+	var confirmation = confirm("Are you sure that you want to remove this hunt?");
+	if(confirmation == true){
+		ajax("id=" + hunt.id
+		, GLOBALS.PHP_FOLDER_LOCATION + "removeHunt.php", function(serverResponse){
+			if(serverResponse=="success") window.location.reload();
+			else console.log(serverResponse);
+		});
+	}
+	return false;
+}
 function edit()
 {
-	var hunt=JSON.parse(sessionStorage.hunts)[getHuntSelectNumber(document.getElementById("selecthunt").value)];
+	hunt=JSON.parse(sessionStorage.hunts)[getHuntSelectNumber(document.getElementById("selecthunt").value)];
 	var additionalQuestions=new Object();
 	
 	additionalQuestions["questiona"]=document.getElementById("additionalQuestion1").value;

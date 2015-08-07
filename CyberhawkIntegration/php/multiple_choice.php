@@ -5,7 +5,7 @@ this program generates an activity with mltiple chice question and also it will 
 */
 include "credentials.php";	 //dbase credentials + dbase connection
 
-$qid=$_REQUEST['qid'];//pulls question id from the url 
+$qid=$_GET['qid'];//pulls question id from the url 
 
 $query = "SELECT * FROM stud_activity where id=$qid";
 $ques = mysql_query($query, $dbconnect);

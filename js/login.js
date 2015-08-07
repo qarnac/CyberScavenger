@@ -14,7 +14,14 @@ function verify()
 	ajax(data, GLOBALS.PHP_FOLDER_LOCATION + "login.php",verifyLogin);
 	return false;
 }
-
+function changePassword()
+{
+	var pwd=$('password').value;
+		ajax("password=" + pwd, GLOBALS.PHP_FOLDER_LOCATION + "resetPassword.php", function(serverResponse){
+			if(serverResponse=="success") window.location.reload();
+			else window.alert("invalid");
+		});
+}
 function $(x){return document.getElementById(x);}
 
   // Original JavaScript code by Chirp Internet: www.chirp.com.au

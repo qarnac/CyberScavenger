@@ -1,35 +1,35 @@
-<form id="createHuntForm" style="width:100%;height:100%; overflow:hidden;">
+<form id="createHuntForm" class="form-horizontal style-form" style="width:100%;height:100%; overflow:hidden;">
 	<div>
-		<div style="width:50%; overflow:hidden; float:left; height:100%;">
+		<div  style="width:50%; overflow:hidden; float:left; height:100%;">
 				<fieldset>
 					<legend> Step 1) Hunt Information </legend>
-					<div  class=""><label>What would you like the title of the hunt to be?<textarea id="title" maxlength="100" required placeholder="Hunt Title"></textarea></label></div> 
+					<div  class=""><label>What would you like the title of the hunt to be?<br/><textarea id="title" maxlength="100" required placeholder="Hunt Title"></textarea></label></div> <br /> 
 					<div  class=""><label>What would you like the date of the field trip to be? <br /><input type="date" id="dateOfTrip" maxlength="100" required placeholder="MM/DD/YYYY"></textarea></label></div>
-					</fieldset>
+					</fieldset> <br />
 				<fieldset>
 					<legend>Step 2) Student log-in </legend>
-					<div  class=""><label>What would you like the students username to be?<textarea id="huntUsername" maxlength="100" required placeholder="username"></textarea></label></div> 
-					<div  class=""><label>What would you like the students password to be?<textarea id="password" maxlength="100" required placeholder="password"></textarea></label></div>
+					<div  class=""><label >What would you like the students username to be? <br/><textarea id="huntUsername" maxlength="100" required placeholder="username"></textarea></label></div>  <br>
+					<div  class=""><label>What would you like the students password to be? <br/><textarea id="password" maxlength="100" required placeholder="password"></textarea></label></div>
 				</fieldset>
 				<fieldset>
 					<legend> Step 3) Add up to 3 additional Questions</legend>
-					<div  class=""><label>What would you like the first additional question to be?<textarea id="additionalQuestion1" maxlength="100" placeholder="optional"></textarea></label></div>
-					<div  class=""><label>What would you like the second additional question to be?<textarea id="additionalQuestion2" maxlength="100" placeholder="optional"></textarea></label></div>
-					<div  class=""><label>What would you like the third additional question to be?<textarea id="additionalQuestion3" maxlength="100" placeholder="optional"></textarea></label></div>
+					<div  class=""><label>What would you like the first additional question to be? <br /><textarea id="additionalQuestion1" maxlength="100" placeholder="optional"></textarea></label></div>
+					<div  class=""><label>What would you like the second additional question to be? <br /><textarea id="additionalQuestion2" maxlength="100" placeholder="optional"></textarea></label></div>
+					<div  class=""><label>What would you like the third additional question to be? <br /><textarea id="additionalQuestion3" maxlength="100" placeholder="optional"></textarea></label></div>
 				</fieldset>
 
 				<br style="line-height:5px;" />
 
-				<div><button type="submit" value="Submit" onclick="return submitNewHunt();" id="submit"/> Submit!</div> 
-				<table><td><button type="submit" value="Change"  onclick="edit()" id="change"/> Change!
-				<button type="button" value="ChangeMap"  onclick="editMap()" id="changeMap"/> Change boundaries</td> </table>
+				<div><button type="submit" value="Submit" class="btn btn-success" onclick="return submitNewHunt();" id="submit"/> Submit!</div> 
+				<table><td><button type="submit" value="Change" class="btn btn-success" onclick="edit()" id="change"/> Change!
+				<button type="button" value="ChangeMap"  class="btn btn-success" onclick="editMap()" id="changeMap"/> Change boundaries<button type="button" value="RemoveHunt" class="btn btn-success"  onclick="removeTheHunt()" id="removeHunt"/> Remove hunt!</td> </table>
 				
 				
 		</div>
 		<div>
 			<div id="map" style="height:750px;"></div>
 			<!-- Change default type of first button to button so it doesn't submit the form (defaults to type="submit")  -->
-			<div><button id="editLatLngButton" onclick="editHuntLatLng()" type="button" value="Edit lat/lng">Edit lat/lng</button> </div>
+			<div><button id="editLatLngButton" onclick="editHuntLatLng()" class="btn btn-success" type="button" value="Edit lat/lng">Edit lat/lng</button> </div>
 
 		</div>
 	</div>

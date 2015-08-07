@@ -98,12 +98,85 @@ function check(form)
 		// The encodeURIComponent enables the use of special characters such as & to be sent in the string contents.
 		// PHP automatically decodes the post data, so no changes need to be made in php code.
 		contents = "content="+ encodeURIComponent(contents);
-		ajax(contents, GLOBALS.PHP_FOLDER_LOCATION + "user_upload.php", function(x) {
-			if (x == "true")
-				window.location.reload();
-			else
-				alert("An error has occured while attempting to upload your file.");
-		});
+		var answer = document.getElementsByName('answer');
+		var answer0 = document.getElementById('a');
+		var answer1 = document.getElementById('b');
+		var answer2 = document.getElementById('c');
+		var answer3 = document.getElementById('d');
+		var answer4 = document.getElementById('e');
+
+		var answerFilled = true;
+		var ischecked_method = false;
+		var userFilledEverything = false;
+		for ( var i = 0; i < answer.length; i++) {
+    		if(answer[i].checked) {
+    			if(i == 0 && answer0.value =='')
+    			{
+    				ischecked_method = true;
+    				answerFilled = false;
+    				window.alert("Please insert text in your checked option!");
+    			}
+    			if(i == 1 && answer1.value == '')
+    			{
+    				ischecked_method = true;
+    				answerFilled = false;
+    				window.alert("Please insert text in your checked option!");
+    				}    			
+    			if(i == 2 && answer2.value =='')
+    			{
+    				ischecked_method = true;
+    				answerFilled = false;
+    				window.alert("Please insert text in your checked option!");
+    			}
+    			if(i == 3 && answer3.value =='')
+    			{
+    				ischecked_method = true;
+    				answerFilled = false;
+    				window.alert("Please insert text in your checked option!");
+    			}
+    			if(i == 4 && answer4.value =='')
+    			{
+    				ischecked_method = true;
+    				answerFilled = false;
+    				window.alert("Please insert text in your checked option!"); 
+    			}
+    			else
+    			{
+    				ischecked_method = true;	
+    				answerFilled = true;
+    			}
+        		}	
+    		}
+		
+		var mquestion = document.getElementById("mquestion");
+		if(!ischecked_method && mquestion.value != ''){ //no answer is checked and multiple question textarea is filled
+    		window.alert("Please choose which one of the options will be the right answer!");
+    		userFilledEverything = false;
+		}
+		else if(ischecked_method && mquestion.value == ''){ //no answer is checked and multiple question textarea is filled
+    		window.alert("Please enter the text for your multiple choice question!");
+    		userFilledEverything = false;
+		}
+		else if(ischecked_method && mquestion.value == '' && answerFilled){
+			userFilledEverything = false;
+		}
+		else if(ischecked_method && mquestion.value != '' && answerFilled){
+			userFilledEverything = true;
+		}
+		else if(!ischecked_method && mquestion.value == '' && answerFilled){
+			userFilledEverything = true;
+		}
+		if(userFilledEverything == true){
+			ajax(contents, GLOBALS.PHP_FOLDER_LOCATION + "user_upload.php", function(x) {
+				if (x == "true")
+					window.location.reload();
+				else
+					alert("An error has occured while attempting to upload your file.");
+			});
+
+		}
+		
 	}
 	return false;
 }
+	

@@ -15,6 +15,7 @@ function createTeacherMap(){
 // Takes the response from getAllActivitiesFromHunt.php and displays it on the map.
 function jsonToMap(serverResponse){
 	if(document.getElementById("slist")!=null) document.getElementById("slist").style.display="none";
+	//else document.getElementById("slist").style.display = "none";
 	document.getElementById("mapButton").value="List View";
 	serverResponse=JSON.parse(serverResponse);
 	var hunts=JSON.parse(sessionStorage.hunts);
@@ -79,6 +80,7 @@ function mapListButton(){
 			
 		}
 		var slist=document.getElementById("slist");
+		
 		// If there is more than one student, then we want to display the list of students.
 		if(slist!=undefined && slist.options.length>1){
 			slist.style.display="block";

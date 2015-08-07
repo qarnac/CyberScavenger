@@ -55,7 +55,7 @@ More information about CyberTEAM can be found at http://www.csusm.edu/cyberteam/
 		
 		
 		<script type="text/javascript">
-			var id=<? echo $_REQUEST['q'];?>;
+			var id=<?php echo $_GET['q'];?>;
 
 			google.load("earth", "1");
 	

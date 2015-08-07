@@ -26,7 +26,8 @@ function studentActivityList(serverResponse){
 	var activities=JSON.parse(serverResponse);
 	if(document.getElementById("newActivity")==null){
 		var button=document.createElement("button");
-		button.setAttribute("class", "cyberButton");
+		button.setAttribute("style","float: right;font-weight:bold");
+		button.setAttribute("class", "btn btn-success");
 		button.setAttribute("value", "New Activity");
 		button.setAttribute("id", "newActivity");
 		button.onclick=huntselection;
@@ -35,7 +36,8 @@ function studentActivityList(serverResponse){
 	}
 	if(document.getElementById("Cyberhawk")==null){
 		var button=document.createElement("button");
-		button.setAttribute("class", "cyberButton");
+		button.setAttribute("style","float: right;font-weight:bold");
+		button.setAttribute("class", "btn btn-success");
 		button.setAttribute("value", "Cyberhawk View");
 		button.setAttribute("id", "Cyberhawk");
 		button.onclick=function(){
